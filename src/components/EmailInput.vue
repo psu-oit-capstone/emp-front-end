@@ -7,13 +7,15 @@
       :name="id"
     />
 
-    <p v-if="errors.length" class="error-message">
-      Please correct the following error(s):
+    <div v-if="errors.length">
+      <p class="error-message">
+        Please correct the following error(s):
+      </p>
       <br/>
       <p v-for="error in errors" :key="error">
         {{ error }}
       </p>
-    </p>
+    </div>
 
   </div>
 </template>

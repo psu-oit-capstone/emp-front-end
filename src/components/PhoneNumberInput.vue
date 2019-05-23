@@ -7,7 +7,7 @@
       :name="id"
     />
 
-    <p v-if="errors.length" class="error-message">
+    <p v-show="errors.length" class="error-message">
       Please correct the following error(s):
       <br/>
       <p v-for="error in errors" :key="error">
