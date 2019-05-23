@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div :id="id">
     <input
       v-model="phone"
       v-on:input="phoneNumberValidator"
       type="phone-number"
+      :name="id"
     />
 
     <p v-if="errors.length" class="error-message">
@@ -21,6 +22,11 @@
 <script>
 export default {
   name: 'PhoneNumberInput',
+
+  props: {
+    id: String
+  },
+
   data() {
     return {
       phone: null,

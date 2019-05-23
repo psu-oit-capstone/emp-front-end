@@ -7,21 +7,21 @@
 
     <div class="row">
       <p class="label">Email Address</p>
-      <EmailInput @change="handleChange"/>
+      <EmailInput id="email-input-1" @change="handleChange"/>
     </div>
 
     <div class="row">
       <p class="label">Alternate Email Address</p>
-      <EmailInput @change="handleChange"/>
+      <EmailInput id="email-input-2" @change="handleChange"/>
     </div>
 
     <div class="row">
       <p class="label">Phone Number</p>
-      <PhoneNumberInput @change="handleChange"/>
+      <PhoneNumberInput id="phone-input-1" @change="handleChange"/>
     </div>
 
     <div class="row">
-      <input type="checkbox" v-model="checked"/>
+      <input id="checkbox" name="checkbox" type="checkbox" v-model="checked"/>
       <p class="label">This box signifies you want to be pestered in perpetuity.</p>
     </div>
 

@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div :id="id">
     <input
       v-model="email"
       v-on:input="validator"
       type="email"
+      :name="id"
     />
 
     <p v-if="errors.length" class="error-message">
@@ -21,6 +22,11 @@
 <script>
 export default {
   name: 'EmailInput',
+
+  props: {
+    id: String
+  },
+
   data() {
     return {
       email: '',
