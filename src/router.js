@@ -24,7 +24,12 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/dumbLogin.vue')
-},
+      component: () => import(/* webpackChunkName: "login" */ './components/dumbLogin.vue'),
+    },
+    {
+      path: '/EARegistry',
+      name: 'EA-Registry',
+      component: () => import(/* webpackChunkName: "EA-Registry" */ './components/evac_assist.vue')
+    },
   ]
 })
