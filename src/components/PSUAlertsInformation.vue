@@ -179,44 +179,12 @@ All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU 
 
 <script>
 export default {
-  name: 'PhoneNumberInput',
-
-  props: {
-    id: String
-  },
-
-  data() {
-    return {
-      phone: null,
-      errors: []
-    }
-  },
-
-  methods: {
-    // This function takes the input field, finds the text, and checks for errors
-    phoneNumberValidator: function(e) {
-      var vm = this;
-      let number = e.currentTarget.value;
-
-      vm.errors = [];
-      if(number.length > 10)
-        vm.errors.push("Phone number too long");
-
-      // This tells our parent we've changed & passes errors up to them
-      this.$emit("change", vm._uid, vm.errors);
-    }
-  }
+  name: 'PSUAlertInformation',
+  props: {},
 }
-
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error-message {
-  height:0;
-  font-size: 12px;
-  background: rgba(255,0,0,0.1);
-  color:rgba(255,50,50,1);
-}
 </style>
