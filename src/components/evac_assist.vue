@@ -3,17 +3,6 @@
 and lists, interactive elements and so forth are center justified.-->
 <template>
     <div class="EA Registry">
-        <img alt="Vue logo" src="../assets/logo.png"> <br>
-            Below we have another marvel of modern engineering, a page that can detect a checkbox and submit it. <br>
-            It even can reset said box if the user requests it. Everyday we reach new technological heights. <br>
-            This page has 4 distinct features. <br>
-         <ul class="c">
-            1) An initial state that can be set in 'created', it is false by default <br>
-            2) Feedback on if the box is checked or not when the submit button is pressed <br>
-            3) Feedback when the box is reset to false, the reset value is also changeable <br>
-            4) Working hyperlinks that use https they should be using instead of the http they are currently using. <br>
-         </ul>
-
         <h1>Evacuation Assistance Registry</h1>
         <h2>
             A resource for individuals with disabilities and others with access and functional needs.
