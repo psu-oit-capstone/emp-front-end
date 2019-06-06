@@ -1,4 +1,3 @@
-<!--Written by Ian Gore 2019-->
 <!-- Style notes: the general logic I tried to follow in styling this template was 1) large blocks of text are left justified
 and lists, interactive elements and so forth are center justified.-->
 <template>
@@ -8,7 +7,7 @@ and lists, interactive elements and so forth are center justified.-->
             A resource for individuals with disabilities and others with access and functional needs.
         </h2>
 
-        <div id="introduction_field">
+        <div class="boxed" id="introduction-field">
             <h3>Introduction</h3>
         <p>
             It may be necessary to evacuate a building, room, or space due to an emergency incident or hazardous, situation.
@@ -23,7 +22,7 @@ and lists, interactive elements and so forth are center justified.-->
         </p>
         </div>
 
-        <div id="about_field">
+        <div class="boxed" id="about-field">
             <h3>About this registry</h3>
         <p>
             {{about_registry_text1}}
@@ -63,7 +62,7 @@ and lists, interactive elements and so forth are center justified.-->
         </p> <!-- Parser is glitchy and this might wrongly throw an error -->
         </div><br>
 
-        <div id="registry_field">
+        <div  class="boxed" id="registry-field">
         <h3>Registry</h3>
         <p>
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
@@ -80,7 +79,7 @@ and lists, interactive elements and so forth are center justified.-->
         <button type="button" v-on:click="reset()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
-        <div id="helpful_links">
+        <div  class="boxed" id="helpful_links">
             <ul class="c">
                 <li>Additional Resources for people with disabilities and others with access and functional needs:</li>
                 <ul class="d">
@@ -118,11 +117,7 @@ and lists, interactive elements and so forth are center justified.-->
 
 <script>
     export default {
-        name: 'dumbEvacAssist',
-        //This is used to receive data from a parent
-        props: {
-
-        },
+        name: 'EvacAssist',
         //This runs on instance creation
         data: function() { return {
             //Hold data for input fields here like this if it needs to be mutated
@@ -154,10 +149,8 @@ and lists, interactive elements and so forth are center justified.-->
             }
         }
     }
-
-
-
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this only
 in "margin" the pattern is top, right, bottom, left
@@ -201,34 +194,26 @@ and that is pretty standard amongst other CSS properties it seems-->
     a {
         color: #42b983;
     }
-    #introduction_field{
-        width: 800px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
+
+    #introduction-field{
         margin: auto;
         margin-bottom: 30px;
         padding: 20px;
     }
-    #about_field{
-        width: 800px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
+
+    #about-field{
         margin: auto;
         margin-bottom: 30px;
         padding: 20px;
     }
-    #registry_field{
-        width: 800px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
+
+    #registry-field{
         margin: auto;
         margin-bottom: 30px;
         padding: 20px;
     }
-    #helpful_links{
-        width: 800px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
+
+    #helpful-links{
         margin: auto;
         padding: 20px;
     }
