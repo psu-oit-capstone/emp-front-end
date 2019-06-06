@@ -1,0 +1,9 @@
+/*
+  Because we are using post-css any styles placed here
+  can be accessed throughout the app.
+*/
+
+.boxed {
+  border: 1px solid #CCCCCC;
+  width: 800px;
+}
