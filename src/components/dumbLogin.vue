@@ -6,7 +6,6 @@ an authentication call to a parent can be inserted to provide real functionality
 <template>
     <div id="login">
         <div class="login_greeting">
-            <img alt="MushuYoWushu" src="../assets/mushu.jpg">
             <h1>Welcome to Mushu's dumbLogin</h1>
             <p>
                 Here we log into nothing by providing a username and password,<br>
