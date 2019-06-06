@@ -6,6 +6,7 @@
     <hr/>
     <h2> Check out our lovely input form </h2>
     <InputForm />
+    <PSUAlertsInformation />
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import InputForm from '@/components/InputForm.vue'
+import PSUAlertsInformation from '@/components/PSUAlertsInformation.vue'
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
-    InputForm
+    InputForm,
+    PSUAlertsInformation
   }
 }
 
