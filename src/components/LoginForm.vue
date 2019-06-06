@@ -1,21 +1,17 @@
-<!-- Authored by Ian L. Gore 2019, https://github.com/MushuYoWushu-->
 <!-- This is a dumb login form that will accept a login if the username is 'mushu@pdx.edu' and the password is
 'password' and can differentiate between bad logins, null logins, and successful logins. This form also notes where
 an authentication call to a parent can be inserted to provide real functionality.-->
 
 <template>
     <div id="login">
-        <div class="login_greeting">
-            <h1>Welcome to Mushu's dumbLogin</h1>
+        <div class="login-greeting">
+            <h1>Login Form</h1>
             <p>
-                Here we log into nothing by providing a username and password,<br>
-                check out my
-                <a href="https://github.com/MushuYoWushu" target="_blank" rel="noopener">github</a>
-                before you login below.
+                Here we log into nothing by providing a username and password.<br>
             </p>
         </div>
 
-        <div id="login_field">
+        <div id="login-field">
             <h3>Login Here</h3>
             <label>
                 Username
@@ -71,7 +67,7 @@ an authentication call to a parent can be inserted to provide real functionality
     label{
         margin: 0 0 10px 0
     }
-    #login_field{
+    #login-field{
         width: 350px;
         border: 1px solid #CCCCCC;
         background-color: #FFFFFF;
