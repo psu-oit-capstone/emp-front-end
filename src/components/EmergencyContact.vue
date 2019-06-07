@@ -3,15 +3,13 @@
 
 
 
-        <div class="row">
-            <input id="checkbox" name="checkbox" type="checkbox" v-model="checked"/>
-            <p class="label">This box signifies you want to be pestered in perpetuity.</p>
+        <div>
+            <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
+            <label for="regbox">Yes, make my information accessible to emergency responders.</label>
         </div>
-
-
         <!-- Buttons are here -->
         <button type="button" v-on:click="reset()">Reset</button>
-        <button type="button" v-on:click="submit()">Submit</button><br><br>
+        <button type="button" v-on:click="$emit('emerg-info', regbox)">Update</button><br><br>
     </div>
 </template>
 
@@ -19,18 +17,15 @@
     export default {
         name: "EmergencyContact",
 
-        //This is for button clicks
-        methods: {
-            submit() {
-                //replace with functionality
-                console.log("data submitted: User registration value is ", this.regbox); // eslint-disable-line no-console
-            },
-            reset() {
-                //replace with functionality
-                this.regbox = false;
-                console.log("data reset: registration flag is ", this.regbox); // eslint-disable-line no-console
-            }
+        data: function() { return {
+            //Hold data for input fields here like this if it needs to be mutated
+            regbox: {type: Boolean, default: false},
         }
+        },
+        //This initializes the above declarations
+        created: function() {
+                this.regbox = false
+        },
     }
 
 </script>
