@@ -40,6 +40,12 @@
                     </Dropdown>
                 <p class="label">Phone Number
                     <PhoneNumberInput id="phone-input" @change="handleChange"/></p>
+                <p class="country_code_label">Country Phone Number Code
+                    <Dropdown :options="countryArray"
+                              :selected="selectedCountry"
+                              v-on:updateOption="currCountryCode"
+                              :placeholder="'Select a country'">
+                    </Dropdown></p>
                 <label for="orderbox">Contact Order
                     <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/></label><br>
 
@@ -69,7 +75,10 @@ import DropdownNoImg from '@/components/DropdownNoImg.vue'
         //This is for button clicks
         methods: {
             currCountry(payload) {
-                this.countrybox = payload;
+                this.countrybox = payload.country;
+            },
+            currCountryCode(payload) {
+                this.countryCode = payload.code;
             },
             currState(payload) {
                 this.statebox = payload;
@@ -86,7 +95,7 @@ import DropdownNoImg from '@/components/DropdownNoImg.vue'
             makeContact() {
                 return {name: [this.fnamebox, this.mnamebox, this.lnamebox],
                         address: [this.address1box, this.address2box, this.address3box],
-                        area: [this.countrybox, this.statebox, this.citybox, this.zipbox],
+                        area: [this.countrybox, this.countryCode, this.statebox, this.citybox, this.zipbox],
                         order: this.orderbox,
                         delete: this.regbox
                 }
@@ -109,13 +118,14 @@ import DropdownNoImg from '@/components/DropdownNoImg.vue'
             statebox: {type: String, default: ""},
             zipbox: {type: String, default: ""},
             countrybox: {type: String, default: ""},
+            countryCode: {type: String, default: ""},
             orderbox: 1,
 
             countryArray: [
-                {name: "U.S.A. +1", code: "1", svgimg: "us.svg",}, {name: "Japan +81", code: "81", svgimg: "jp.svg"},
-                {name: "U.K. +44", code: "44", svgimg: "gb.svg"}, {name: "Germany +49", code: "49", svgimg: "de.svg"},
-                {name: "France +33", code: "7", svgimg: "fr.svg"},{name: "Russia +7", code: "7", svgimg: "ru.svg"},
-                {name: "China +86", code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", code: "86", svgimg: "kr.svg"},
+                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
             ],
             selectedCountry: {
                 name: "U.S.A. +1", code: "1", svgimg: "us.svg",
@@ -151,7 +161,8 @@ import DropdownNoImg from '@/components/DropdownNoImg.vue'
             this.citybox = "";
             this.statebox = "";
             this.zipbox = "";
-            this.countrybox = "";
+            this.countrybox = "USA";
+            this.countryCode = "1";
             this.orderbox = 1;
             this.regbox = false;
         },
