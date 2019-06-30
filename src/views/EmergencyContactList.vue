@@ -2,7 +2,7 @@
     <div id="emergency-contacts">
         <b>Emergency Contact List</b>
         <div class="contact-list">
-            <li v-for="contact in contacts">
+            <li v-for="contact in contacts" v-bind:key="contact.id">
                 {{ contact }} <br><br>
             </li>
         </div>
@@ -32,12 +32,12 @@
                     </select></label><br>
                 <label for="zipbox">Zip or Postal Code
                     <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/></label><br>
-                <label for="countrybox">Country or Province <select name="country" v-bind:id="countrybox">
-                    <option value="country1">Country1</option>
-                    <option value="country2">Country2</option>
-                    <option value="country3">Country3</option>
-                    <option value="country4">Country4</option>
-                    </select></label><br>
+                <p class="label">Country Select
+                    <Dropdown :options="countryArray"
+                              :selected="selectedCountry"
+                              v-on:updateOption="currCountry"
+                              :placeholder="'Select a country'">
+                    </Dropdown>
                 <p class="label">Phone Number
                     <PhoneNumberInput id="phone-input" @change="handleChange"/></p>
                 <label for="orderbox">Contact Order
@@ -56,14 +56,19 @@
 
 <script>
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
+import Dropdown from '@/components/Dropdown.vue'
 
     export default {
         name: "EmergencyContactList",
         components: {
-            PhoneNumberInput
+            PhoneNumberInput,
+            Dropdown,
         },
         //This is for button clicks
         methods: {
+            currCountry(payload) {
+                this.currCountry = payload;
+            },
             submit() {
                 //replace with functionality
                 this.contacts.push(this.makeContact());
@@ -100,6 +105,15 @@ import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
             zipbox: {type: String, default: ""},
             countrybox: {type: String, default: ""},
             orderbox: 1,
+
+            countryArray: [
+                {name: "U.S.A. +1", svgimg: "us.svg"}, {name: "Japan +81", svgimg: "jp.svg"},
+                {name: "U.K. +44", svgimg: "gb.svg"}, {name: "Germany +49", svgimg: "de.svg"},
+                {name: "U.S.A. +7", svgimg: "ru.svg"}, {name: "China +86", svgimg: "cn.svg"},
+            ],
+            selectedCountry: {
+                name: 'Please select your country'
+            }
         }},
         //This initializes the above declarations
         created: function() {
