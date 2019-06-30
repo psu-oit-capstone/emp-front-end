@@ -22,6 +22,7 @@
 
 <script>
     export default {
+        //Adapted code from https://github.com/mikerodham/vue-dropdowns under the MIT License
         data() {
             return {
                 selectedOption: {
