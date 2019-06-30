@@ -41,8 +41,8 @@
                 <p class="label">Phone Number
                     <PhoneNumberInput id="phone-input" @change="handleChange"/></p>
                 <p class="country_code_label">Country Phone Number Code
-                    <Dropdown :options="countryArray"
-                              :selected="selectedCountry"
+                    <Dropdown :options="countryCodeArray"
+                              :selected="selectedCountryCode"
                               v-on:updateOption="currCountryCode"
                               :placeholder="'Select a country'">
                     </Dropdown></p>
@@ -121,14 +121,23 @@ import DropdownNoImg from '@/components/DropdownNoImg.vue'
             countryCode: {type: String, default: ""},
             orderbox: 1,
 
-            countryArray: [
+            countryCodeArray: [
                 {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
                 {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
                 {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
                 {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
             ],
-            selectedCountry: {
+            selectedCountryCode: {
                 name: "U.S.A. +1", code: "1", svgimg: "us.svg",
+            },
+            countryArray: [
+                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+            ],
+            selectedCountry: {
+                name: "U.S.A.", code: "1", svgimg: "us.svg",
             },
             stateArray: [
                 {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
