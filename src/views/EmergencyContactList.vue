@@ -24,15 +24,15 @@
                     <input type="text" placeholder="Region" v-model="address3box" v-bind:id="address3box"/></label><br>
                 <label for="citybox">City
                     <input type="text" placeholder="Portland" v-model="citybox" v-bind:id="citybox"/></label><br>
-                <label for="statebox">State or Province <select name="state" v-bind:id="statebox">
-                    <option value="state1">State1</option>
-                    <option value="state2">State2</option>
-                    <option value="state3">State3</option>
-                    <option value="state4">State4</option>
-                    </select></label><br>
+                <p class="state_label">State Select
+                    <DropdownNoImg :options="stateArray"
+                                    :selected="selectedState"
+                                    v-on:updateOption="currState"
+                                    :placeholder="'Select a state'">
+                    </DropdownNoImg><br>
                 <label for="zipbox">Zip or Postal Code
                     <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/></label><br>
-                <p class="label">Country Select
+                <p class="country_label">Country Select
                     <Dropdown :options="countryArray"
                               :selected="selectedCountry"
                               v-on:updateOption="currCountry"
@@ -57,17 +57,22 @@
 <script>
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
 import Dropdown from '@/components/Dropdown.vue'
+import DropdownNoImg from '@/components/DropdownNoImg.vue'
 
     export default {
         name: "EmergencyContactList",
         components: {
             PhoneNumberInput,
             Dropdown,
+            DropdownNoImg,
         },
         //This is for button clicks
         methods: {
             currCountry(payload) {
-                this.currCountry = payload;
+                this.countrybox = payload;
+            },
+            currState(payload) {
+                this.statebox = payload;
             },
             submit() {
                 //replace with functionality
@@ -107,12 +112,31 @@ import Dropdown from '@/components/Dropdown.vue'
             orderbox: 1,
 
             countryArray: [
-                {name: "U.S.A. +1", svgimg: "us.svg"}, {name: "Japan +81", svgimg: "jp.svg"},
-                {name: "U.K. +44", svgimg: "gb.svg"}, {name: "Germany +49", svgimg: "de.svg"},
-                {name: "U.S.A. +7", svgimg: "ru.svg"}, {name: "China +86", svgimg: "cn.svg"},
+                {name: "U.S.A. +1", code: "1", svgimg: "us.svg",}, {name: "Japan +81", code: "81", svgimg: "jp.svg"},
+                {name: "U.K. +44", code: "44", svgimg: "gb.svg"}, {name: "Germany +49", code: "49", svgimg: "de.svg"},
+                {name: "France +33", code: "7", svgimg: "fr.svg"},{name: "Russia +7", code: "7", svgimg: "ru.svg"},
+                {name: "China +86", code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", code: "86", svgimg: "kr.svg"},
             ],
             selectedCountry: {
-                name: 'Please select your country'
+                name: "U.S.A. +1", code: "1", svgimg: "us.svg",
+            },
+            stateArray: [
+                {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
+                {name: "California"}, {name: "Colorado"}, {name: "Connecticut"}, {name: "Delaware"},
+                {name: "Florida"}, {name: "Georgia"}, {name: "Hawaii"}, {name: "Idaho"},
+                {name: "Illinois"}, {name: "Indiana"}, {name: "Iowa"}, {name: "Kansas"},
+                {name: "Kentucky"}, {name: "Louisiana"}, {name: "Maine"}, {name: "Maryland"},
+                {name: "Massachusetts"}, {name: "Michigan"}, {name: "Minnesota"}, {name: "Mississippi"},
+                {name: "Missouri"}, {name: "Montana"}, {name: "Nebraska"}, {name: "Nevada"},
+                {name: "New Hampshire"}, {name: "New Jersey"}, {name: "New Mexico"}, {name: "New York"},
+                {name: "North Carolina"}, {name: "North Dakota"}, {name: "Ohio"}, {name: "Oklahoma"},
+                {name: "Oregon"}, {name: "Pennsylvania"}, {name: "Rhode Island"}, {name: "South Carolina"},
+                {name: "South Dakota"}, {name: "Tennessee"}, {name: "Texas"}, {name: "Utah"},
+                {name: "Vermont"}, {name: "Virginia"}, {name: "Washington"}, {name: "West Virginia"},
+                {name: "Wisconsin"}, {name: "Wyoming"},
+            ],
+            selectedState: {
+                name: 'State Select'
             }
         }},
         //This initializes the above declarations
