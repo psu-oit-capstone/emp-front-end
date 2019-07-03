@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="inactiveTime >= timeLimit ? 'active' : 'inactive'"
+    v-if="inactiveTime >= timeLimit"
+    :class="inactiveTime > timeLimit ? 'active' : 'inactive'"
     class="boxed popup"
     id="timeout-popup"
   >
@@ -37,13 +38,19 @@ export default {
 <style scoped>
 
 .popup {
-  position: sticky;
-  transition: top 2s;
+  position: fixed;
+  transition: bottom 1.5s, opacity .5s;
 }
 
 /* Classes which mark page positions for the popup */
-.active {top: 30%;}
-.inactive {top: -20%;}
+.active {
+  bottom: 50%;
+  opacity: 1;
+}
+.inactive {
+  bottom: 100%;
+  opacity: 0;
+}
 
 #timeout-popup {
   width: 400px;
@@ -54,8 +61,11 @@ export default {
   /* Give the contents breathing room */
   padding: 20px;
 
-  /* Center the popup within its container */
+  /* Center the popup within the page*/
+  left: 0;
+  right: 0;
   margin-left: auto;
   margin-right: auto;
+
 }
 </style>
