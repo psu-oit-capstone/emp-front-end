@@ -1,6 +1,7 @@
 <template>
   <div id="emergency-information">
-    <TimeoutPopup />
+    <TimeoutPopup :timeLimit="2" />
+
     <EvacAssist />
     <AlertsInformation />
   </div>
