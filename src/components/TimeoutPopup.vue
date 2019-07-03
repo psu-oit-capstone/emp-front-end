@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="inactiveTime >= timeLimit"
+    v-show="inactiveTime >= timeLimit"
     :class="inactiveTime > timeLimit ? 'active' : 'inactive'"
     class="boxed popup"
     id="timeout-popup"
@@ -26,12 +26,16 @@ export default {
   },
 
   created() {
-    setInterval(() => {
+    setInterval(() => tickAndCheckTimeout, 1000)
+  },
+
+  methods: {
+    tickAndCheckTimeout() {
       this.inactiveTime += 1;
       if(this.inactiveTime > this.timeLimit) {
         this.$emit('timedOut');
       }
-    }, 1000)
+    }
   }
 }
 
