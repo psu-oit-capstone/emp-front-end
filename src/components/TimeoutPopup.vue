@@ -21,12 +21,17 @@ export default {
 
   data() {
     return {
-      inactiveTime: 0
+      inactiveTime: 0,
     }
   },
 
   created() {
-    setInterval(() => this.inactiveTime += 1, 1000)
+    setInterval(() => {
+      this.inactiveTime += 1;
+      if(this.inactiveTime > this.timeLimit) {
+        this.$emit('timedOut');
+      }
+    }, 1000)
   }
 }
 
