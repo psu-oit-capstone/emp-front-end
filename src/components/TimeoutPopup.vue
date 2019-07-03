@@ -19,7 +19,13 @@ export default {
 <style scoped>
 #timeout-popup {
   width: 400px;
-  padding: 20px;
   background-color: rgba(255,0,0,0.1);
+
+  /* Give the contents breathing room */
+  padding: 20px;
+
+  /* Center the popup within its container */
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
