@@ -26,7 +26,7 @@ export default {
   },
 
   created() {
-    setInterval(() => tickAndCheckTimeout, 1000)
+    setInterval(this.tickAndCheckTimeout, 1000)
   },
 
   methods: {
