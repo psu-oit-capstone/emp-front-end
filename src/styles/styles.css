@@ -3,7 +3,77 @@
   can be accessed throughout the app.
 */
 
+#emergency-information {
+  display: grid;
+}
+
+/*****************************
+Site-wide Media Queried Styles
+*****************************/
+/* Large desktop */
+@media (min-width: 980px) {
+  #emergency-information {
+    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(255,0,0,0.1);}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  #emergency-information {
+    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(0,0,255,0.1);}
+}
+
+/* Landscape phone to portrait tablet */
+@media (min-width: 481px) and (max-width: 767px) {
+  #emergency-information {
+    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(0,255,0,0.1);}
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  #emergency-information {
+    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(255,255,0,0.1);}
+}
+
+
+* {
+  margin: 0;
+
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+
+.main-content {
+  grid-column-start: left-gutter;
+  grid-column-end: right-gutter;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-weight: normal;
+  font-size: 20px;
+  color: #36454f;
+}
+
+.title-box {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 .boxed {
   border: 1px solid #CCCCCC;
-  width: 800px;
 }
