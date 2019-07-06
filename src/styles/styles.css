@@ -13,34 +13,25 @@ Site-wide Media Queried Styles
 /* Large desktop */
 @media (min-width: 980px) {
   #emergency-information {
-    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
   * {background-color: rgba(255,0,0,0.1);}
 }
 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
+/* Landscape phone to landscape and desktop */
+@media (min-width: 481px) and (max-width: 979px) {
   #emergency-information {
-    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
   * {background-color: rgba(0,0,255,0.1);}
 }
 
-/* Landscape phone to portrait tablet */
-@media (min-width: 481px) and (max-width: 767px) {
-  #emergency-information {
-    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-  * {background-color: rgba(0,255,0,0.1);}
-}
-
 /* Landscape phones and down */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   #emergency-information {
-    grid-template-columns: auto [left-gutter] 500px [right-gutter] auto;
+    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
   * {background-color: rgba(255,255,0,0.1);}
@@ -49,7 +40,6 @@ Site-wide Media Queried Styles
 
 * {
   margin: 0;
-
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
 }
 
@@ -67,11 +57,18 @@ h1 {
   font-weight: normal;
   font-size: 20px;
   color: #36454f;
+  margin-top: 10px;
 }
 
 .title-box {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+.text-box {
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 20px;
 }
 
 .boxed {
