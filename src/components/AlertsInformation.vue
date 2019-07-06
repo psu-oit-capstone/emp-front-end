@@ -1,9 +1,8 @@
 <template>
-
   <div id="main-content" class="content container-fluid">
     <br>
     <div id="information-1" class="boxed">
-      <h1>PSU Alert Emergency Notification System Registration</h1><br>
+      <h1 style="text-align:center">PSU Alert Emergency Notification System Registration</h1><br>
       PSU Alert is an emergency communications system designed to disseminate
       emergency messages via text messages, email, and phone calls. In the
       event of an emergency, PSU administration can use this system to share
@@ -180,19 +179,5 @@
      For emergency planning information, visit <a href="http://www.pdx.edu/emergency-management" target="_blank">PSU Emergency Management’s website<sup style="color:Blue;"> <i class="fa fa-external-link xsm" aria-label="opens in a new window" title="opens in a new window"></i></sup></a>, or contact: <a href="mailto:EmrMgmt@pdx.edu">PSU Emergency Management</a>.
      </small>
    </div>
-
-    <!-- Main central content ends HERE -->
   </div>
 </template>
-
-<script>
-export default {
-  name: 'PSUAlertInformation',
-  props: {},
-}
-</script>
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

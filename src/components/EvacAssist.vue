@@ -1,15 +1,12 @@
-<!-- Style notes: the general logic I tried to follow in styling this template was 1) large blocks of text are left justified
-and lists, interactive elements and so forth are center justified.-->
 <template>
-    <div class="EA Registry">
-        <h1>Evacuation Assistance Registry</h1>
-        <h2>
+    <div id="main-content" class="EA-Registry">
+        <h1 style="text-align:center">Evacuation Assistance Registry</h1>
+        <h2 style="text-align:center">
             A resource for individuals with disabilities and others with access and functional needs.
         </h2>
 
         <div class="boxed" id="introduction-field">
-            <h3>Introduction</h3>
-        <p>
+            <h2>Introduction</h2>
             It may be necessary to evacuate a building, room, or space due to an emergency incident or hazardous, situation.
             Preparing for an evacuation is a shared responsibility among individuals, the University, and first responders.<br><br>
             All people, including individuals with disabilities and others with access and functional needs, are strongly encouraged to develop a personal emergency plan.
@@ -19,17 +16,14 @@ and lists, interactive elements and so forth are center justified.-->
             <a href="https://www.pdx.edu/environmental-health-safety/sites/www.pdx.edu.environmental-health-safety/files/ada.emergency.guidelines_2.pdf" target="_blank" rel="noopener noreferrer">guidelines for developing a Personal Emergency Plan</a>
             that will help you to prepare. Included within the guidelines is information regarding evacuation strategies;
             areas of refuge; suggested guidelines for specific mobility limitations and additional on-campus resources.
-        </p>
         </div>
 
         <div class="boxed" id="about-field">
-            <h3>About this registry</h3>
-        <p>
-            {{about_registry_text1}}
+            <h2>About this registry</h2>
             <ul class="c">
-                Please note:
+                <b>Please note:</b>
                 <ul class="b">
-                    <li>This registry IS NOT a way to get advance notice of fire alarm tests or drills.</li>
+                    <li><b>This registry IS NOT a way to get advance notice of fire alarm tests or drills.</b></li>
                     <ul class="a">
                         <li>In PSU residence halls, fire drill tests are conducted once per term. Contact your residence hall
                             advisor if you need advance notice of those tests.</li>
@@ -39,7 +33,7 @@ and lists, interactive elements and so forth are center justified.-->
                 </ul>
 
                 <ul class="b">
-                    <li>This registry IS NOT a guarantee of immediate assistance.</li>
+                    <li><b>This registry IS NOT a guarantee of immediate assistance.</b></li>
                     <ul class="a">
                         <li>Emergency personnel will assess the specific incident that occurs and apply the appropriate
                             protocol for stabilizing the incident and providing assistance. This registry is one piece of
@@ -50,8 +44,8 @@ and lists, interactive elements and so forth are center justified.-->
                     </ul>
                 </ul>
 
-                <ul class="b">
-                    <li>This registry is only ONE of SEVERAL WAYS to let first responders know of your need for evacuation assistance.</li>
+                <ul>
+                    <li><b>This registry is only ONE of SEVERAL WAYS to let first responders know of your need for evacuation assistance.</b></li>
                     <ul class="a">
                         <li>Other options include: making advance plans with your colleagues and co-workers, informing an
                             <a href="https://www.pdx.edu/environmental-health-safety/evacuation-wardens" target="_blank" rel="noopener noreferrer">resource page</a>
@@ -59,12 +53,10 @@ and lists, interactive elements and so forth are center justified.-->
                     </ul>
                 </ul>
             </ul>
-        </p> <!-- Parser is glitchy and this might wrongly throw an error -->
         </div><br>
 
         <div  class="boxed" id="registry-field">
-        <h3>Registry</h3>
-        <p>
+        <h2>Registry</h2>
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
                could prevent or hinder you from providing for your own evacuation,</b>
             would you like your information to be available for use by emergency responders as someone who may need
@@ -73,13 +65,11 @@ and lists, interactive elements and so forth are center justified.-->
                 <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
                 <label for="regbox">Yes, make my information accessible to emergency responders.</label>
             </div>
-        </p> <!-- Parser is glitchy and this might wrongly throw an error due to <div> above -->
         </div><br>
-        <!-- Buttons are here -->
         <button type="button" v-on:click="reset()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
-        <div  class="boxed" id="helpful_links">
+        <div  class="boxed" id="helpful-links">
             <ul class="c">
                 <li>Additional Resources for people with disabilities and others with access and functional needs:</li>
                 <ul class="d">
@@ -114,107 +104,3 @@ and lists, interactive elements and so forth are center justified.-->
         </div>
     </div>
 </template>
-
-<script>
-    export default {
-        name: 'EvacAssist',
-        //This runs on instance creation
-        data: function() { return {
-            //Hold data for input fields here like this if it needs to be mutated
-            about_registry_text1: {type: String},
-            regbox: {type: Boolean, default: false},
-            }
-        },
-        //This initializes the above declarations
-        created: function() {
-            //This is one way to handle massive text blobs in a template but is not strictly necessary
-            this.about_registry_text1 = "PSU has developed this registry as a mechanism for individuals with a disability" +
-                " (or an access or functional need) that would prevent them from independently exiting a building during" +
-                " an emergency evacuation. If you register, your information will become accessible to first responders" +
-                " (information could include, as applicable: name, assigned residence hall room (PSU residents only)," +
-                " location of registered courses (student or instructor/faculty), assigned office location (staff)," +
-                " and/or contact information) The registry is confidential and is managed by CPSO. Data is refreshed weekly. ",
-            this.regbox = false
-        },
-        //This is for button clicks
-        methods: {
-            submit() {
-                //replace with functionality
-                console.log("data submitted: User registration value is ", this.regbox); // eslint-disable-line no-console
-            },
-            reset() {
-                //replace with functionality
-                this.regbox = false;
-                console.log("data reset: registration flag is ", this.regbox); // eslint-disable-line no-console
-            }
-        }
-    }
-</script>
-
-
-<!-- Add "scoped" attribute to limit CSS to this only
-in "margin" the pattern is top, right, bottom, left
-and that is pretty standard amongst other CSS properties it seems-->
-<style scoped>
-    h2 {
-        font-weight: normal;
-        font-size: 20px;
-        color: #36454f;
-    }
-    h3 {
-        font-family: "Times New Roman", Times, serif;
-        font-size: 40px;
-        color: #36454f;
-        margin: 10px 0 10px 0;
-    }
-    p { /*normal text formatting*/
-        text-align: left;
-        padding: 0;
-        font-family: "Arial", Helvecta, sans-serif;
-        font-size: 18px;
-    }
-    ul.a { /*unordered list*/
-        list-style-type: circle; /*what are the bullets? Here they are empty circles*/
-        font-weight: normal;
-    }
-    ul.b { /*unordered list*/
-        list-style-type: disc; /*what are the bullets? Here they are filled circles*/
-        font-weight: bold;
-    }
-    ul.c { /*unordered list*/
-        list-style-type: none; /*what are the bullets? Here they are nothing*/
-        font-weight: bold;
-    }
-    ul.d { /*unordered list*/
-        list-style-type: disc; /*what are the bullets? Here they are filled circles*/
-        font-weight: normal;
-        text-align: left;
-        padding-left: 70px;
-    }
-    a {
-        color: #42b983;
-    }
-
-    #introduction-field{
-        margin: auto;
-        margin-bottom: 30px;
-        padding: 20px;
-    }
-
-    #about-field{
-        margin: auto;
-        margin-bottom: 30px;
-        padding: 20px;
-    }
-
-    #registry-field{
-        margin: auto;
-        margin-bottom: 30px;
-        padding: 20px;
-    }
-
-    #helpful-links{
-        margin: auto;
-        padding: 20px;
-    }
-</style>
