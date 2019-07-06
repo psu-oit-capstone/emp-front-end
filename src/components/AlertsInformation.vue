@@ -1,6 +1,6 @@
 <template>
 
-  <div id="main-content" class="content container-fluid">
+  <div class="main-content">
     <br>
     <div id="information-1" class="boxed">
       <h1>PSU Alert Emergency Notification System Registration</h1><br>

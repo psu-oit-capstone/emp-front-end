@@ -1,11 +1,16 @@
 <!-- Style notes: the general logic I tried to follow in styling this template was 1) large blocks of text are left justified
 and lists, interactive elements and so forth are center justified.-->
 <template>
-    <div class="EA Registry">
+    <div class="main-content">
+
+      <div class="title-box">
         <h1>Evacuation Assistance Registry</h1>
-        <h2>
+        <div class="subtitle">
             A resource for individuals with disabilities and others with access and functional needs.
-        </h2>
+        </div>
+      </div>
+
+
 
         <div class="boxed" id="introduction-field">
             <h3>Introduction</h3>
@@ -156,11 +161,6 @@ and lists, interactive elements and so forth are center justified.-->
 in "margin" the pattern is top, right, bottom, left
 and that is pretty standard amongst other CSS properties it seems-->
 <style scoped>
-    h2 {
-        font-weight: normal;
-        font-size: 20px;
-        color: #36454f;
-    }
     h3 {
         font-family: "Times New Roman", Times, serif;
         font-size: 40px;
@@ -170,7 +170,6 @@ and that is pretty standard amongst other CSS properties it seems-->
     p { /*normal text formatting*/
         text-align: left;
         padding: 0;
-        font-family: "Arial", Helvecta, sans-serif;
         font-size: 18px;
     }
     ul.a { /*unordered list*/
