@@ -1,8 +1,5 @@
-<!-- Style notes: the general logic I tried to follow in styling this template was 1) large blocks of text are left justified
-and lists, interactive elements and so forth are center justified.-->
 <template>
-    <div class="main-content">
-
+    <div id="evacuation-assistance">
       <div class="title-box">
         <h1>Evacuation Assistance Registry</h1>
         <div class="subtitle">
@@ -10,7 +7,7 @@ and lists, interactive elements and so forth are center justified.-->
         </div>
       </div>
 
-      <div class="boxed text-box" id="introduction-field">
+      <div class="boxed text-box">
         <h3>Introduction</h3>
         <p>
           It may be necessary to evacuate a building, room, or space due to an emergency incident or hazardous, situation.
@@ -146,9 +143,6 @@ and lists, interactive elements and so forth are center justified.-->
 </script>
 
 
-<!-- Add "scoped" attribute to limit CSS to this only
-in "margin" the pattern is top, right, bottom, left
-and that is pretty standard amongst other CSS properties it seems-->
 <style scoped>
     h3 {
         font-family: "Times New Roman", Times, serif;
@@ -161,8 +155,6 @@ and that is pretty standard amongst other CSS properties it seems-->
         padding: 0;
         font-size: 18px;
     }
-
-
 
     ul.d { /*unordered list*/
         list-style-type: disc;
@@ -182,8 +174,6 @@ and that is pretty standard amongst other CSS properties it seems-->
     }
 
     #registry-field{
-        margin: auto;
         margin-bottom: 30px;
-        padding: 20px;
     }
 </style>

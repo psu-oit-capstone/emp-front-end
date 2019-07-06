@@ -1,6 +1,7 @@
 <template>
-  <div id="emergency-information">
+  <div id="emergency-information" class="main-content">
     <EvacAssist />
+    <AlertsInformation />
   </div>
 </template>
 

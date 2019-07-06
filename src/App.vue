@@ -7,7 +7,9 @@
       <router-link to="/emergency-information">Emergency Information</router-link>
     </div>
 
-    <router-view/>
+    <div class="main-content-container">
+      <router-view  />
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
   text-align: center;
   color: #2c3e50;
 }
+
 #nav {
   padding: 30px;
 }

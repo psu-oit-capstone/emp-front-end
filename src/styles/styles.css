@@ -3,7 +3,7 @@
   can be accessed throughout the app.
 */
 
-#emergency-information {
+.main-content-container {
   display: grid;
 }
 
@@ -12,7 +12,7 @@ Site-wide Media Queried Styles
 *****************************/
 /* Large desktop */
 @media (min-width: 980px) {
-  #emergency-information {
+  .main-content-container {
     grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
@@ -21,7 +21,7 @@ Site-wide Media Queried Styles
 
 /* Landscape phone to landscape and desktop */
 @media (min-width: 481px) and (max-width: 979px) {
-  #emergency-information {
+  .main-content-container {
     grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
@@ -30,7 +30,7 @@ Site-wide Media Queried Styles
 
 /* Landscape phones and down */
 @media (max-width: 500px) {
-  #emergency-information {
+  .main-content-container {
     grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
