@@ -25,10 +25,6 @@ and lists, interactive elements and so forth are center justified.-->
         </p>
       </div>
 
-
-
-
-
         <div class="boxed text-box">
             <h3>About this registry</h3>
             <p>
@@ -71,7 +67,7 @@ and lists, interactive elements and so forth are center justified.-->
                     </ul>
                 </ul>
             </ul>
-        </p> <!-- Parser is glitchy and this might wrongly throw an error -->
+        </p>
         </div><br>
 
         <div  class="text-box boxed">
@@ -92,7 +88,7 @@ and lists, interactive elements and so forth are center justified.-->
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
         <div  class="text-box boxed">
-          <h4>Additional Resources for people with disabilities and others with access and functional needs:</h4>
+          <b>Additional Resources for people with disabilities and others with access and functional needs:</b>
           <ul class="d">
             <li><a href="https://www.pdx.edu/drc/" target="_blank" rel="noopener noreferrer">PSU Disability Resource Center</a></li>
             <li><a href="https://www.pdx.edu/environmental-health-safety/emergency-planning-for-people-needing-assistance" target="_blank" rel="noopener noreferrer">PSU Environmental Health and Safety</a></li>
@@ -107,20 +103,22 @@ and lists, interactive elements and so forth are center justified.-->
             <li><a href="https://www.nod.org/" target="_blank" rel="noopener noreferrer">National Organization on Disability</a></li>
           </ul>
 
-            <b>
-                General information about
-                <a href="https://www.pdx.edu/cpso/evacuation" target="_blank" rel="noopener noreferrer">evacuation</a>
-                can be found online on the CPSO website.
-            </b><br><br>
-            <p>
-                <b>Additional resources for emergency planning and preparedness:</b><br>
-                Individuals can take steps to prepare themselves to help ensure their own safety and comfort should an
-                emergency incident occur while at home, at school, or at work. For general information about planning
-                for emergencies, visit
-                <a href="https://www.pdx.edu/emergency-management/" target="_blank" rel="noopener noreferrer">PSU Emergency Management's website,</a>
-                or contact
-                <a href="mailto:EmrMgmt@pdx.edu" target="_blank" rel="noopener noreferrer">PSU Emergency Management.</a>
-            </p>
+          <br />
+          <b>
+              General information about
+              <a href="https://www.pdx.edu/cpso/evacuation" target="_blank" rel="noopener noreferrer">evacuation</a>
+              can be found online on the CPSO website.
+          </b>
+          <br><br>
+          <p>
+              <b>Additional resources for emergency planning and preparedness:</b><br>
+              Individuals can take steps to prepare themselves to help ensure their own safety and comfort should an
+              emergency incident occur while at home, at school, or at work. For general information about planning
+              for emergencies, visit
+              <a href="https://www.pdx.edu/emergency-management/" target="_blank" rel="noopener noreferrer">PSU Emergency Management's website,</a>
+              or contact
+              <a href="mailto:EmrMgmt@pdx.edu" target="_blank" rel="noopener noreferrer">PSU Emergency Management.</a>
+          </p>
         </div>
     </div>
 </template>
