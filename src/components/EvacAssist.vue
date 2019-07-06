@@ -74,7 +74,7 @@ and lists, interactive elements and so forth are center justified.-->
         </p> <!-- Parser is glitchy and this might wrongly throw an error -->
         </div><br>
 
-        <div  class="boxed" id="registry-field">
+        <div  class="text-box boxed">
         <h3>Registry</h3>
         <p>
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
@@ -91,23 +91,21 @@ and lists, interactive elements and so forth are center justified.-->
         <button type="button" v-on:click="reset()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
-        <div  class="boxed" id="helpful_links">
-            <ul class="c">
-                <li>Additional Resources for people with disabilities and others with access and functional needs:</li>
-                <ul class="d">
-                    <li><a href="https://www.pdx.edu/drc/" target="_blank" rel="noopener noreferrer">PSU Disability Resource Center</a></li>
-                    <li><a href="https://www.pdx.edu/environmental-health-safety/emergency-planning-for-people-needing-assistance" target="_blank" rel="noopener noreferrer">PSU Environmental Health and Safety</a></li>
-                    <li><a href="https://www.pdx.edu/diversity/" target="_blank" rel="noopener noreferrer">PSU Office of Global Diversity and Inclusion</a></li>
-                    <li><a href="https://www.pdx.edu/hr/" target="_blank" rel="noopener noreferrer">PSU Human Resources</a></li>
-                    <li><a href="https://www.pdx.edu/cpso/" target="_blank" rel="noopener noreferrer">PSU Campus Public Safety Office</a></li>
-                    <li><a href="https://www.pdx.edu/housing/" target="_blank" rel="noopener noreferrer">PSU Housing and Residence Life</a></li>
-                    <li><a href="https://www.portlandoregon.gov/oni/66305" target="_blank" rel="noopener noreferrer">City of Portland Emergency Preparedness for People with Disabilities</a></li>
-                    <li><a href="https://www.redcross.org/prepare/location/home-family/disabilities" target="_blank" rel="noopener noreferrer">Red Cross</a></li>
-                    <li><a href="https://www.nfpa.org/public-education/by-topic/people-at-risk/people-with-disabilities" target="_blank" rel="noopener noreferrer">National Fire Protection Agency</a></li>
-                    <li><a href="https://www.ready.gov/individuals-access-functional-needs" target="_blank" rel="noopener noreferrer">Federal Emergency Management Agency</a></li>
-                    <li><a href="https://www.nod.org/" target="_blank" rel="noopener noreferrer">National Organization on Disability</a></li>
-                </ul>
-            </ul>
+        <div  class="text-box boxed">
+          <h4>Additional Resources for people with disabilities and others with access and functional needs:</h4>
+          <ul class="d">
+            <li><a href="https://www.pdx.edu/drc/" target="_blank" rel="noopener noreferrer">PSU Disability Resource Center</a></li>
+            <li><a href="https://www.pdx.edu/environmental-health-safety/emergency-planning-for-people-needing-assistance" target="_blank" rel="noopener noreferrer">PSU Environmental Health and Safety</a></li>
+            <li><a href="https://www.pdx.edu/diversity/" target="_blank" rel="noopener noreferrer">PSU Office of Global Diversity and Inclusion</a></li>
+            <li><a href="https://www.pdx.edu/hr/" target="_blank" rel="noopener noreferrer">PSU Human Resources</a></li>
+            <li><a href="https://www.pdx.edu/cpso/" target="_blank" rel="noopener noreferrer">PSU Campus Public Safety Office</a></li>
+            <li><a href="https://www.pdx.edu/housing/" target="_blank" rel="noopener noreferrer">PSU Housing and Residence Life</a></li>
+            <li><a href="https://www.portlandoregon.gov/oni/66305" target="_blank" rel="noopener noreferrer">City of Portland Emergency Preparedness for People with Disabilities</a></li>
+            <li><a href="https://www.redcross.org/prepare/location/home-family/disabilities" target="_blank" rel="noopener noreferrer">Red Cross</a></li>
+            <li><a href="https://www.nfpa.org/public-education/by-topic/people-at-risk/people-with-disabilities" target="_blank" rel="noopener noreferrer">National Fire Protection Agency</a></li>
+            <li><a href="https://www.ready.gov/individuals-access-functional-needs" target="_blank" rel="noopener noreferrer">Federal Emergency Management Agency</a></li>
+            <li><a href="https://www.nod.org/" target="_blank" rel="noopener noreferrer">National Organization on Disability</a></li>
+          </ul>
 
             <b>
                 General information about
@@ -130,25 +128,18 @@ and lists, interactive elements and so forth are center justified.-->
 <script>
     export default {
         name: 'EvacAssist',
-        //This runs on instance creation
         data: function() { return {
-            //Hold data for input fields here like this if it needs to be mutated
-            about_registry_text1: {type: String},
-            regbox: {type: Boolean, default: false},
+              regbox: {type: Boolean, default: false},
             }
         },
-        //This initializes the above declarations
         created: function() {
             this.regbox = false
         },
-        //This is for button clicks
         methods: {
             submit() {
-                //replace with functionality
                 console.log("data submitted: User registration value is ", this.regbox); // eslint-disable-line no-console
             },
             reset() {
-                //replace with functionality
                 this.regbox = false;
                 console.log("data reset: registration flag is ", this.regbox); // eslint-disable-line no-console
             }
@@ -173,22 +164,10 @@ and that is pretty standard amongst other CSS properties it seems-->
         font-size: 18px;
     }
 
-    ul {
-      list-style-type: none;
-      font-weight: bold;
-    }
 
-    ul > ul {
-      list-style-type: disc;
-      font-weight: bold;
-    }
-    ul > ul > ul {
-      list-style-type: disc;
-      font-weight: normal;
-    }
 
     ul.d { /*unordered list*/
-        list-style-type: disc; /*what are the bullets? Here they are filled circles*/
+        list-style-type: disc;
         font-weight: normal;
         text-align: left;
         padding-left: 70px;
@@ -207,11 +186,6 @@ and that is pretty standard amongst other CSS properties it seems-->
     #registry-field{
         margin: auto;
         margin-bottom: 30px;
-        padding: 20px;
-    }
-
-    #helpful-links{
-        margin: auto;
         padding: 20px;
     }
 </style>

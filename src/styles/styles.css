@@ -71,6 +71,22 @@ h1 {
   padding: 20px;
 }
 
+/* List & Sublist CSS */
+ul {
+  list-style-type: none;
+  font-weight: bold;
+}
+
+ul > ul {
+  list-style-type: disc;
+  font-weight: bold;
+}
+
+ul > ul > ul {
+  list-style-type: disc;
+  font-weight: normal;
+}
+
 .boxed {
   border: 1px solid #CCCCCC;
 }
