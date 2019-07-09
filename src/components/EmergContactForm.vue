@@ -63,24 +63,14 @@
             Dropdown,
             DropdownNoImg,
         },
+        //Receives contact to be edited from parent
         props: [
             'contact_in'
         ],
+        //Whenever something in props is updated the matching function here executes
         watch: {
             contact_in: function(payload) {
-                this.fnamebox = payload.name[0];
-                this.mnamebox = payload.name.mnamebox;
-                this.lnamebox = payload.name.lnamebox;
-                this.address1box = payload.address.address1box;
-                this.address2box = payload.address.address2box;
-                this.address3box = payload.address.address3box;
-                this.citybox = payload.area.citybox;
-                this.statebox = payload.area.statebox;
-                this.zipbox = payload.area.zipbox;
-                this.countrybox = payload.area.countrybox;
-                this.countryCode = payload.area.countryCode;
-                this.orderbox = payload.order.orderbox;
-                this.regbox = payload.delete.regbox;
+
             }
         },
         //This is for button clicks
@@ -95,13 +85,14 @@
                 this.statebox = payload;
             },
             submit() {
-                //replace with functionality
                 this.contact_out = this.makeContact();
                 this.$emit('updateContact', this.contact_out);
+                this.resetContact();
             },
             handleChange: function(childID, errors) {var vm = this;},
             makeContact() {
-                return {name: [this.fnamebox, this.mnamebox, this.lnamebox],
+                return {
+                    name: [this.fnamebox, this.mnamebox, this.lnamebox],
                     address: [this.address1box, this.address2box, this.address3box],
                     area: [this.countrybox, this.countryCode, this.statebox, this.citybox, this.zipbox],
                     order: this.orderbox,
@@ -125,7 +116,6 @@
             },
 
         },
-
 
         //This runs on instance creation
         data: function() { return {
@@ -182,7 +172,6 @@
         }},
         //This initializes the above declarations
         created: function() {
-            //This is one way to handle massive text blobs in a template but is not strictly necessary
             this.resetContact()
         },
     }

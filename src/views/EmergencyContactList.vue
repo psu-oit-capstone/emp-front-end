@@ -2,15 +2,16 @@
     <div id="emergency-contacts">
         <b>Emergency Contact List</b>
         <div class="contact-list">
-            <li v-for="contact in contacts" v-bind:key="contact.id">
-                {{ contact }}  <button type="button" v-on:click="editContact(contact)">Edit</button><br><br>
+            <li v-for="item in contacts">
+                {{ item }}
+                <button v-on:click="editContact(item)">Edit</button>
             </li>
         </div>
 
         <div>
-            <b>Emergency Cojntact Add Form</b>
+            <b>Emergency Contact Add Form</b>
             <EmergContactForm v-on:updateContact="contactsUpdate"
-                              v-on:contact_in="editContact"/>
+                              :contact_in="to_edit_contact"/>
         </div>
     </div>
 </template>
@@ -23,23 +24,21 @@
         components: {
             EmergContactForm,
         },
-        props: {
-        },
         //This is for button clicks
         methods: {
             contactsUpdate(contact_payload) {
                 this.contacts.push(contact_payload)
             },
             editContact(contact_payload) {
-                return {contact_payload}
-            }
+                this.to_edit_contact = contact_payload;
+            },
         },
 
         //This runs on instance creation
         data: function() { return {
             //Hold data for input fields here like this if it needs to be mutated
             contacts: [],
-
+            to_edit_contact: {},
         }},
         //This initializes the above declarations
         created: function() {

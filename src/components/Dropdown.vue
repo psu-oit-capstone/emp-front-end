@@ -1,7 +1,7 @@
 <template>
     <div class="btn-group">
         <li @click="toggleMenu()" class="dropdown-toggle" v-if="selectedOption.name !== undefined">
-          <img :src="getImg(selectedOption.svgimg)" v-bind:alt="flag" height="24" width="18" /> {{ selectedOption.name }}
+          <img :src="getImg(selectedOption.svgimg)" alt="country flag" height="24" width="18" /> {{ selectedOption.name }}
           <span class="caret"></span>
         </li>
 
@@ -13,7 +13,7 @@
         <ul class="dropdown-menu" v-if="showMenu">
             <li v-for="option in options" v-bind:key="option.id">
                 <a href="javascript:void(0)" @click="updateOption(option)">
-                    <img :src="getImg(option.svgimg)" v-bind:alt="flag" height="24" width="18" /> {{ option.name }}
+                    <img :src="getImg(option.svgimg)" alt="country flag" height="24" width="18" /> {{ option.name }}
                 </a>
             </li>
         </ul>
