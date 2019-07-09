@@ -2,10 +2,10 @@
     <div id="emergency-contacts">
         <b>Emergency Contact List</b>
         <div class="contact-list">
-            <li v-for="item in contacts">
-                {{ item }}
-                <button v-on:click="editContact(item)">Edit</button>
-            </li>
+            <ol v-for="item in contacts">
+                <li>{{ item.order.orderbox }}. {{ item.name.fnamebox }} {{ item.name.lnamebox }}
+                    <button v-on:click="editContact(item)">Edit</button></li>
+            </ol>
         </div>
 
         <div>
@@ -27,7 +27,7 @@
         //This is for button clicks
         methods: {
             contactsUpdate(contact_payload) {
-                this.contacts.push(contact_payload)
+                this.contacts.push(contact_payload);
             },
             editContact(contact_payload) {
                 this.to_edit_contact = contact_payload;

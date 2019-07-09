@@ -70,7 +70,7 @@
         //Whenever something in props is updated the matching function here executes
         watch: {
             contact_in: function(payload) {
-
+                this.setContact(payload)
             }
         },
         //This is for button clicks
@@ -92,12 +92,30 @@
             handleChange: function(childID, errors) {var vm = this;},
             makeContact() {
                 return {
-                    name: [this.fnamebox, this.mnamebox, this.lnamebox],
-                    address: [this.address1box, this.address2box, this.address3box],
-                    area: [this.countrybox, this.countryCode, this.statebox, this.citybox, this.zipbox],
-                    order: this.orderbox,
-                    delete: this.regbox
+                    name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
+                    address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
+                    area: {
+                        countrybox: this.countrybox, countryCode: this.countryCode,
+                        statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
+                    },
+                    order: {orderbox: this.orderbox},
+                    delete: {regbox: this.regbox}
                 }
+            },
+            setContact(payload) {
+                this.fnamebox = payload.name.fnamebox;
+                this.mnamebox = payload.name.mnamebox;
+                this.lnamebox = payload.name.lnamebox;
+                this.address1box = payload.address.address1box;
+                this.address2box = payload.address.address2box;
+                this.address3box = payload.address.address3box;
+                this.citybox = payload.area.citybox;
+                this.statebox = payload.area.statebox;
+                this.zipbox = payload.area.zipbox;
+                this.countrybox = payload.area.countrybox;
+                this.countryCode = payload.area.countryCode;
+                this.orderbox = payload.order.orderbox;
+                this.regbox = payload.delete.regbox;
             },
             resetContact() {
                 this.fnamebox = "";
@@ -126,13 +144,15 @@
             lnamebox: {type: String, default: ""},
             address1box: {type: String, default: ""},
             address2box: {type: String, default: ""},
-            address3box: {type: String, default: ""}, //Do we REALLY need 3 address lines? According to research this is city/district/state
+            address3box: {type: String, default: ""},
             citybox: {type: String, default: ""},
             statebox: {type: String, default: ""},
             zipbox: {type: String, default: ""},
             countrybox: {type: String, default: ""},
             countryCode: {type: String, default: ""},
             orderbox: {type: Number},
+
+            //Dropdown data and so forth
             countryCodeArray: [
                 {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
                 {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
