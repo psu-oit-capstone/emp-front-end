@@ -52,6 +52,7 @@
 </template>
 
 <script>
+    //For uses of Dropdown you MUST pass in all defaults
     import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
     import Dropdown from '@/components/Dropdown.vue'
     import DropdownNoImg from '@/components/DropdownNoImg.vue'
