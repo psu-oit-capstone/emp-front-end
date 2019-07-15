@@ -4,7 +4,7 @@
         <div class="contact-list">
             <ol v-for="(item, index) in contacts">
                 <li>{{ item.order.orderbox }}. {{ item.name.fnamebox }} {{ item.name.lnamebox }}
-                    <button v-on:click="editContact(item, index)">Edit</button></li>
+                    <button v-on:click="editContact(item, index)">Edit/Delete</button></li>
             </ol>
         </div>
 
@@ -27,7 +27,12 @@
         //This is for button clicks
         methods: {
             contactsUpdate(contact_payload) {
-                this.contacts.push(contact_payload);
+                if (contact_payload.order.orderbox <= this.contacts.length) {
+                    this.contacts.splice(contact_payload.order.orderbox - 1, 1, contact_payload);
+                } else {
+                    contact_payload.order.orderbox = this.contacts.length + 1;
+                    this.contacts.push(contact_payload);
+                }
             },
             editContact(contact_payload, contact_index) {
                 //This returns an array of one object, so we immediately index that out
@@ -41,9 +46,6 @@
             contacts: [],
             to_edit_contact: {},
         }},
-        //This initializes the above declarations
-        created: function() {
-        },
     }
 </script>
 

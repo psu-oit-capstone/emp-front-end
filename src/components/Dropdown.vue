@@ -41,7 +41,7 @@
         },
         watch: {
             selected: function(payload) {
-                this.updateOption(payload)
+                this.selectedOption = payload;
             }
         },
 
