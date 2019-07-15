@@ -114,7 +114,9 @@
                 this.statebox = payload.area.statebox;
                 this.zipbox = payload.area.zipbox;
                 this.countrybox = payload.area.countrybox;
+                this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
                 this.countryCode = payload.area.countryCode;
+                this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
                 this.orderbox = payload.order.orderbox;
                 this.regbox = payload.delete.regbox;
             },
@@ -133,7 +135,22 @@
                 this.orderbox = 1;
                 this.regbox = false;
             },
-
+            findByCountry(country, targetCountries) {
+                //Here we expect either a string containing a country name
+                for (let i = 0; i < targetCountries.length; i++) {
+                    if (targetCountries[i].country === country){
+                        return targetCountries[i];
+                    }
+                }
+            },
+            findByCountryCode(countryCode, targetCodes) {
+                //Here we expect either a string containing a country name
+                for (let i = 0; i < targetCodes.length; i++) {
+                    if (targetCodes[i].code === countryCode){
+                        return targetCodes[i];
+                    }
+                }
+            },
         },
 
         //This runs on instance creation

@@ -39,6 +39,11 @@
             },
             placeholder: [String]
         },
+        watch: {
+            selected: function(payload) {
+                this.updateOption(payload)
+            }
+        },
 
         mounted() {
             this.selectedOption = this.selected;
