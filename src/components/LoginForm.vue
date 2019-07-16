@@ -34,9 +34,8 @@
           login() {
             let bodyFormData = new FormData();
 
-            bodyFormData.set('username', 'yaaset');
-            bodyFormData.set('password', 'aVeryGoodPassword');
-
+            bodyFormData.set('username', this.username);
+            bodyFormData.set('password', this.password);
 
             axios({
               method: 'post',
