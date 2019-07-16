@@ -47,7 +47,7 @@ export default {
         vm.errors.push("Phone number too long");
 
       // This tells our parent we've changed & passes errors up to them
-      this.$emit("change", vm._uid, vm.errors);
+      this.$emit("change", vm._uid, vm.phone, vm.errors);
     }
   }
 }
