@@ -21,6 +21,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         name: 'login',
         data: function() {
@@ -31,7 +32,19 @@
         },
         methods: {
           login() {
+            let bodyFormData = new FormData();
 
+            bodyFormData.set('username', 'yaaset');
+            bodyFormData.set('password', 'aVeryGoodPassword');
+
+
+            axios({
+              method: 'post',
+              baseURL: 'http://127.0.0.1:8000/login/',
+              data: bodyFormData
+            })
+            .then(response => alert(JSON.stringify(response, null, 2)))
+            .catch(response => alert(response))
           }
         },
         props: {
