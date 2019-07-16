@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <div class="login-greeting">
+        <div id="login-greeting">
             <h1>Login Form</h1>
         </div>
 
@@ -23,19 +23,15 @@
 <script>
     export default {
         name: 'login',
-        data: function() { return{username: "", password: ""}},
+        data: function() {
+          return {
+            username: "",
+            password: ""
+          }
+        },
         methods: {
           login() {
-              if(this.username !== "" && this.password !== "") {
-                  //This code should be replaced with a call to a secure authentication function in parent module
-                  if(this.username === "mushu@pdx.edu" && this.password === "password"){
-                    console.log("Successful login attempt!"); // eslint-disable-line no-console
-                  } else {
-                      console.log("Unsuccessful login attempt...") // eslint-disable-line no-console
-                  }
-              } else {
-                  console.log("Username/Password not present."); // eslint-disable-line no-console
-              }
+
           }
         },
         props: {
