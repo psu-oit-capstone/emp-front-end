@@ -116,6 +116,8 @@ and lists, interactive elements and so forth are center justified.-->
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         name: 'EvacAssist',
         //This runs on instance creation
@@ -147,6 +149,18 @@ and lists, interactive elements and so forth are center justified.-->
                 this.regbox = false;
                 console.log("data reset: registration flag is ", this.regbox); // eslint-disable-line no-console
             }
+        },
+        mounted() {
+          axios({
+            method: 'post',
+            baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
+            withCredentials: true
+          })
+          .then(response => {
+            alert(JSON.stringify(response))
+          })
+          .catch(error => alert(error))
+
         }
     }
 </script>
