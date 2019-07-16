@@ -26,25 +26,26 @@
         name: 'login',
         data: function() {
           return {
-            username: "",
-            password: ""
+            username: '',
+            password: ''
           }
         },
         methods: {
           login() {
             let bodyFormData = new FormData();
 
-            bodyFormData.set('username', 'yaaset');
-            bodyFormData.set('password', 'aVeryGoodPassword');
-
+            bodyFormData.set('username', this.username);
+            bodyFormData.set('password', this.password);
 
             axios({
               method: 'post',
               baseURL: 'http://127.0.0.1:8000/login/',
-              data: bodyFormData
+              data: bodyFormData,
             })
-            .then(response => alert(JSON.stringify(response, null, 2)))
-            .catch(response => alert(response))
+            .then(response => {
+              // TODO: Do something
+            })
+            .catch(error => alert(error))
           }
         },
         props: {
