@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "flag-icon-css": "^3.3.0",
+    "require-dir": "^1.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
