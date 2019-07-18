@@ -30,7 +30,10 @@
                           :placeholder="'Select a country'">
                 </Dropdown>
             <p class="label">Phone Number
-                <PhoneNumberInput id="phone-input" @change="handleChange"/></p>
+                <PhoneNumberInput id="phone-input"
+                                  @change="handleChange"
+                                  :phone="phonebox"/>
+            </p>
             <p class="country_code_label">Country Phone Number Code
                 <Dropdown :options="countryCodeArray"
                           :selected="selectedCountryCode"
@@ -90,13 +93,16 @@
                 this.$emit('updateContact', this.contact_out);
                 this.resetContact();
             },
-            handleChange: function(childID, errors) {var vm = this;},
+            handleChange: function(childID, phone_number, errors) {
+                this.phonebox = phone_number;
+                console.log("REEEEEEEE")
+                },
             makeContact() {
                 return {
                     name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
                     address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
                     area: {
-                        countrybox: this.countrybox, countryCode: this.countryCode,
+                        countrybox: this.countrybox, countryCode: this.countryCode, phonebox: this.phonebox,
                         statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
                     },
                     order: {orderbox: this.orderbox},
@@ -117,6 +123,7 @@
                 this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
                 this.countryCode = payload.area.countryCode;
                 this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
+                this.phonebox = payload.area.phonebox;
                 this.orderbox = payload.order.orderbox;
                 this.regbox = payload.delete.regbox;
             },
@@ -131,6 +138,7 @@
                 this.statebox = "";
                 this.zipbox = "";
                 this.countrybox = "USA";
+                this.phonebox = "";
                 this.countryCode = "1";
                 this.orderbox = 1;
                 this.regbox = false;
@@ -167,6 +175,7 @@
             statebox: {type: String, default: ""},
             zipbox: {type: String, default: ""},
             countrybox: {type: String, default: ""},
+            phonebox: {type: String, default: ""},
             countryCode: {type: String, default: ""},
             orderbox: {type: Number},
 

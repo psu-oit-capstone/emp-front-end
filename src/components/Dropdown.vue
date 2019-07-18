@@ -39,6 +39,7 @@
             },
             placeholder: [String]
         },
+
         watch: {
             selected: function(payload) {
                 this.selectedOption = payload;
