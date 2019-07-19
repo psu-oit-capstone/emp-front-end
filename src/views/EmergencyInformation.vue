@@ -7,6 +7,7 @@
 
     <EvacAssist />
     <AlertsInformation />
+    <EmergencyContactList />
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import TimeoutPopup from '@/components/TimeoutPopup.vue'
 import EvacAssist from '@/components/EvacAssist.vue'
 import AlertsInformation from '@/components/AlertsInformation.vue'
+import EmergencyContactList from '@/views/EmergencyContactList'
 
 
 export default {
@@ -31,3 +33,7 @@ export default {
   }
 }
 </script>
+
+<style>
+
+</style>
