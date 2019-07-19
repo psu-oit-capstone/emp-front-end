@@ -1,5 +1,5 @@
 <template>
-  <div id="emergency-information">
+  <div id="emergency-information" class="main-content">
     <TimeoutPopup
       :timeLimit="2"
       @timedOut.once="endSession"

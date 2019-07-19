@@ -1,12 +1,16 @@
 <template>
   <div id="app">
+
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/emergency-information">Emergency Information</router-link> |
       <router-link to="/emergency-contacts">Emergency Contacts</router-link>
     </div>
-    <router-view/>
+
+    <div class="main-content-container">
+      <router-view  />
+    </div>
   </div>
 </template>
 
@@ -18,6 +22,7 @@
   text-align: center;
   color: #2c3e50;
 }
+
 #nav {
   padding: 30px;
 }

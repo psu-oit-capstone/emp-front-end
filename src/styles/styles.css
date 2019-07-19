@@ -3,7 +3,90 @@
   can be accessed throughout the app.
 */
 
+.main-content-container {
+  display: grid;
+}
+
+/*****************************
+Site-wide Media Queried Styles
+*****************************/
+/* Large desktop */
+@media (min-width: 980px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(255,0,0,0.1);}
+}
+
+/* Landscape phone to landscape and desktop */
+@media (min-width: 481px) and (max-width: 979px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(0,0,255,0.1);}
+}
+
+/* Landscape phones and down */
+@media (max-width: 500px) {
+  .main-content-container {
+    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+  * {background-color: rgba(255,255,0,0.1);}
+}
+
+
+* {
+  margin: 0;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+
+.main-content {
+  grid-column-start: left-gutter;
+  grid-column-end: right-gutter;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-weight: normal;
+  font-size: 20px;
+  color: #36454f;
+  margin-top: 10px;
+}
+
+.title-box {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.text-box {
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+/* List & Sublist CSS */
+ul {
+  list-style-type: none;
+  font-weight: bold;
+}
+
+ul > ul {
+  list-style-type: disc;
+  font-weight: bold;
+}
+
+ul > ul > ul {
+  list-style-type: disc;
+  font-weight: normal;
+}
+
 .boxed {
   border: 1px solid #CCCCCC;
-  width: 800px;
 }
