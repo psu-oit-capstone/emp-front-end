@@ -16,7 +16,6 @@ Site-wide Media Queried Styles
     grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(255,0,0,0.1);}
 }
 
 /* Landscape phone to landscape and desktop */
@@ -25,7 +24,6 @@ Site-wide Media Queried Styles
     grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(0,0,255,0.1);}
 }
 
 /* Landscape phones and down */
@@ -34,7 +32,6 @@ Site-wide Media Queried Styles
     grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(255,255,0,0.1);}
 }
 
 
@@ -63,9 +60,6 @@ Site-wide Media Queried Styles
   margin: auto;
   margin-bottom: 30px;
   padding: 20px;
-}
-.boxed {
-  border: 1px solid #CCCCCC;
 }
 
 /* FONTS */

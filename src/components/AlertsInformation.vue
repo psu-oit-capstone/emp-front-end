@@ -1,7 +1,7 @@
 <template>
   <div id="main-content" class="content container-fluid">
     <br>
-    <div id="information-1" class="boxed">
+    <div id="information-1">
       <h1 style="text-align:center">PSU Alert Emergency Notification System Registration</h1><br>
       PSU Alert is an emergency communications system designed to disseminate
       emergency messages via text messages, email, and phone calls. In the
@@ -24,7 +24,7 @@
     </div>
     <br><br>
 
-    <div id="links-1" class="boxed">
+    <div id="links-1">
     Visit the
     <a href="http://www.pdx.edu/emergency-management/psu-alert-emergency-notification-system" target="_blank">
       PSU Alert
@@ -62,7 +62,7 @@
   </div>
 
   <form action="/gen/alert/submit" method="post">
-    <div id="text-information" class="boxed">
+    <div id="text-information">
       <input type="hidden" name="SYNCHRONIZER_TOKEN" value="ff5b0d0c-6be6-4a67-b8a7-f0dafade3fd5" id="SYNCHRONIZER_TOKEN">
       <input type="hidden" name="SYNCHRONIZER_URI" value="/gen/alert/index" id="SYNCHRONIZER_URI">
       <h2>
@@ -108,7 +108,7 @@
       </div>
     </div>
 
-    <div id="voice-information" class="boxed">
+    <div id="voice-information">
       <h2>Subscribe to PSU Alert voice messages:</h2>
       <small class="text-muted">Standard rates apply. Calls will come from the phone number: 1-877-725-9111.</small>
       <br>
@@ -133,7 +133,7 @@
       <br style="clear: both;">
     </div>
 
-    <div id="email-information" class="boxed">
+    <div id="email-information">
       <h2>Subscribe to PSU Alert emails:</h2>
       <small class="text-muted">
   All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU Alert messages and Timely Warning notifications and cannot be unsubscribed.<br>
@@ -170,7 +170,7 @@
    </form>
    <br>
 
-   <div id="emergency-response-information" class="boxed">
+   <div id="emergency-response-information">
      <h2>Emergency Response Planning:</h2>
      <small>
      Preparing for emergencies is a shared responsibility across the whole community.
