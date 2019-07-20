@@ -144,7 +144,7 @@ and lists, interactive elements and so forth are center justified.-->
             submit() {
               // Update Registration checkbox state in the database
               let bodyFormData = new FormData();
-              if(this.regbox) 
+              if(this.regbox)
                 bodyFormData.set('evacuation_assistance', 'Y');
 
               axios({
@@ -158,9 +158,16 @@ and lists, interactive elements and so forth are center justified.-->
               .catch(error => alert(error))
             },
             reset() {
-                //replace with functionality
-                this.regbox = false;
-                console.log("data reset: registration flag is ", this.regbox); // eslint-disable-line no-console
+              axios({
+                method: 'post',
+                baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
+              })
+              .then(response => {
+                let evacuation_assistance_state = response.data[0]['evacuation_assistance']
+                if(evacuation_assistance_state == 'Y')
+                  this.regbox = true;
+              })
+              .catch(error => alert(error))
             }
         },
         mounted() {
@@ -172,6 +179,8 @@ and lists, interactive elements and so forth are center justified.-->
             let evacuation_assistance_state = response.data[0]['evacuation_assistance']
             if(evacuation_assistance_state == 'Y')
               this.regbox = true;
+            else
+              this.regbox = false;
           })
           .catch(error => alert(error))
 
