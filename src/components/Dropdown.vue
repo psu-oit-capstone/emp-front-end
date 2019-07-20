@@ -71,7 +71,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 
 .btn-group {
   min-width: 160px;
