@@ -33,19 +33,10 @@
         methods: {
           login() {
             let bodyFormData = new FormData();
-
             bodyFormData.set('username', this.username);
             bodyFormData.set('password', this.password);
 
-            axios({
-              method: 'post',
-              baseURL: 'http://127.0.0.1:8000/login/',
-              data: bodyFormData,
-            })
-            .then(response => {
-              // TODO: Do something
-            })
-            .catch(error => alert(error))
+            this.$store.dispatch('login', bodyFormData)
           }
         },
         props: {

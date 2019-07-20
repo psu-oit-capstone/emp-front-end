@@ -138,11 +138,24 @@ and lists, interactive elements and so forth are center justified.-->
                 " and/or contact information) The registry is confidential and is managed by CPSO. Data is refreshed weekly. ",
             this.regbox = false
         },
+
         //This is for button clicks
         methods: {
             submit() {
-                //replace with functionality
-                console.log("data submitted: User registration value is ", this.regbox); // eslint-disable-line no-console
+              // Update Registration checkbox state in the database
+              let bodyFormData = new FormData();
+              if(this.regbox) 
+                bodyFormData.set('evacuation_assistance', 'Y');
+
+              axios({
+                method: 'post',
+                baseURL: 'http://127.0.0.1:8000/setEvacuationAssistance/',
+                data: bodyFormData
+              })
+              .then(response => {
+                alert(JSON.stringify(response))
+              })
+              .catch(error => alert(error))
             },
             reset() {
                 //replace with functionality
@@ -154,10 +167,11 @@ and lists, interactive elements and so forth are center justified.-->
           axios({
             method: 'post',
             baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
-            withCredentials: true
           })
           .then(response => {
-            alert(JSON.stringify(response))
+            let evacuation_assistance_state = response.data[0]['evacuation_assistance']
+            if(evacuation_assistance_state == 'Y')
+              this.regbox = true;
           })
           .catch(error => alert(error))
 
