@@ -3,10 +3,6 @@
   can be accessed throughout the app.
 */
 
-.main-content-container {
-  display: grid;
-}
-
 /*****************************
 Site-wide Media Queried Styles
 *****************************/
@@ -36,7 +32,6 @@ Site-wide Media Queried Styles
 
 
 * {
-  margin: 0;
 }
 
 .main-content {
@@ -88,10 +83,6 @@ h3 {
     padding-bottom: 5px;
 }
 
-#main-content{
-    padding-bottom: 25px;
-}
-
 /* TEMPLATE */
 body {
     background-color:   #e8e9e3;
@@ -103,6 +94,15 @@ body {
 a {
 	color: #337ab7;
 	text-decoration: none;
+}
+
+#app-navigation{
+  background: #8c9516;
+  position: relative;
+}
+
+#app-navigation a {
+  font-size: 1em;
 }
 
 #header-wrap{
@@ -141,9 +141,17 @@ a {
     min-height:575px;
 }
 
+#site-navigation a {
+  font-size: 12px;
+}
+
+#site-navigation li{
+    border-right: solid 1px #999999
+}
+
 .nav li{
-	float:right;
-	border-right: solid 1px #999999
+	float:inherit;
+  display: inline;
 }
 
 .nav li.first{
@@ -152,12 +160,14 @@ a {
 
 .nav>li>a{
 	color: white;
-	font-size: 12px;
-	padding-top: 4px;
-	display: block;
+	display: inline-block;
 	padding: 10px 15px;
 }
 
 .pull-right {
     float: right;
+}
+
+.pull-left {
+  float: left;
 }
