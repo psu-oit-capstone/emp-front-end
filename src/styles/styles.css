@@ -99,6 +99,7 @@ a {
 #app-navigation{
   background: #8c9516;
   position: relative;
+  border-radius: .5em;
 }
 
 #app-navigation a {
@@ -137,7 +138,8 @@ a {
 
 #main-content {
     background-color:#fff;
-    padding:15px 30px 0 30px;
+    padding:15px 30px 0px 30px;
+    margin-bottom: 40px;
     min-height:575px;
 }
 
