@@ -1,5 +1,5 @@
 <template>
-    <div id="main-content" class="EA-Registry">
+    <div id="EA-registry" class="page-component">
         <h1 style="text-align:center">Evacuation Assistance Registry</h1>
         <h2 style="text-align:center">
             A resource for individuals with disabilities and others with access and functional needs.

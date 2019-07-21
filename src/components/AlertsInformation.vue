@@ -1,5 +1,5 @@
 <template>
-  <div id="main-content" class="content container-fluid">
+  <div id="alert-info" class="page-component">
     <br>
     <div id="information-1">
       <h1 style="text-align:center">PSU Alert Emergency Notification System Registration</h1><br>

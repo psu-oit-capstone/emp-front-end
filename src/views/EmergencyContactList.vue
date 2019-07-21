@@ -1,5 +1,5 @@
 <template>
-    <div id="emergency-contacts">
+    <div id="emergency-contacts" class="page-component">
         <b>Emergency Contact List</b>
         <div class="contact-list">
             <ol v-for="(item, index) in contacts">
