@@ -23,6 +23,7 @@ export default {
   components: {
     EvacAssist,
     AlertsInformation,
+    EmergencyContactList,
     TimeoutPopup,
   },
 
