@@ -1,6 +1,6 @@
 <template>
     <div id="emergency-contacts" class="page-component">
-        <b>Emergency Contact List</b>
+        <h1 style="text-align:center">Emergency Contact List</h1>
         <div class="contact-list">
             <ol v-for="(item, index) in contacts">
                 <li>{{ item.order.orderbox }}. {{ item.name.fnamebox }} {{ item.name.lnamebox }}
