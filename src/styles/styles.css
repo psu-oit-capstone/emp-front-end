@@ -28,6 +28,9 @@ Site-wide Media Queried Styles
     grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
+  .logo {
+    visibility: hidden;
+  }
 }
 
 

@@ -6,7 +6,7 @@
           <li style="border-right:none;"><router-link to="/emergency-information">Emergency Information</router-link></li>
           <li><router-link to="/emergency-contacts">Emergency Contacts</router-link></li>
         </ul>
-        <img src="./images/m-logo.png" class="pull-left">
+        <img src="./images/m-logo.png" class="logo pull-left" style="z-index:-1;">
       </div>
     </div>
 
