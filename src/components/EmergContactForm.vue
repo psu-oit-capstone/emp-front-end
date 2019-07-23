@@ -2,19 +2,19 @@
     <div class="contact-form">
         <div>
             <label for="fnamebox">First Name
-                <input type="text" placeholder="Mushu" v-model="fnamebox" v-bind:id="fnamebox"/></label><br>
+                <input type="text" placeholder="" v-model="fnamebox" v-bind:id="fnamebox"/></label><br>
             <label for="mnamebox">Middle Name
-                <input type="text" placeholder="Yo" v-model="mnamebox" v-bind:id="mnamebox"/></label><br>
+                <input type="text" placeholder="" v-model="mnamebox" v-bind:id="mnamebox"/></label><br>
             <label for="lnamebox">Last Name
-                <input type="text" placeholder="Wushu" v-model="lnamebox" v-bind:id="lnamebox"/></label><br>
+                <input type="text" placeholder="" v-model="lnamebox" v-bind:id="lnamebox"/></label><br>
             <label for="address1box">Address 1
-                <input type="text" placeholder="2121 SW 4th Ave" v-model="address1box" v-bind:id="address1box"/></label><br>
+                <input type="text" placeholder="" v-model="address1box" v-bind:id="address1box"/></label><br>
             <label for="address2box">Address 2
-                <input type="text" placeholder="Apt/Bldg #" v-model="address2box" v-bind:id="address2box"/></label><br>
+                <input type="text" placeholder="" v-model="address2box" v-bind:id="address2box"/></label><br>
             <label for="address3box">Address 3
-                <input type="text" placeholder="Region" v-model="address3box" v-bind:id="address3box"/></label><br>
+                <input type="text" placeholder="" v-model="address3box" v-bind:id="address3box"/></label><br>
             <label for="citybox">City
-                <input type="text" placeholder="Portland" v-model="citybox" v-bind:id="citybox"/></label><br>
+                <input type="text" placeholder="" v-model="citybox" v-bind:id="citybox"/></label><br>
             <p class="state_label">State Select
                 <DropdownNoImg :options="stateArray"
                                :selected="selectedState"
@@ -22,18 +22,15 @@
                                :placeholder="'Select a state'">
                 </DropdownNoImg><br>
                 <label for="zipbox">Zip or Postal Code
-                    <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/></label><br>
+                    <input type="text" placeholder="" v-model="zipbox" v-bind:id="zipbox"/></label><br>
             <p class="country_label">Country Select
                 <Dropdown :options="countryArray"
                           :selected="selectedCountry"
                           v-on:updateOption="currCountry"
                           :placeholder="'Select a country'">
-                </Dropdown>
-            <p class="label">Phone Number
-                <PhoneNumberInput id="phone-input"
-                                  @change="handleChange"
-                                  :phone="phonebox"/>
-            </p>
+                </Dropdown><br>
+            <label for="phonebox">Phone Number
+                <input type="text" placeholder="555-555-5555" v-model="phonebox" v-bind:id="phonebox"/></label><br>
             <p class="country_code_label">Country Phone Number Code
                 <Dropdown :options="countryCodeArray"
                           :selected="selectedCountryCode"
@@ -56,14 +53,12 @@
 
 <script>
     //For uses of Dropdown you MUST pass in all defaults
-    import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
     import Dropdown from '@/components/Dropdown.vue'
     import DropdownNoImg from '@/components/DropdownNoImg.vue'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
-            PhoneNumberInput,
             Dropdown,
             DropdownNoImg,
         },
@@ -93,10 +88,6 @@
                 this.$emit('updateContact', this.contact_out);
                 this.resetContact();
             },
-            handleChange: function(childID, phone_number, errors) {
-                this.phonebox = phone_number;
-                console.log("REEEEEEEE")
-                },
             makeContact() {
                 return {
                     name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
@@ -118,6 +109,7 @@
                 this.address3box = payload.address.address3box;
                 this.citybox = payload.area.citybox;
                 this.statebox = payload.area.statebox;
+                this.selectedState = payload.area.statebox; // Here to set dropdown
                 this.zipbox = payload.area.zipbox;
                 this.countrybox = payload.area.countrybox;
                 this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
@@ -136,10 +128,13 @@
                 this.address3box = "";
                 this.citybox = "";
                 this.statebox = "";
+                this.selectedState = {name: 'State Select'}; // Here to set dropdown to default of Oregon
                 this.zipbox = "";
                 this.countrybox = "USA";
+                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
                 this.phonebox = "";
                 this.countryCode = "1";
+                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}; //Here to set the dropdown
                 this.orderbox = 1;
                 this.regbox = false;
             },
@@ -155,6 +150,14 @@
                 //Here we expect either a string containing a country name
                 for (let i = 0; i < targetCodes.length; i++) {
                     if (targetCodes[i].code === countryCode){
+                        return targetCodes[i];
+                    }
+                }
+            },
+            findByStateName(name, targetCodes) {
+                //Here we expect either a string containing a country name
+                for (let i = 0; i < targetCodes.length; i++) {
+                    if (targetCodes[i].name === name){
                         return targetCodes[i];
                     }
                 }

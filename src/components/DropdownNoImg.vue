@@ -25,9 +25,7 @@
         //Adapted code from https://github.com/mikerodham/vue-dropdowns under the MIT License
         data() {
             return {
-                selectedOption: {
-                  name: '',
-                },
+                selectedOption: {},
                 showMenu: false,
                 placeholderText: 'Please select an item',
             }
@@ -39,6 +37,12 @@
             },
             selected: {},
             placeholder: [String]
+        },
+
+        watch: {
+            selected: function(payload) {
+                this.selectedOption = payload;
+            }
         },
 
         mounted() {
@@ -146,7 +150,6 @@
 }
 
 .caret {
-  display: relative;
   width: 0;
   position: relative;
   top: 10px;

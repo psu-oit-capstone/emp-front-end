@@ -151,7 +151,6 @@
 }
 
 .caret {
-  display: relative;
   width: 0;
   position: relative;
   top: 10px;
