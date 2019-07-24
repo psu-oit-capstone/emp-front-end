@@ -1,3 +1,4 @@
+
 <template>
 
   <div id="main-content" class="content container-fluid">
@@ -82,7 +83,7 @@
           <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number:" specialelement="true">Text Message Number:</label>
         </div>
         <div class="col-md-9">
-            <input type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+            <input v-model="smsNumber" type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
 
@@ -99,7 +100,7 @@
           active shooter, evacuation, etc.).
           <br>
           <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-            <input type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
+            <input v-model="smsStatusCheckbox" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
             I acknowledge that I have read and understand the risks described
             above and I choose to opt out of receiving PSU Alert notifications
             via text message.
@@ -119,7 +120,7 @@
           <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number:" specialelement="true">Primary Phone Number:</label>
         </div>
         <div class="col-md-9">
-          <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+          <input v-model="phoneNumber" type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
 
@@ -128,7 +129,7 @@
           <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number:" specialelement="true">Alternate Phone Number:</label>
         </div>
         <div class="col-md-9">
-          <input type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+          <input v-model="alternatePhoneNumber" type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
       <br style="clear: both;">
@@ -146,7 +147,7 @@
           <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
         </div>
         <div class="col-md-9">
-          <input type="email" class="form-control" id="psuemail" value="leake@pdx.edu" readonly="">
+          <input v-model="emailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
         </div>
       </div>
 
@@ -155,7 +156,7 @@
           <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address:" specialelement="true">Alternate email address:</label>
         </div>
         <div class="col-md-9">
-          <input type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
+          <input v-model="alternateEmailAddress" type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
         </div>
       </div>
       <br style="clear: both;">
@@ -166,7 +167,7 @@
        <input type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
        &nbsp;&nbsp;
        <label for="submit-btn" class="sr-only">Submit form data:</label>
-       <input type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+       <input v-on:click="submit()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
      </fieldset>
    </form>
    <br>
@@ -189,6 +190,24 @@
 export default {
   name: 'PSUAlertInformation',
   props: {},
+
+  data() {
+    return {
+      smsNumber: '',
+      smsStatusCheckbox: '',
+      phoneNumber: '',
+      alternatePhoneNumber: '',
+      emailAddress: '',
+      alternateEmailAddress: ''
+    }
+  },
+
+  methods: {
+    submit() {
+      var vm = this;
+      alert(vm.alternateEmailAddress);
+    }
+  }
 }
 </script>
 
