@@ -147,7 +147,7 @@
           <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
         </div>
         <div class="col-md-9">
-          <input v-model="emailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
+          <input v-model="psuEmailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
         </div>
       </div>
 
@@ -187,6 +187,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'PSUAlertInformation',
   props: {},
@@ -197,7 +199,7 @@ export default {
       smsStatusCheckbox: '',
       phoneNumber: '',
       alternatePhoneNumber: '',
-      emailAddress: '',
+      psuEmailAddress: '',
       alternateEmailAddress: ''
     }
   },
@@ -207,7 +209,29 @@ export default {
       var vm = this;
       alert(vm.alternateEmailAddress);
     }
+  },
+
+  //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
+  mounted() {
+    var vm = this;
+
+    axios({
+      method: 'post',
+      baseURL: 'http://127.0.0.1:8000/getEmergencyNotifications/',
+    })
+    .then(response => {
+      let data = response.data[0];
+      vm.psuEmailAddress = data['campus_email'];
+      vm.alternateEmailAddress = data['external_email'];
+      vm.phoneNumber = data['primary_phone'];
+      vm.alternatePhoneNumber = data['alternate_phone'];
+      vm.smsStatusInd = data['sms_status_ind'];
+      vm.smsNumber = data['sms_device'];
+      let activity_date = data['activity_date'];
+    })
+    .catch(error => alert("This" + error.toString()))
   }
+
 }
 </script>
 
