@@ -1,25 +1,17 @@
-<!-- This is a dumb login form that will accept a login if the username is 'mushu@pdx.edu' and the password is
-'password' and can differentiate between bad logins, null logins, and successful logins. This form also notes where
-an authentication call to a parent can be inserted to provide real functionality.-->
-
 <template>
     <div id="login">
-        <div class="login-greeting">
+        <div id="login-greeting">
             <h1>Login Form</h1>
-            <p>
-                Here we log into nothing by providing a username and password.<br>
-            </p>
         </div>
 
         <div id="login-field">
-            <h3>Login Here</h3>
             <label>
                 Username
-                <input type="text" name="user" v-model="username" placeholder="mushu@pdx.edu" />
+                <input type="text" name="user" v-model="username" placeholder="username@example.com" />
             </label>
             <label>
                 Password
-                <input type="password" name="pass" v-model="password" placeholder="********" />
+                <input type="password" name="password" v-model="password" placeholder="********" />
             </label><br>
 
             <button type="button" v-on:click="login()">Login</button>
@@ -29,21 +21,22 @@ an authentication call to a parent can be inserted to provide real functionality
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         name: 'login',
-        data: function() { return{username: "", password: ""}},
+        data: function() {
+          return {
+            username: '',
+            password: ''
+          }
+        },
         methods: {
           login() {
-              if(this.username !== "" && this.password !== "") {
-                  //This code should be replaced with a call to a secure authentication function in parent module
-                  if(this.username === "mushu@pdx.edu" && this.password === "password"){
-                    console.log("Successful login attempt!"); // eslint-disable-line no-console
-                  } else {
-                      console.log("Unsuccessful login attempt...") // eslint-disable-line no-console
-                  }
-              } else {
-                  console.log("Username/Password not present."); // eslint-disable-line no-console
-              }
+            let bodyFormData = new FormData();
+            bodyFormData.set('username', this.username);
+            bodyFormData.set('password', this.password);
+
+            this.$store.dispatch('login', bodyFormData)
           }
         },
         props: {

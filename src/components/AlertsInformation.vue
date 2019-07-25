@@ -1,3 +1,4 @@
+
 <template>
   <div id="alert-info" class="page-component">
     <br>
@@ -81,7 +82,7 @@
           <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number:" specialelement="true">Text Message Number:</label>
         </div>
         <div class="col-md-9">
-            <input type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+            <input v-model="smsNumber" type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
 
@@ -98,7 +99,7 @@
           active shooter, evacuation, etc.).
           <br>
           <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-            <input type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
+            <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
             I acknowledge that I have read and understand the risks described
             above and I choose to opt out of receiving PSU Alert notifications
             via text message.
@@ -118,7 +119,7 @@
           <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number:" specialelement="true">Primary Phone Number:</label>
         </div>
         <div class="col-md-9">
-          <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+          <input v-model="phoneNumber" type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
 
@@ -127,7 +128,7 @@
           <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number:" specialelement="true">Alternate Phone Number:</label>
         </div>
         <div class="col-md-9">
-          <input type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+          <input v-model="alternatePhoneNumber" type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
         </div>
       </div>
       <br style="clear: both;">
@@ -145,7 +146,7 @@
           <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
         </div>
         <div class="col-md-9">
-          <input type="email" class="form-control" id="psuemail" value="leake@pdx.edu" readonly="">
+          <input v-model="psuEmailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
         </div>
       </div>
 
@@ -154,7 +155,7 @@
           <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address:" specialelement="true">Alternate email address:</label>
         </div>
         <div class="col-md-9">
-          <input type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
+          <input v-model="alternateEmailAddress" type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
         </div>
       </div>
       <br style="clear: both;">
@@ -165,7 +166,7 @@
        <input type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
        &nbsp;&nbsp;
        <label for="submit-btn" class="sr-only">Submit form data:</label>
-       <input type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+       <input v-on:click="submitAlertsInformation()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
      </fieldset>
    </form>
    <br>
@@ -181,3 +182,76 @@
    </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'PSUAlertInformation',
+  props: {},
+
+  data() {
+    return {
+      smsNumber: '',
+      smsStatusInd: '',
+      phoneNumber: '',
+      alternatePhoneNumber: '',
+      psuEmailAddress: '',
+      alternateEmailAddress: ''
+    }
+  },
+
+  methods: {
+    submitAlertsInformation() {
+      var vm = this;
+
+      // Update Registration checkbox state in the database
+      let bodyFormData = new FormData();
+      bodyFormData.set('external_email', vm.alternateEmailAddress);
+      bodyFormData.set('campus_email', vm.psuEmailAddress);
+      bodyFormData.set('primary_phone', vm.phoneNumber);
+      bodyFormData.set('alternate_phone', vm.alternatePhoneNumber);
+      if(vm.smsStatusInd)
+        bodyFormData.set('sms_status_ind', 'Y');
+      bodyFormData.set('sms_device', vm.smsNumber);
+
+      axios({
+        method: 'post',
+        baseURL: 'http://127.0.0.1:8000/setEmergencyNotifications/',
+        data: bodyFormData
+      })
+      .then(response => {
+        alert(JSON.stringify(response))
+      })
+      .catch(error => alert(error))
+    },
+  },
+
+  //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
+  mounted() {
+    var vm = this;
+
+    axios({
+      method: 'post',
+      baseURL: 'http://127.0.0.1:8000/getEmergencyNotifications/',
+    })
+    .then(response => {
+      let data = response.data[0];
+      vm.psuEmailAddress = data['campus_email'];
+      vm.alternateEmailAddress = data['external_email'];
+      vm.phoneNumber = data['primary_phone'];
+      vm.alternatePhoneNumber = data['alternate_phone'];
+      vm.smsStatusInd = data['sms_status_ind'];
+      vm.smsNumber = data['sms_device'];
+      vm.activityDate = data['activity_date'];
+    })
+    .catch(error => alert("This" + error.toString()))
+  }
+
+}
+</script>
+
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>
