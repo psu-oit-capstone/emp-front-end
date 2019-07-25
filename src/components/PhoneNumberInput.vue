@@ -36,6 +36,14 @@ export default {
     }
   },
 
+  // If funky errors come up, check 'this'
+  watch: {
+    phone: function(payload) {
+      this.phone = payload;
+      console.log("WRYYYYY");
+    }
+  },
+
   methods: {
     // This function takes the input field, finds the text, and checks for errors
     phoneNumberValidator: function(e) {

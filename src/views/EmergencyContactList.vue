@@ -4,7 +4,8 @@
         <div class="contact-list">
             <ol v-for="(item, index) in contacts">
                 <li>{{ item.order.orderbox }}. {{ item.name.fnamebox }} {{ item.name.lnamebox }}
-                    <button v-on:click="editContact(item, index)">Edit/Delete</button></li>
+                    <button v-on:click="editContact(item, index)">Edit/Delete</button>
+                </li>
             </ol>
         </div>
 

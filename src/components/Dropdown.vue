@@ -39,6 +39,7 @@
             },
             placeholder: [String]
         },
+
         watch: {
             selected: function(payload) {
                 this.selectedOption = payload;
@@ -150,7 +151,6 @@
 }
 
 .caret {
-  display: relative;
   width: 0;
   position: relative;
   top: 10px;
