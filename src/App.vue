@@ -1,32 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/emergency-information">Emergency Information</router-link>
+    <div id="header-wrap">
+      <div id="header">
+        <ul id="site-navigation" class="nav pull-right">
+          <li style="border-right:none;"><router-link to="/emergency-information">Emergency Information</router-link></li>
+        </ul>
+        <img src="./images/m-logo.png" class="logo pull-left">
+      </div>
     </div>
-    <router-view/>
+
+    <div id="main" class="main-content-container">
+      <ul id="app-navigation" class="nav">
+        <li><router-link to="/login">Login</router-link></li>
+        <li><router-link to="/">Home</router-link></li>
+      </ul>
+      <router-view  />
+    </div>
   </div>
 </template>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

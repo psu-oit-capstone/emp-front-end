@@ -1,15 +1,12 @@
-<!-- Style notes: the general logic I tried to follow in styling this template was 1) large blocks of text are left justified
-and lists, interactive elements and so forth are center justified.-->
 <template>
-    <div class="EA Registry">
-        <h1>Evacuation Assistance Registry</h1>
-        <h2>
+    <div id="EA-registry" class="page-component">
+        <h1 style="text-align:center">Evacuation Assistance Registry</h1>
+        <h2 style="text-align:center">
             A resource for individuals with disabilities and others with access and functional needs.
         </h2>
 
-        <div class="boxed" id="introduction-field">
-            <h3>Introduction</h3>
-        <p>
+        <div id="introduction-field">
+            <h2>Introduction</h2>
             It may be necessary to evacuate a building, room, or space due to an emergency incident or hazardous, situation.
             Preparing for an evacuation is a shared responsibility among individuals, the University, and first responders.<br><br>
             All people, including individuals with disabilities and others with access and functional needs, are strongly encouraged to develop a personal emergency plan.
@@ -19,17 +16,14 @@ and lists, interactive elements and so forth are center justified.-->
             <a href="https://www.pdx.edu/environmental-health-safety/sites/www.pdx.edu.environmental-health-safety/files/ada.emergency.guidelines_2.pdf" target="_blank" rel="noopener noreferrer">guidelines for developing a Personal Emergency Plan</a>
             that will help you to prepare. Included within the guidelines is information regarding evacuation strategies;
             areas of refuge; suggested guidelines for specific mobility limitations and additional on-campus resources.
-        </p>
         </div>
 
-        <div class="boxed" id="about-field">
-            <h3>About this registry</h3>
-        <p>
-            {{about_registry_text1}}
+        <div id="about-field">
+            <h2>About this registry</h2>
             <ul class="c">
-                Please note:
+                <b>Please note:</b>
                 <ul class="b">
-                    <li>This registry IS NOT a way to get advance notice of fire alarm tests or drills.</li>
+                    <li><b>This registry IS NOT a way to get advance notice of fire alarm tests or drills.</b></li>
                     <ul class="a">
                         <li>In PSU residence halls, fire drill tests are conducted once per term. Contact your residence hall
                             advisor if you need advance notice of those tests.</li>
@@ -39,7 +33,7 @@ and lists, interactive elements and so forth are center justified.-->
                 </ul>
 
                 <ul class="b">
-                    <li>This registry IS NOT a guarantee of immediate assistance.</li>
+                    <li><b>This registry IS NOT a guarantee of immediate assistance.</b></li>
                     <ul class="a">
                         <li>Emergency personnel will assess the specific incident that occurs and apply the appropriate
                             protocol for stabilizing the incident and providing assistance. This registry is one piece of
@@ -50,8 +44,8 @@ and lists, interactive elements and so forth are center justified.-->
                     </ul>
                 </ul>
 
-                <ul class="b">
-                    <li>This registry is only ONE of SEVERAL WAYS to let first responders know of your need for evacuation assistance.</li>
+                <ul>
+                    <li><b>This registry is only ONE of SEVERAL WAYS to let first responders know of your need for evacuation assistance.</b></li>
                     <ul class="a">
                         <li>Other options include: making advance plans with your colleagues and co-workers, informing an
                             <a href="https://www.pdx.edu/environmental-health-safety/evacuation-wardens" target="_blank" rel="noopener noreferrer">resource page</a>
@@ -59,12 +53,10 @@ and lists, interactive elements and so forth are center justified.-->
                     </ul>
                 </ul>
             </ul>
-        </p> <!-- Parser is glitchy and this might wrongly throw an error -->
         </div><br>
 
-        <div  class="boxed" id="registry-field">
-        <h3>Registry</h3>
-        <p>
+        <div id="registry-field">
+        <h2>Registry</h2>
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
                could prevent or hinder you from providing for your own evacuation,</b>
             would you like your information to be available for use by emergency responders as someone who may need
@@ -73,13 +65,11 @@ and lists, interactive elements and so forth are center justified.-->
                 <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
                 <label for="regbox">Yes, make my information accessible to emergency responders.</label>
             </div>
-        </p> <!-- Parser is glitchy and this might wrongly throw an error due to <div> above -->
         </div><br>
-        <!-- Buttons are here -->
         <button type="button" v-on:click="reset()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
-        <div  class="boxed" id="helpful_links">
+        <div id="helpful-links">
             <ul class="c">
                 <li>Additional Resources for people with disabilities and others with access and functional needs:</li>
                 <ul class="d">
@@ -97,20 +87,22 @@ and lists, interactive elements and so forth are center justified.-->
                 </ul>
             </ul>
 
-            <b>
-                General information about
-                <a href="https://www.pdx.edu/cpso/evacuation" target="_blank" rel="noopener noreferrer">evacuation</a>
-                can be found online on the CPSO website.
-            </b><br><br>
-            <p>
-                <b>Additional resources for emergency planning and preparedness:</b><br>
-                Individuals can take steps to prepare themselves to help ensure their own safety and comfort should an
-                emergency incident occur while at home, at school, or at work. For general information about planning
-                for emergencies, visit
-                <a href="https://www.pdx.edu/emergency-management/" target="_blank" rel="noopener noreferrer">PSU Emergency Management's website,</a>
-                or contact
-                <a href="mailto:EmrMgmt@pdx.edu" target="_blank" rel="noopener noreferrer">PSU Emergency Management.</a>
-            </p>
+          <br />
+          <b>
+              General information about
+              <a href="https://www.pdx.edu/cpso/evacuation" target="_blank" rel="noopener noreferrer">evacuation</a>
+              can be found online on the CPSO website.
+          </b>
+          <br><br>
+          <p>
+              <b>Additional resources for emergency planning and preparedness:</b><br>
+              Individuals can take steps to prepare themselves to help ensure their own safety and comfort should an
+              emergency incident occur while at home, at school, or at work. For general information about planning
+              for emergencies, visit
+              <a href="https://www.pdx.edu/emergency-management/" target="_blank" rel="noopener noreferrer">PSU Emergency Management's website,</a>
+              or contact
+              <a href="mailto:EmrMgmt@pdx.edu" target="_blank" rel="noopener noreferrer">PSU Emergency Management.</a>
+          </p>
         </div>
     </div>
 </template>
