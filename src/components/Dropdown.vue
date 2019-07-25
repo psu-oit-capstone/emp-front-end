@@ -75,7 +75,7 @@
 <style scoped>
 
 .btn-group {
-  min-width: 160px;
+  min-width: 180px;
   height: 40px;
   position: relative;
   margin: 10px 1px;
@@ -88,7 +88,7 @@
 
 .dropdown-toggle {
   color: #636b6f;
-  min-width: 180px;
+  min-width: 160px;
   padding: 10px;
   text-transform: none;
   font-weight: 300;
@@ -115,7 +115,7 @@
   left: 0;
   z-index: 1000;
   float: left;
-  min-width: 160px;
+  min-width: 180px;
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
