@@ -1,12 +1,11 @@
 <template>
-    <div id="main-content" class="EA-Registry">
+    <div id="EA-registry" class="page-component">
         <h1 style="text-align:center">Evacuation Assistance Registry</h1>
         <h2 style="text-align:center">
             A resource for individuals with disabilities and others with access and functional needs.
-        </div>
-      </div>
+        </h2>
 
-        <div class="boxed" id="introduction-field">
+        <div id="introduction-field">
             <h2>Introduction</h2>
             It may be necessary to evacuate a building, room, or space due to an emergency incident or hazardous, situation.
             Preparing for an evacuation is a shared responsibility among individuals, the University, and first responders.<br><br>
@@ -19,7 +18,7 @@
             areas of refuge; suggested guidelines for specific mobility limitations and additional on-campus resources.
         </div>
 
-        <div class="boxed" id="about-field">
+        <div id="about-field">
             <h2>About this registry</h2>
             <ul class="c">
                 <b>Please note:</b>
@@ -56,7 +55,7 @@
             </ul>
         </div><br>
 
-        <div  class="boxed" id="registry-field">
+        <div id="registry-field">
         <h2>Registry</h2>
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
                could prevent or hinder you from providing for your own evacuation,</b>
@@ -70,7 +69,7 @@
         <button type="button" v-on:click="reset()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
-        <div  class="boxed" id="helpful-links">
+        <div id="helpful-links">
             <ul class="c">
                 <li>Additional Resources for people with disabilities and others with access and functional needs:</li>
                 <ul class="d">

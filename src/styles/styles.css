@@ -3,10 +3,6 @@
   can be accessed throughout the app.
 */
 
-.main-content-container {
-  display: grid;
-}
-
 /*****************************
 Site-wide Media Queried Styles
 *****************************/
@@ -16,7 +12,6 @@ Site-wide Media Queried Styles
     grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(255,0,0,0.1);}
 }
 
 /* Landscape phone to landscape and desktop */
@@ -25,7 +20,6 @@ Site-wide Media Queried Styles
     grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(0,0,255,0.1);}
 }
 
 /* Landscape phones and down */
@@ -34,12 +28,20 @@ Site-wide Media Queried Styles
     grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
-  * {background-color: rgba(255,255,0,0.1);}
+  .logo {
+    visibility: hidden;
+  }
 }
 
 
 * {
-  margin: 0;
+}
+
+.page-component {
+  background-color:#fff;
+  padding:15px 30px 30px 30px;
+  margin-bottom: 40px;
+  min-height:575px;
 }
 
 .main-content {
@@ -64,46 +66,39 @@ Site-wide Media Queried Styles
   margin-bottom: 30px;
   padding: 20px;
 }
-.boxed {
-  border: 1px solid #CCCCCC;
-}
 
 /* FONTS */
 body {
-    font-family: Lucida Grande, Lucida Sans Unicode, sans-serif;
-    color:#4f4d4d;
+  font-family: Lucida Grande, Lucida Sans Unicode, sans-serif;
+  color:#4f4d4d;
 }
 h1, h2, h3, h4, h5, h6 {
-    font-family: Verdana, Geneva, sans-serif;
-    font-weight: 500;
-    line-height: 1.1;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
 }
 
 h1 {
-    font-size: 2em;
-    color:#603417;
+  font-size: 2em;
+  color:#603417;
 }
 h2 {
-    font-size: 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  font-size: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 h3 {
-    font-size: 22px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-#main-content{
-    padding-bottom: 25px;
+  font-size: 22px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* TEMPLATE */
 body {
-    background-color:   #e8e9e3;
-    min-height:         240px;
-    position:           relative;
-    line-height: 1.42;
+  background-color:   #e8e9e3;
+  min-height:         240px;
+  position:           relative;
+  line-height:        1.42;
 }
 
 a {
@@ -111,45 +106,64 @@ a {
 	text-decoration: none;
 }
 
+#app-navigation{
+  background: #8c9516;
+  position: relative;
+  border-radius: .6em;
+}
+
+#app-navigation a {
+  font-size: 1em;
+}
+
 #header-wrap{
-    height:230px;
-    width:100%;
-    background:#373737 
-    no-repeat center top;
-    position:relative;
-    z-index:0;
+  height:230px;
+  width:100%;
+  background:#373737 
+  no-repeat center top;
+  position:relative;
+  z-index:0;
 }
 
 #header{
-    max-width:960px;
-    width:auto;
-    height:110px;
-    position:relative;
-    margin-left:auto;
-    margin-right:auto;
-    padding-top:30px;
+  max-width:960px;
+  width:auto;
+  height:110px;
+  position:relative;
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:30px;
 }
 
 #main{
-    max-width:960px;
-    width:auto;
-    margin:0 auto;
-    margin-top:-120px;
-    margin-bottom: 30px;
-    position:relative;
-    z-index:5;
-    background-color:transparent;
+  max-width:960px;
+  width:auto;
+  margin:0 auto;
+  margin-top:-120px;
+  margin-bottom: 30px;
+  position:relative;
+  z-index:5;
+  background-color:transparent;
 }
 
 #main-content {
-    background-color:#fff;
-    padding:15px 30px 0 30px;
-    min-height:575px;
+  background-color:#fff;
+  padding:15px 30px 0px 30px;
+  margin-bottom: 40px;
+  min-height:575px;
+}
+
+#site-navigation a {
+  font-size: 12px;
+}
+
+#site-navigation li{
+  border-right: solid 1px #999999
 }
 
 .nav li{
-	float:right;
-	border-right: solid 1px #999999
+	float:inherit;
+  display: inline;
 }
 
 .nav li.first{
@@ -158,12 +172,14 @@ a {
 
 .nav>li>a{
 	color: white;
-	font-size: 12px;
-	padding-top: 4px;
-	display: block;
+	display: inline-block;
 	padding: 10px 15px;
 }
 
 .pull-right {
-    float: right;
+  float: right;
+}
+
+.pull-left {
+  float: left;
 }

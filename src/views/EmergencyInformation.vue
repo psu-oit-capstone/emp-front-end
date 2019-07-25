@@ -1,7 +1,7 @@
 <template>
   <div id="emergency-information" class="main-content">
     <TimeoutPopup
-      :timeLimit="2"
+      :timeLimit="9999"
       @timedOut.once="endSession"
     />
 
@@ -23,6 +23,7 @@ export default {
   components: {
     EvacAssist,
     AlertsInformation,
+    EmergencyContactList,
     TimeoutPopup,
   },
 

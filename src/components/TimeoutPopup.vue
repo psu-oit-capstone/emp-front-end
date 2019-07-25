@@ -2,7 +2,7 @@
   <div
     v-show="inactiveTime >= timeLimit"
     :class="inactiveTime > timeLimit ? 'active' : 'inactive'"
-    class="boxed popup"
+    class="popup"
     id="timeout-popup"
   >
     Due to inactivity, this session has expired. Please login in again...
