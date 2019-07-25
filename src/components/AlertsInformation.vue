@@ -100,7 +100,7 @@
           active shooter, evacuation, etc.).
           <br>
           <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-            <input v-model="smsStatusCheckbox" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
+            <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
             I acknowledge that I have read and understand the risks described
             above and I choose to opt out of receiving PSU Alert notifications
             via text message.
@@ -167,7 +167,7 @@
        <input type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
        &nbsp;&nbsp;
        <label for="submit-btn" class="sr-only">Submit form data:</label>
-       <input v-on:click="submit()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+       <input v-on:click="submitAlertsInformation()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
      </fieldset>
    </form>
    <br>
@@ -196,7 +196,7 @@ export default {
   data() {
     return {
       smsNumber: '',
-      smsStatusCheckbox: '',
+      smsStatusInd: '',
       phoneNumber: '',
       alternatePhoneNumber: '',
       psuEmailAddress: '',
@@ -205,10 +205,38 @@ export default {
   },
 
   methods: {
-    submit() {
+    submitAlertsInformation() {
       var vm = this;
-      alert(vm.alternateEmailAddress);
-    }
+
+      alert(
+        vm.psuEmailAddress + '\n' +
+        vm.alternateEmailAddress + '\n' +
+        vm.phoneNumber + '\n' +
+        vm.alternatePhoneNumber + '\n' +
+        vm.smsStatusInd + '\n' +
+        vm.smsNumber
+      );
+
+      // Update Registration checkbox state in the database
+      let bodyFormData = new FormData();
+      bodyFormData.set('external_email', vm.alternateEmailAddress);
+      bodyFormData.set('campus_email', vm.psuEmailAddress);
+      bodyFormData.set('primary_phone', vm.phoneNumber);
+      bodyFormData.set('alternate_phone', vm.alternatePhoneNumber);
+      if(vm.smsStatusInd)
+        bodyFormData.set('sms_status_ind', 'Y');
+      bodyFormData.set('sms_device', vm.smsNumber);
+
+      axios({
+        method: 'post',
+        baseURL: 'http://127.0.0.1:8000/setEmergencyNotifications/',
+        data: bodyFormData
+      })
+      .then(response => {
+        alert(JSON.stringify(response))
+      })
+      .catch(error => alert(error))
+    },
   },
 
   //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
@@ -227,7 +255,7 @@ export default {
       vm.alternatePhoneNumber = data['alternate_phone'];
       vm.smsStatusInd = data['sms_status_ind'];
       vm.smsNumber = data['sms_device'];
-      let activity_date = data['activity_date'];
+      vm.activityDate = data['activity_date'];
     })
     .catch(error => alert("This" + error.toString()))
   }
