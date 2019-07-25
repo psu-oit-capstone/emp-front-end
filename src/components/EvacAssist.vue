@@ -121,12 +121,14 @@ and lists, interactive elements and so forth are center justified.-->
     export default {
         name: 'EvacAssist',
         //This runs on instance creation
-        data: function() { return {
+        data: function() {
+          return {
             //Hold data for input fields here like this if it needs to be mutated
             about_registry_text1: {type: String},
             regbox: {type: Boolean, default: false},
             }
         },
+
         //This initializes the above declarations
         created: function() {
             //This is one way to handle massive text blobs in a template but is not strictly necessary
@@ -167,9 +169,11 @@ and lists, interactive elements and so forth are center justified.-->
                 if(evacuation_assistance_state == 'Y')
                   this.regbox = true;
               })
-              .catch(error => alert(error))
+              .catch(error => alert("This" + error.toString()))
             }
         },
+
+        //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
         mounted() {
           axios({
             method: 'post',
@@ -182,8 +186,7 @@ and lists, interactive elements and so forth are center justified.-->
             else
               this.regbox = false;
           })
-          .catch(error => alert(error))
-
+          .catch(error => alert("This" + error.toString()))
         }
     }
 </script>

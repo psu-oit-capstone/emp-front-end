@@ -208,15 +208,6 @@ export default {
     submitAlertsInformation() {
       var vm = this;
 
-      alert(
-        vm.psuEmailAddress + '\n' +
-        vm.alternateEmailAddress + '\n' +
-        vm.phoneNumber + '\n' +
-        vm.alternatePhoneNumber + '\n' +
-        vm.smsStatusInd + '\n' +
-        vm.smsNumber
-      );
-
       // Update Registration checkbox state in the database
       let bodyFormData = new FormData();
       bodyFormData.set('external_email', vm.alternateEmailAddress);
