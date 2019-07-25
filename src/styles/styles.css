@@ -3,37 +3,6 @@
   can be accessed throughout the app.
 */
 
-/*****************************
-Site-wide Media Queried Styles
-*****************************/
-/* Large desktop */
-@media (min-width: 980px) {
-  .main-content-container {
-    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-}
-
-/* Landscape phone to landscape and desktop */
-@media (min-width: 481px) and (max-width: 979px) {
-  .main-content-container {
-    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-}
-
-/* Landscape phones and down */
-@media (max-width: 500px) {
-  .main-content-container {
-    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-  .logo {
-    visibility: hidden;
-  }
-}
-
-
 * {
 }
 
@@ -182,4 +151,50 @@ a {
 
 .pull-left {
   float: left;
+}
+
+
+
+/*****************************
+Site-wide Media Queried Styles
+*****************************/
+/* Large desktop */
+@media (min-width: 980px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+}
+
+/* Landscape phone to landscape and desktop */
+@media (min-width: 481px) and (max-width: 979px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 500px) {
+  body {
+    margin:0;
+  }
+
+  .main-content-container {
+    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+
+  #header-wrap {
+    display: none;
+  }
+
+  #main {
+    margin-top: 0px;
+  }
+
+  #app-navigation {
+    margin: 0;
+    border-radius: 0;
+  }
 }
