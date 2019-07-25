@@ -20,10 +20,6 @@ export default new Vuex.Store({
     },
     auth_error(state) {
       state.status = 'error'
-    },
-    logout(state) {
-      state.status = ''
-      state.token = ''
     }
   },
   actions: {
@@ -43,26 +39,17 @@ export default new Vuex.Store({
         localStorage.setItem('token', token)
 
         // Set our headers to include Auth tokens by default
-        axios.defaults.headers.common['Authorization'] = token
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
 
         // Commit the state to the Vuex store
         commit('auth_success', token)
-        resolve(resp)
       })
       .catch(err => {
         commit('auth_error')
         localStorage.removeItem('token')
         reject(err)
+        alert("Path 1")
       })
-      })
-    },
-
-    logout({commit}){
-      return new Promise((resolve, reject) => {
-        commit('logout')
-        localStorage.removeItem('token')
-        delete axios.defaults.headers.common['Authorization']
-        resolve()
       })
     }
   },
