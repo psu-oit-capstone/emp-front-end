@@ -22,6 +22,7 @@
 
 <script>
     import axios from 'axios';
+
     export default {
         name: 'login',
         data: function() {
@@ -36,7 +37,10 @@
             bodyFormData.set('username', this.username);
             bodyFormData.set('password', this.password);
 
-            this.$store.dispatch('login', bodyFormData)
+            this.$store.dispatch('login', bodyFormData);
+
+            // Redirect to main page
+            this.$router.push('/emergency-information');
           }
         },
         props: {
