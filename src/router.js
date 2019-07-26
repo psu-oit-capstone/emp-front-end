@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import LogoutPage from './views/LogoutPage.vue'
 import store from './store'
 
 Vue.use(Router)
@@ -26,6 +27,11 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('./views/LogoutPage.vue')
     }
   ]
 })
