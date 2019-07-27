@@ -52,6 +52,7 @@ export default new Vuex.Store({
 
           // Commit the state to the Vuex store
           commit('auth_success', token)
+          resolve()
         })
         .catch(err => {
           commit('auth_error')
