@@ -5,14 +5,20 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default {
         name: 'logout',
-        mounted() {
-            this.$store.dispatch('logout');
+        created() {
+          this.logout();
+        },
+
+        methods: {
+          logout() {
+            alert('Logging out')
+            this.$store.dispatch('logout')
+          }
         }
     }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

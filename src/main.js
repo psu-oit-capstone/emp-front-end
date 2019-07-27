@@ -7,10 +7,6 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 
-// Set our headers to include Auth tokens by default
-if(localStorage.getItem('token'))
-  axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-
 new Vue({
   router,
   store,
