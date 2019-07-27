@@ -7,7 +7,7 @@ an authentication call to a parent can be inserted to provide real functionality
         <div class="login-greeting">
             <h1>Login Form</h1>
             <p>
-                Here we log into nothing by providing a username and password.<br>
+                Here we log into the page by providing an email and password.<br>
             </p>
         </div>
 
@@ -15,7 +15,7 @@ an authentication call to a parent can be inserted to provide real functionality
             <h3>Login Here</h3>
             <label>
                 Username
-                <input type="text" name="user" v-model="username" placeholder="mushu@pdx.edu" />
+                <input type="text" name="user" v-model="username" placeholder="youremail@pdx.edu" />
             </label>
             <label>
                 Password
