@@ -76,7 +76,7 @@ and lists, interactive elements and so forth are center justified.-->
         </p> <!-- Parser is glitchy and this might wrongly throw an error due to <div> above -->
         </div><br>
         <!-- Buttons are here -->
-        <button type="button" v-on:click="reset()">Reset</button>
+        <button type="button" v-on:click="fillEvacAssistInformation()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
         <div  class="boxed" id="helpful_links">
@@ -156,7 +156,8 @@ and lists, interactive elements and so forth are center justified.-->
               })
               .catch(error => console.log(error))
             },
-            reset() {
+
+            fillEvacAssistInformation() {
               axios({
                 method: 'post',
                 baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
@@ -165,26 +166,17 @@ and lists, interactive elements and so forth are center justified.-->
                 let evacuation_assistance_state = response.data[0]['evacuation_assistance']
                 if(evacuation_assistance_state == 'Y')
                   this.regbox = true;
+                else
+                  this.regbox = false;
               })
               .catch(error => console.log(error))
-            }
         },
 
         //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
         mounted() {
-          axios({
-            method: 'post',
-            baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
-          })
-          .then(response => {
-            let evacuation_assistance_state = response.data[0]['evacuation_assistance']
-            if(evacuation_assistance_state == 'Y')
-              this.regbox = true;
-            else
-              this.regbox = false;
-          })
-          .catch(error => console.log(error))
+          this.fillEvacAssistInformation()
         }
+      }
     }
 </script>
 
