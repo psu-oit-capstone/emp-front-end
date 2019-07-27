@@ -1,10 +1,9 @@
 
 <template>
-
-  <div id="main-content" class="content container-fluid">
+  <div id="alert-info" class="page-component">
     <br>
-    <div id="information-1" class="boxed">
-      <h1>PSU Alert Emergency Notification System Registration</h1><br>
+    <div id="information-1">
+      <h1 style="text-align:center">PSU Alert Emergency Notification System Registration</h1><br>
       PSU Alert is an emergency communications system designed to disseminate
       emergency messages via text messages, email, and phone calls. In the
       event of an emergency, PSU administration can use this system to share
@@ -26,7 +25,7 @@
     </div>
     <br><br>
 
-    <div id="links-1" class="boxed">
+    <div id="links-1">
     Visit the
     <a href="http://www.pdx.edu/emergency-management/psu-alert-emergency-notification-system" target="_blank">
       PSU Alert
@@ -139,8 +138,8 @@
     <small class="text-muted">
 All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU Alert messages and Timely Warning notifications and cannot be unsubscribed.<br>
     If you choose to subscribe an additional email address, that email address will also receive both PSU Alert messages and Timely Warning notifications.
-
     </small><br>
+
     <div class="row">
       <div class="col-md-3">
         <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
@@ -170,7 +169,7 @@ All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU 
    </fieldset>
    <br>
 
-   <div id="emergency-response-information" class="boxed">
+   <div id="emergency-response-information">
      <h2>Emergency Response Planning:</h2>
      <small>
      Preparing for emergencies is a shared responsibility across the whole community.
@@ -179,8 +178,6 @@ All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU 
      For emergency planning information, visit <a href="http://www.pdx.edu/emergency-management" target="_blank">PSU Emergency Management’s website<sup style="color:Blue;"> <i class="fa fa-external-link xsm" aria-label="opens in a new window" title="opens in a new window"></i></sup></a>, or contact: <a href="mailto:EmrMgmt@pdx.edu">PSU Emergency Management</a>.
      </small>
    </div>
-
-    <!-- Main central content ends HERE -->
   </div>
 </template>
 

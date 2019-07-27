@@ -18,7 +18,7 @@ let router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './components/LoginForm.vue'),
+      component: () => import(/* webpackChunkName: "login" */ './components/LoginForm.vue')
     },
     {
       path: '/emergency-information',
