@@ -21,7 +21,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
     export default {
         name: 'login',
         data: function() {
@@ -30,19 +29,21 @@
             password: ''
           }
         },
+
         methods: {
           login() {
+            var vm = this;
+
             let bodyFormData = new FormData();
             bodyFormData.set('username', this.username);
             bodyFormData.set('password', this.password);
-
-            this.$store.dispatch('login', bodyFormData)
+            this.$store.dispatch('login', bodyFormData).
+            then(() => {
+              // Redirect to main page
+              vm.$router.push('/emergency-information');
+            })
           }
-        },
-        props: {
-            msg: String
         }
-
     }
 </script>
 

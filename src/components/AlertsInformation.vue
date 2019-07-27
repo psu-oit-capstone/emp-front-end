@@ -62,113 +62,111 @@
     </ul>
   </div>
 
-  <form action="/gen/alert/submit" method="post">
-    <div id="text-information">
-      <input type="hidden" name="SYNCHRONIZER_TOKEN" value="ff5b0d0c-6be6-4a67-b8a7-f0dafade3fd5" id="SYNCHRONIZER_TOKEN">
-      <input type="hidden" name="SYNCHRONIZER_URI" value="/gen/alert/index" id="SYNCHRONIZER_URI">
-      <h2>
-        Subscribe to PSU Alert text messages<small><span style="color:red">*</span></small>:
-      </h2>
-      <small class="text-muted">
-        Standard text message rates apply. Text messages will come from one of two IDs: 231-77 or 630-79.
+  <div id="text-information" class="boxed">
+    <input type="hidden" name="SYNCHRONIZER_TOKEN" value="ff5b0d0c-6be6-4a67-b8a7-f0dafade3fd5" id="SYNCHRONIZER_TOKEN">
+    <input type="hidden" name="SYNCHRONIZER_URI" value="/gen/alert/index" id="SYNCHRONIZER_URI">
+    <h2>
+      Subscribe to PSU Alert text messages<small><span style="color:red">*</span></small>:
+    </h2>
+    <small class="text-muted">
+      Standard text message rates apply. Text messages will come from one of two IDs: 231-77 or 630-79.
+      <br>
+      <span style="color:red">*Required: </span>
+        Either enter a text message number or opt-out by reading the notice and checking the box.
+    </small>
+    <br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number:" specialelement="true">Text Message Number:</label>
+      </div>
+      <div class="col-md-9">
+          <input v-model="smsNumber" type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <b>Text Message Opt Out:</b>
+      </div>
+      <div class="col-md-9">
+        Text messages are an extremely effective way to distribute emergency
+        notifications quickly. If you choose not to register your cell phone
+        number to receive PSU Alert notifications via text message, you may
+        not get necessary information to stay safe in emergency or threatening
+        situations, such as campus closures or threats to your safety (e.g.
+        active shooter, evacuation, etc.).
         <br>
-        <span style="color:red">*Required: </span>
-          Either enter a text message number or opt-out by reading the notice and checking the box.
-      </small>
-      <br>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number:" specialelement="true">Text Message Number:</label>
-        </div>
-        <div class="col-md-9">
-            <input v-model="smsNumber" type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
-        </div>
+        <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
+          <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
+          I acknowledge that I have read and understand the risks described
+          above and I choose to opt out of receiving PSU Alert notifications
+          via text message.
+        </label>
+        <br style="clear: both;">
       </div>
+    </div>
+  </div>
 
-      <div class="row">
-        <div class="col-md-3">
-          <b>Text Message Opt Out:</b>
-        </div>
-        <div class="col-md-9">
-          Text messages are an extremely effective way to distribute emergency
-          notifications quickly. If you choose not to register your cell phone
-          number to receive PSU Alert notifications via text message, you may
-          not get necessary information to stay safe in emergency or threatening
-          situations, such as campus closures or threats to your safety (e.g.
-          active shooter, evacuation, etc.).
-          <br>
-          <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-            <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
-            I acknowledge that I have read and understand the risks described
-            above and I choose to opt out of receiving PSU Alert notifications
-            via text message.
-          </label>
-          <br style="clear: both;">
-        </div>
+  <div id="voice-information" class="boxed">
+    <h2>Subscribe to PSU Alert voice messages:</h2>
+    <small class="text-muted">Standard rates apply. Calls will come from the phone number: 1-877-725-9111.</small>
+    <br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number:" specialelement="true">Primary Phone Number:</label>
+      </div>
+      <div class="col-md-9">
+        <input v-model="phoneNumber" type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
       </div>
     </div>
 
-    <div id="voice-information">
-      <h2>Subscribe to PSU Alert voice messages:</h2>
-      <small class="text-muted">Standard rates apply. Calls will come from the phone number: 1-877-725-9111.</small>
-      <br>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number:" specialelement="true">Primary Phone Number:</label>
-        </div>
-        <div class="col-md-9">
-          <input v-model="phoneNumber" type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
-        </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number:" specialelement="true">Alternate Phone Number:</label>
       </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number:" specialelement="true">Alternate Phone Number:</label>
-        </div>
-        <div class="col-md-9">
-          <input v-model="alternatePhoneNumber" type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
-        </div>
+      <div class="col-md-9">
+        <input v-model="alternatePhoneNumber" type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
       </div>
-      <br style="clear: both;">
+    </div>
+    <br style="clear: both;">
+  </div>
+
+  <div id="email-information" class="boxed">
+    <h2>Subscribe to PSU Alert emails:</h2>
+    <small class="text-muted">
+All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU Alert messages and Timely Warning notifications and cannot be unsubscribed.<br>
+    If you choose to subscribe an additional email address, that email address will also receive both PSU Alert messages and Timely Warning notifications.
+    </small><br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
+      </div>
+      <div class="col-md-9">
+        <input v-model="psuEmailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
+      </div>
     </div>
 
-    <div id="email-information">
-      <h2>Subscribe to PSU Alert emails:</h2>
-      <small class="text-muted">
-  All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU Alert messages and Timely Warning notifications and cannot be unsubscribed.<br>
-      If you choose to subscribe an additional email address, that email address will also receive both PSU Alert messages and Timely Warning notifications.
-
-      </small><br>
-      <div class="row">
-        <div class="col-md-3">
-          <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
-        </div>
-        <div class="col-md-9">
-          <input v-model="psuEmailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
-        </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address:" specialelement="true">Alternate email address:</label>
       </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address:" specialelement="true">Alternate email address:</label>
-        </div>
-        <div class="col-md-9">
-          <input v-model="alternateEmailAddress" type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
-        </div>
+      <div class="col-md-9">
+        <input v-model="alternateEmailAddress" type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
       </div>
-      <br style="clear: both;">
     </div>
+    <br style="clear: both;">
+  </div>
 
-    <fieldset class="form-group" id="formButtons">
-       <label for="reset-btn" class="sr-only">Reset form data:</label>
-       <input type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
-       &nbsp;&nbsp;
-       <label for="submit-btn" class="sr-only">Submit form data:</label>
-       <input v-on:click="submitAlertsInformation()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
-     </fieldset>
-   </form>
+  <fieldset class="form-group" id="formButtons">
+     <label for="reset-btn" class="sr-only">Reset form data:</label>
+     <input v-on:click="fillAlertsInformation()" type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
+     &nbsp;&nbsp;
+     <label for="submit-btn" class="sr-only">Submit form data:</label>
+     <input v-on:click="submitAlertsInformation()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+   </fieldset>
    <br>
 
    <div id="emergency-response-information">
@@ -202,6 +200,26 @@ export default {
   },
 
   methods: {
+    fillAlertsInformation() {
+      var vm = this;
+
+      axios({
+        method: 'post',
+        baseURL: 'http://127.0.0.1:8000/getEmergencyNotifications/',
+      })
+      .then(response => {
+        let data = response.data[0];
+        vm.psuEmailAddress = data['campus_email'];
+        vm.alternateEmailAddress = data['external_email'];
+        vm.phoneNumber = data['primary_phone'];
+        vm.alternatePhoneNumber = data['alternate_phone'];
+        vm.smsStatusInd = data['sms_status_ind'];
+        vm.smsNumber = data['sms_device'];
+        vm.activityDate = data['activity_date'];
+      })
+      .catch(error => console.log(error.toString()))
+    },
+
     submitAlertsInformation() {
       var vm = this;
 
@@ -220,32 +238,13 @@ export default {
         baseURL: 'http://127.0.0.1:8000/setEmergencyNotifications/',
         data: bodyFormData
       })
-      .then(response => {
-        alert(JSON.stringify(response))
-      })
-      .catch(error => alert(error))
+      .catch(error => console.log(error))
     },
   },
 
   //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
   mounted() {
-    var vm = this;
-
-    axios({
-      method: 'post',
-      baseURL: 'http://127.0.0.1:8000/getEmergencyNotifications/',
-    })
-    .then(response => {
-      let data = response.data[0];
-      vm.psuEmailAddress = data['campus_email'];
-      vm.alternateEmailAddress = data['external_email'];
-      vm.phoneNumber = data['primary_phone'];
-      vm.alternatePhoneNumber = data['alternate_phone'];
-      vm.smsStatusInd = data['sms_status_ind'];
-      vm.smsNumber = data['sms_device'];
-      vm.activityDate = data['activity_date'];
-    })
-    .catch(error => alert("This" + error.toString()))
+    this.fillAlertsInformation()
   }
 
 }

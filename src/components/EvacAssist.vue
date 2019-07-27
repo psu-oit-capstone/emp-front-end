@@ -66,7 +66,8 @@
                 <label for="regbox">Yes, make my information accessible to emergency responders.</label>
             </div>
         </div><br>
-        <button type="button" v-on:click="reset()">Reset</button>
+        <!-- Buttons are here -->
+        <button type="button" v-on:click="fillEvacAssistInformation()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
         <div id="helpful-links">
@@ -146,12 +147,10 @@
                 baseURL: 'http://127.0.0.1:8000/setEvacuationAssistance/',
                 data: bodyFormData
               })
-              .then(response => {
-                alert(JSON.stringify(response))
-              })
-              .catch(error => alert(error))
+              .catch(error => console.log(error))
             },
-            reset() {
+
+            fillEvacAssistInformation() {
               axios({
                 method: 'post',
                 baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
@@ -160,26 +159,17 @@
                 let evacuation_assistance_state = response.data[0]['evacuation_assistance']
                 if(evacuation_assistance_state == 'Y')
                   this.regbox = true;
+                else
+                  this.regbox = false;
               })
-              .catch(error => alert("This" + error.toString()))
-            }
+              .catch(error => console.log(error))
         },
 
         //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
         mounted() {
-          axios({
-            method: 'post',
-            baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
-          })
-          .then(response => {
-            let evacuation_assistance_state = response.data[0]['evacuation_assistance']
-            if(evacuation_assistance_state == 'Y')
-              this.regbox = true;
-            else
-              this.regbox = false;
-          })
-          .catch(error => alert("This" + error.toString()))
+          this.fillEvacAssistInformation()
         }
+      }
     }
 </script>
 

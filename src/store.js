@@ -4,6 +4,14 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+// Set our headers to include Auth tokens by default
+if(localStorage.getItem('token'))
+  axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+
+// Make Axios play nice with Django CSRF
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 export default new Vuex.Store({
   state: {
     status: '',
@@ -19,6 +27,10 @@ export default new Vuex.Store({
     },
     auth_error(state) {
       state.status = 'error'
+    },
+    auth_logout(state) {
+      state.token = ''
+      state.status = 'not logged in'
     }
   },
   actions: {
@@ -35,8 +47,12 @@ export default new Vuex.Store({
           const token = resp.data
           localStorage.setItem('token', token)
 
+          // Set our headers to include Auth tokens by default
+          axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+
           // Commit the state to the Vuex store
           commit('auth_success', token)
+          resolve()
         })
         .catch(err => {
           commit('auth_error')
@@ -47,9 +63,9 @@ export default new Vuex.Store({
     },
     logout({commit}){
       return new Promise((resolve, reject) => {
-        commit('logout')
-        localStorage.removeItem('token')
+        commit('auth_logout')
         delete axios.defaults.headers.common['Authorization']
+        localStorage.removeItem('token')
         resolve()
       })
     }
