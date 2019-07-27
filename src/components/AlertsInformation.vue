@@ -223,10 +223,7 @@ export default {
         baseURL: 'http://127.0.0.1:8000/setEmergencyNotifications/',
         data: bodyFormData
       })
-      .then(response => {
-        alert(JSON.stringify(response))
-      })
-      .catch(error => alert(error))
+      .catch(error => console.log(error))
     },
   },
 
@@ -248,7 +245,7 @@ export default {
       vm.smsNumber = data['sms_device'];
       vm.activityDate = data['activity_date'];
     })
-    .catch(error => alert("This" + error.toString()))
+    .catch(error => console.log(error.toString()))
   }
 
 }

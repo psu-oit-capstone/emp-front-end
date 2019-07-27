@@ -154,10 +154,7 @@ and lists, interactive elements and so forth are center justified.-->
                 baseURL: 'http://127.0.0.1:8000/setEvacuationAssistance/',
                 data: bodyFormData
               })
-              .then(response => {
-                alert(JSON.stringify(response))
-              })
-              .catch(error => alert(error))
+              .catch(error => console.log(error))
             },
             reset() {
               axios({
@@ -169,7 +166,7 @@ and lists, interactive elements and so forth are center justified.-->
                 if(evacuation_assistance_state == 'Y')
                   this.regbox = true;
               })
-              .catch(error => alert("This" + error.toString()))
+              .catch(error => console.log(error))
             }
         },
 
@@ -186,7 +183,7 @@ and lists, interactive elements and so forth are center justified.-->
             else
               this.regbox = false;
           })
-          .catch(error => alert("This" + error.toString()))
+          .catch(error => console.log(error))
         }
     }
 </script>

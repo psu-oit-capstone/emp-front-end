@@ -13,7 +13,6 @@
 
         methods: {
           logout() {
-            alert('Logging out')
             this.$store.dispatch('logout')
           }
         }

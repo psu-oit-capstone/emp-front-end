@@ -63,7 +63,6 @@ export default new Vuex.Store({
     logout({commit}){
       return new Promise((resolve, reject) => {
         commit('auth_logout')
-        alert('Destroying token in localStorage')
         delete axios.defaults.headers.common['Authorization']
         localStorage.removeItem('token')
         resolve()
