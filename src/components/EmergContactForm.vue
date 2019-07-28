@@ -85,6 +85,7 @@
             .then(response => {
               let data = response.data[0];
               vm.fnamebox = data['first_name'];
+<<<<<<< HEAD
               vm.mnamebox = data['mi'];
               vm.lnamebox = data['last_name'];
               vm.citybox = data['city'];
@@ -96,6 +97,9 @@
               vm.address1box = data['street_line1'];
               vm.address2box = data['street_line2'];
               vm.address3box = data['street_line3'];
+=======
+              vm.lnamebox = data['last_name'];
+>>>>>>> 573d3d61bdb86071400f69600bcd6e917cfce721
             })
             .catch(error => console.log(error.toString()))
           },
