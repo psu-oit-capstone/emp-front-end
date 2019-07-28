@@ -67,14 +67,87 @@
         props: [
             'contact_in'
         ],
-        //Whenever something in props is updated the matching function here executes
+
+        //This runs on instance creation
+        data: function() { return {
+            pidm: '',
+            surrogateId: '',
+            priority: '',
+            relation: '',
+            state: '',
+            nation: '',
+            phoneCountryCode: '',
+            phoneAreaCode: '',
+            phoneExtension: '',
+
+            // Hold data for input fields here like this if it needs to be reactive
+            regbox:       {type: Boolean, default: false},
+            fnamebox:     {type: String, default: ""},
+            mnamebox:     {type: String, default: ""},
+            lnamebox:     {type: String, default: ""},
+            address1box:  {type: String, default: ""},
+            address2box:  {type: String, default: ""},
+            address3box:  {type: String, default: ""},
+            citybox:      {type: String, default: ""},
+            statebox:     {type: String, default: ""},
+            zipbox:       {type: String, default: ""},
+            countrybox:   {type: String, default: ""},
+            phonebox:     {type: String, default: ""},
+            countryCode:  {type: String, default: ""},
+            orderbox:     {type: Number},
+
+            countryCodeArray: [
+                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+            ],
+            selectedCountryCode: {
+                name: "U.S.A. +1", code: "1", svgimg: "us.svg",
+            },
+            countryArray: [
+                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+            ],
+            selectedCountry: {
+                name: "U.S.A.", code: "1", svgimg: "us.svg",
+            },
+            stateArray: [
+                {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
+                {name: "California"}, {name: "Colorado"}, {name: "Connecticut"}, {name: "Delaware"},
+                {name: "Florida"}, {name: "Georgia"}, {name: "Hawaii"}, {name: "Idaho"},
+                {name: "Illinois"}, {name: "Indiana"}, {name: "Iowa"}, {name: "Kansas"},
+                {name: "Kentucky"}, {name: "Louisiana"}, {name: "Maine"}, {name: "Maryland"},
+                {name: "Massachusetts"}, {name: "Michigan"}, {name: "Minnesota"}, {name: "Mississippi"},
+                {name: "Missouri"}, {name: "Montana"}, {name: "Nebraska"}, {name: "Nevada"},
+                {name: "New Hampshire"}, {name: "New Jersey"}, {name: "New Mexico"}, {name: "New York"},
+                {name: "North Carolina"}, {name: "North Dakota"}, {name: "Ohio"}, {name: "Oklahoma"},
+                {name: "Oregon"}, {name: "Pennsylvania"}, {name: "Rhode Island"}, {name: "South Carolina"},
+                {name: "South Dakota"}, {name: "Tennessee"}, {name: "Texas"}, {name: "Utah"},
+                {name: "Vermont"}, {name: "Virginia"}, {name: "Washington"}, {name: "West Virginia"},
+                {name: "Wisconsin"}, {name: "Wyoming"},
+            ],
+            selectedState: {
+                name: 'State Select'
+            }
+        }},
+
         watch: {
             contact_in: function(payload) {
                 this.setContact(payload)
             }
         },
-        //This is for button clicks
+
         methods: {
+          safeNull(str) {
+            if(str === 'null')
+              return ''
+            return str
+          },
+
+          // Grab contacts via axios and bind to Vue model
           fillEmergencyContactInformation() {
             var vm = this;
 
@@ -83,23 +156,31 @@
               baseURL: 'http://127.0.0.1:8000/getEmergencyContacts/',
             })
             .then(response => {
+
               let data = response.data[0];
+
+              vm.surrogateId = data['surrogate_id']
+              vm.pidm = data['pidm'];
+              vm.priority = data['priority'];
+
               vm.fnamebox = data['first_name'];
-<<<<<<< HEAD
-              vm.mnamebox = data['mi'];
+              vm.mnamebox = this.safeNull(data['mi']);
               vm.lnamebox = data['last_name'];
               vm.citybox = data['city'];
               vm.statebox = data['stat_code'];
               vm.phonebox = data['phone_number'];
               vm.zipbox = data['zip'];
+              vm.address1box = this.safeNull(data['street_line1']);
+              vm.address2box = this.safeNull(data['street_line2']);
+              vm.address3box = this.safeNull(data['street_line3']);
 
-
-              vm.address1box = data['street_line1'];
-              vm.address2box = data['street_line2'];
-              vm.address3box = data['street_line3'];
-=======
-              vm.lnamebox = data['last_name'];
->>>>>>> 573d3d61bdb86071400f69600bcd6e917cfce721
+              /* TODO: Not form-bound data */
+              vm.relation = data['relt_code']
+              vm.state = data['stat_code']
+              vm.nation = data['natn_code']
+              vm.phoneCountryCode = data['ctry_code_phone']
+              vm.phoneAreaCode = data['phone_area']
+              vm.phoneExtension = data['phone_ext']
             })
             .catch(error => console.log(error.toString()))
           },
@@ -108,12 +189,31 @@
             var vm = this;
 
             let bodyFormData = new FormData();
+            bodyFormData.set('surrogate_id', vm.surrogateId);
+            bodyFormData.set('pidm', vm.pidm);
+            bodyFormData.set('priority', vm.priority);
+
             bodyFormData.set('first_name', vm.fnamebox);
+            bodyFormData.set('mi', vm.mnamebox);
             bodyFormData.set('last_name', vm.lnamebox);
+            bodyFormData.set('city', vm.citybox);
+            bodyFormData.set('phone_number', vm.phonebox);
+            bodyFormData.set('zip', vm.zipbox);
+            bodyFormData.set('street_line1', vm.address1box);
+            bodyFormData.set('street_line2', vm.address2box);
+            bodyFormData.set('street_line3', vm.address3box);
+
+            /* TODO: Not form-bound data */
+            bodyFormData.set('relt_code', vm.relation);
+            bodyFormData.set('stat_code', vm.state);
+            bodyFormData.set('natn_code', vm.nation);
+            bodyFormData.set('ctry_code_phone', vm.phoneCountryCode);
+            bodyFormData.set('phone_area', vm.phoneAreaCode);
+            bodyFormData.set('phone_ext', vm.phoneExtension);
 
             axios({
               method: 'post',
-              baseURL: 'http://127.0.0.1:8000/updateEmergencyContacts/',
+              baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/',
               data: bodyFormData
             })
             .catch(error => console.log(error))
@@ -210,63 +310,6 @@
                 }
             },
         },
-
-        //This runs on instance creation
-        data: function() { return {
-            //Hold data for input fields here like this if it needs to be mutated
-            regbox: {type: Boolean, default: false},
-            fnamebox: {type: String, default: ""},
-            mnamebox: {type: String, default: ""},
-            lnamebox: {type: String, default: ""},
-            address1box: {type: String, default: ""},
-            address2box: {type: String, default: ""},
-            address3box: {type: String, default: ""},
-            citybox: {type: String, default: ""},
-            statebox: {type: String, default: ""},
-            zipbox: {type: String, default: ""},
-            countrybox: {type: String, default: ""},
-            phonebox: {type: String, default: ""},
-            countryCode: {type: String, default: ""},
-            orderbox: {type: Number},
-
-            //Dropdown data and so forth
-            countryCodeArray: [
-                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-            ],
-            selectedCountryCode: {
-                name: "U.S.A. +1", code: "1", svgimg: "us.svg",
-            },
-            countryArray: [
-                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-            ],
-            selectedCountry: {
-                name: "U.S.A.", code: "1", svgimg: "us.svg",
-            },
-            stateArray: [
-                {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
-                {name: "California"}, {name: "Colorado"}, {name: "Connecticut"}, {name: "Delaware"},
-                {name: "Florida"}, {name: "Georgia"}, {name: "Hawaii"}, {name: "Idaho"},
-                {name: "Illinois"}, {name: "Indiana"}, {name: "Iowa"}, {name: "Kansas"},
-                {name: "Kentucky"}, {name: "Louisiana"}, {name: "Maine"}, {name: "Maryland"},
-                {name: "Massachusetts"}, {name: "Michigan"}, {name: "Minnesota"}, {name: "Mississippi"},
-                {name: "Missouri"}, {name: "Montana"}, {name: "Nebraska"}, {name: "Nevada"},
-                {name: "New Hampshire"}, {name: "New Jersey"}, {name: "New Mexico"}, {name: "New York"},
-                {name: "North Carolina"}, {name: "North Dakota"}, {name: "Ohio"}, {name: "Oklahoma"},
-                {name: "Oregon"}, {name: "Pennsylvania"}, {name: "Rhode Island"}, {name: "South Carolina"},
-                {name: "South Dakota"}, {name: "Tennessee"}, {name: "Texas"}, {name: "Utah"},
-                {name: "Vermont"}, {name: "Virginia"}, {name: "Washington"}, {name: "West Virginia"},
-                {name: "Wisconsin"}, {name: "Wyoming"},
-            ],
-            selectedState: {
-                name: 'State Select'
-            }
-        }},
 
         //This initializes the above declarations
         created: function() {
