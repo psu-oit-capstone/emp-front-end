@@ -47,7 +47,7 @@
 
         <!-- Buttons are here -->
         <button type="button" v-on:click="resetContact()">Reset</button>
-        <button type="button" v-on:click="submit()">Submit</button><br><br>
+        <button type="button" v-on:click="submitEmergencyContactInformation()">Submit</button><br><br>
     </div>
 </template>
 
@@ -55,6 +55,7 @@
     //For uses of Dropdown you MUST pass in all defaults
     import Dropdown from '@/components/Dropdown.vue'
     import DropdownNoImg from '@/components/DropdownNoImg.vue'
+    import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
@@ -74,6 +75,48 @@
         },
         //This is for button clicks
         methods: {
+          fillEmergencyContactInformation() {
+            var vm = this;
+
+            axios({
+              method: 'post',
+              baseURL: 'http://127.0.0.1:8000/getEmergencyContacts/',
+            })
+            .then(response => {
+              let data = response.data[0];
+              vm.fnamebox = data['first_name'];
+              vm.mnamebox = data['mi'];
+              vm.lnamebox = data['last_name'];
+              vm.citybox = data['city'];
+              vm.statebox = data['stat_code'];
+              vm.phonebox = data['phone_number'];
+              vm.zipbox = data['zip'];
+
+
+              vm.address1box = data['street_line1'];
+              vm.address2box = data['street_line2'];
+              vm.address3box = data['street_line3'];
+            })
+            .catch(error => console.log(error.toString()))
+          },
+
+          submitEmergencyContactInformation() {
+            var vm = this;
+
+            let bodyFormData = new FormData();
+            bodyFormData.set('first_name', vm.fnamebox);
+            bodyFormData.set('last_name', vm.lnamebox);
+
+            axios({
+              method: 'post',
+              baseURL: 'http://127.0.0.1:8000/updateEmergencyContacts/',
+              data: bodyFormData
+            })
+            .catch(error => console.log(error))
+          },
+
+
+
             currCountry(payload) {
                 this.countrybox = payload.country;
             },
@@ -220,10 +263,15 @@
                 name: 'State Select'
             }
         }},
+
         //This initializes the above declarations
         created: function() {
             this.resetContact()
         },
+
+        mounted: function() {
+            this.fillEmergencyContactInformation()
+        }
     }
 </script>
 
