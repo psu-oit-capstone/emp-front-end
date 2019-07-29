@@ -216,6 +216,13 @@
               baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/',
               data: bodyFormData
             })
+            .then(response => {
+              console.log(response)
+              if(response['status'] == '200')
+                console.log('User information was updated.')
+              if(response['status'] == '422')
+                console.log('Form fields incorrect or incomplete.')
+            })
             .catch(error => console.log(error))
           },
 
