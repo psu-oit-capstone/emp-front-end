@@ -106,3 +106,16 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        //This runs on instance creation
+        data: function () {
+            return {
+                //Hold data for input fields here like this if it needs to be mutated
+                regbox: {type: Boolean, default: false},
+            }
+        },
+    }
+
+</script>

@@ -1,8 +1,5 @@
 <template>
     <div class="row">
-
-
-
         <div>
             <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
             <label for="regbox">Yes, make my information accessible to emergency responders.</label>
