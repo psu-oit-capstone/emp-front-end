@@ -129,7 +129,7 @@
 }
 
 .dropdown-menu > li > a {
-  padding: 10px 30px;
+  padding: 10px 10px;
   display: block;
   clear: both;
   font-weight: normal;
