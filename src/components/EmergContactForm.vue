@@ -242,7 +242,7 @@
                 this.countryCode = payload.code;
             },
             currState(payload) {
-                this.statebox = payload;
+                this.statebox = payload.name;
             },
             submit() {
                 this.contact_out = this.makeContact();
