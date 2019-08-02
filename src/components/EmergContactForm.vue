@@ -188,28 +188,35 @@
           submitEmergencyContactInformation() {
             var vm = this;
 
+            let local_to_api_map = {
+              'surrogateId': 'surrogate_id',
+              'pidm': 'pidm',
+              'priority': 'priority',
+              'fnamebox': 'first_name',
+              'mnamebox': 'mi',
+              'lnamebox': 'last_name',
+              'citybox': 'city',
+              'phonebox': 'phone_number',
+              'zipbox': 'zip',
+              'address1box': 'street_line1',
+              'address2box': 'street_line2',
+              'address3box': 'street_line3',
+              'relation': 'relt_code',
+              'state': 'stat_code',
+              'nation': 'natn_code',
+              'phoneCountryCode': 'ctry_code_phone',
+              'phoneAreaCode': 'phone_area',
+              'phoneExtension': 'phone_ext'
+            }
+
             let bodyFormData = new FormData();
-            bodyFormData.set('surrogate_id', vm.surrogateId);
-            bodyFormData.set('pidm', vm.pidm);
-            bodyFormData.set('priority', vm.priority);
 
-            bodyFormData.set('first_name', vm.fnamebox);
-            bodyFormData.set('mi', vm.mnamebox);
-            bodyFormData.set('last_name', vm.lnamebox);
-            bodyFormData.set('city', vm.citybox);
-            bodyFormData.set('phone_number', vm.phonebox);
-            bodyFormData.set('zip', vm.zipbox);
-            bodyFormData.set('street_line1', vm.address1box);
-            bodyFormData.set('street_line2', vm.address2box);
-            bodyFormData.set('street_line3', vm.address3box);
+            for (let key in local_to_api_map) {
+              if(vm[key]) {
+                bodyFormData.set(local_to_api_map[key], vm[key])
+              }
+            }
 
-            /* TODO: Not form-bound data */
-            bodyFormData.set('relt_code', vm.relation);
-            bodyFormData.set('stat_code', vm.state);
-            bodyFormData.set('natn_code', vm.nation);
-            bodyFormData.set('ctry_code_phone', vm.phoneCountryCode);
-            bodyFormData.set('phone_area', vm.phoneAreaCode);
-            bodyFormData.set('phone_ext', vm.phoneExtension);
 
             axios({
               method: 'post',
