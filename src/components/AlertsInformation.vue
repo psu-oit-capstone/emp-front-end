@@ -237,10 +237,14 @@ export default {
 
       for (let key in local_to_api_map) {
         if(vm[key]) {
+<<<<<<< HEAD
           if(key === 'smsStatusInd')
             bodyFormData.set(local_to_api_map[key], 'Y')
           else
             bodyFormData.set(local_to_api_map[key], vm[key])
+=======
+          bodyFormData.set(local_to_api_map[key], vm[key])
+>>>>>>> 3c834165761fdc9ba6890ab39466c1490d374295
         }
       }
 
