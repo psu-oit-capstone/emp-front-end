@@ -225,13 +225,24 @@ export default {
 
       // Update Registration checkbox state in the database
       let bodyFormData = new FormData();
-      bodyFormData.set('external_email', vm.alternateEmailAddress);
-      bodyFormData.set('campus_email', vm.psuEmailAddress);
-      bodyFormData.set('primary_phone', vm.phoneNumber);
-      bodyFormData.set('alternate_phone', vm.alternatePhoneNumber);
-      if(vm.smsStatusInd)
-        bodyFormData.set('sms_status_ind', 'Y');
-      bodyFormData.set('sms_device', vm.smsNumber);
+
+      let local_to_api_map = {
+        'alternateEmailAddress': 'external_email',
+        'psuEmailAddress': 'campus_email',
+        'phoneNumber': 'primary_phone',
+        'alternatePhoneNumber': 'alternate_phone',
+        'smsStatusInd': 'sms_status_ind',
+        'smsNumber': 'sms_device'
+      }
+
+      for (let key in local_to_api_map) {
+        if(vm[key]) {
+          if(key === 'smsStatusInd')
+            bodyFormData.set(local_to_api_map[key], 'Y')
+          else
+            bodyFormData.set(local_to_api_map[key], vm[key])
+        }
+      }
 
       axios({
         method: 'post',
