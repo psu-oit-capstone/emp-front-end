@@ -66,7 +66,8 @@
                 <label for="regbox">Yes, make my information accessible to emergency responders.</label>
             </div>
         </div><br>
-        <button type="button" v-on:click="reset()">Reset</button>
+        <!-- Buttons are here -->
+        <button type="button" v-on:click="fillEvacAssistInformation()">Reset</button>
         <button type="button" v-on:click="submit()">Submit</button><br><br>
 
         <div id="helpful-links">
@@ -108,14 +109,134 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
+        name: 'EvacAssist',
         //This runs on instance creation
-        data: function () {
-            return {
-                //Hold data for input fields here like this if it needs to be mutated
-                regbox: {type: Boolean, default: false},
+        data: function() {
+          return {
+            //Hold data for input fields here like this if it needs to be mutated
+            about_registry_text1: {type: String},
+            regbox: {type: Boolean, default: false},
             }
         },
+
+        //This initializes the above declarations
+        created: function() {
+            //This is one way to handle massive text blobs in a template but is not strictly necessary
+            this.about_registry_text1 = "PSU has developed this registry as a mechanism for individuals with a disability" +
+                " (or an access or functional need) that would prevent them from independently exiting a building during" +
+                " an emergency evacuation. If you register, your information will become accessible to first responders" +
+                " (information could include, as applicable: name, assigned residence hall room (PSU residents only)," +
+                " location of registered courses (student or instructor/faculty), assigned office location (staff)," +
+                " and/or contact information) The registry is confidential and is managed by CPSO. Data is refreshed weekly. ",
+            this.regbox = false
+        },
+
+        //This is for button clicks
+        methods: {
+            submit() {
+              // Update Registration checkbox state in the database
+              let bodyFormData = new FormData();
+              if(this.regbox)
+                bodyFormData.set('evacuation_assistance', 'Y');
+
+              axios({
+                method: 'post',
+                baseURL: 'http://127.0.0.1:8000/setEvacuationAssistance/',
+                data: bodyFormData
+              })
+              .catch(error => console.log(error))
+            },
+
+            fillEvacAssistInformation() {
+              axios({
+                method: 'post',
+                baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
+              })
+              .then(response => {
+                let evacuation_assistance_state = response.data[0]['evacuation_assistance']
+                if(evacuation_assistance_state == 'Y')
+                  this.regbox = true;
+                else
+                  this.regbox = false;
+              })
+              .catch(error => console.log(error))
+        },
+
+        //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
+        mounted() {
+          this.fillEvacAssistInformation()
+        }
+      }
+    }
+</script>
+
+
+<!-- Add "scoped" attribute to limit CSS to this only
+in "margin" the pattern is top, right, bottom, left
+and that is pretty standard amongst other CSS properties it seems-->
+<style scoped>
+    h2 {
+        font-weight: normal;
+        font-size: 20px;
+        color: #36454f;
+    }
+    h3 {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 40px;
+        color: #36454f;
+        margin: 10px 0 10px 0;
+    }
+    p { /*normal text formatting*/
+        text-align: left;
+        padding: 0;
+        font-family: "Arial", Helvecta, sans-serif;
+        font-size: 18px;
+    }
+    ul.a { /*unordered list*/
+        list-style-type: circle; /*what are the bullets? Here they are empty circles*/
+        font-weight: normal;
+    }
+    ul.b { /*unordered list*/
+        list-style-type: disc; /*what are the bullets? Here they are filled circles*/
+        font-weight: bold;
+    }
+    ul.c { /*unordered list*/
+        list-style-type: none; /*what are the bullets? Here they are nothing*/
+        font-weight: bold;
+    }
+    ul.d { /*unordered list*/
+        list-style-type: disc; /*what are the bullets? Here they are filled circles*/
+        font-weight: normal;
+        text-align: left;
+        padding-left: 70px;
+    }
+    a {
+        color: #42b983;
     }
 
-</script>
+    #introduction-field{
+        margin: auto;
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    #about-field{
+        margin: auto;
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    #registry-field{
+        margin: auto;
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+
+    #helpful-links{
+        margin: auto;
+        padding: 20px;
+    }
+</style>
