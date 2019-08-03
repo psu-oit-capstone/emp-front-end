@@ -53,7 +53,7 @@
           <label for="state-selector">
             State Select
           </label>
-          <DropdownNoImg
+          <Dropdown
             id="state-selector"
             :options="stateArray"
             :selected="selectedState"
@@ -130,14 +130,12 @@
 
 <script>
     import Dropdown from '@/components/Dropdown.vue'
-    import DropdownNoImg from '@/components/DropdownNoImg.vue'
     import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
             Dropdown,
-            DropdownNoImg,
         },
 
         props: [
@@ -154,9 +152,9 @@
             phoneExtension: '',
 
             removeContactCheckbox:  {type: Boolean, default: false},
-            firstName:             {type: String, default: ""},
-            middleName:            {type: String, default: ""},
-            lastName:              {type: String, default: ""},
+            firstName:              {type: String, default: ""},
+            middleName:             {type: String, default: ""},
+            lastName:               {type: String, default: ""},
             streetLine1:            {type: String, default: ""},
             streetLine2:            {type: String, default: ""},
             streetLine3:            {type: String, default: ""},
