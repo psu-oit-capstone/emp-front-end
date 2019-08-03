@@ -2,7 +2,7 @@
     <div id="login">
         <div id="login-field">
             <div id="login-greeting">
-                <h1>Login</h1>
+                <h2>PSU Emergency Management Portal</h2>
             </div>
             <div class="text-box">
                 <label for="user">Username</label>
@@ -48,8 +48,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1{
+h2{
     margin-top:0px;
+    color: #603417;
 }
 
 #login-greeting{
