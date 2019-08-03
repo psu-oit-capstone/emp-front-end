@@ -1,53 +1,75 @@
 <template>
     <div class="contact-form">
-        <div>
-            <label for="fnamebox">First Name
-                <input type="text" placeholder="Mushu" v-model="fnamebox" v-bind:id="fnamebox"/></label><br>
-            <label for="mnamebox">Middle Name
-                <input type="text" placeholder="Yo" v-model="mnamebox" v-bind:id="mnamebox"/></label><br>
-            <label for="lnamebox">Last Name
-                <input type="text" placeholder="Wushu" v-model="lnamebox" v-bind:id="lnamebox"/></label><br>
-            <label for="address1box">Address 1
-                <input type="text" placeholder="2121 SW 4th Ave" v-model="address1box" v-bind:id="address1box"/></label><br>
-            <label for="address2box">Address 2
-                <input type="text" placeholder="Apt/Bldg #" v-model="address2box" v-bind:id="address2box"/></label><br>
-            <label for="address3box">Address 3
-                <input type="text" placeholder="Region" v-model="address3box" v-bind:id="address3box"/></label><br>
-            <label for="citybox">City
-                <input type="text" placeholder="Portland" v-model="citybox" v-bind:id="citybox"/></label><br>
-            <p class="state_label">State Select
-                <DropdownNoImg :options="stateArray"
-                               :selected="selectedState"
-                               v-on:updateOption="currState"
-                               :placeholder="'Select a state'">
-                </DropdownNoImg><br>
-                <label for="zipbox">Zip or Postal Code
-                    <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/></label><br>
-            <p class="country_label">Country Select
-                <Dropdown :options="countryArray"
-                          :selected="selectedCountry"
-                          v-on:updateOption="currCountry"
-                          :placeholder="'Select a country'">
-                </Dropdown>
-            <p class="label">Phone Number
-                <PhoneNumberInput id="phone-input" @change="handleChange"/></p>
-            <p class="country_code_label">Country Phone Number Code
-                <Dropdown :options="countryCodeArray"
-                          :selected="selectedCountryCode"
-                          v-on:updateOption="currCountryCode"
-                          :placeholder="'Select a country'">
-                </Dropdown></p>
-            <label for="orderbox">Contact Order
-                <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/></label><br>
-
-            <label for="regbox">
-                <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
-                Remove Contact.</label>
+        <div id="form-body">
+            <div class="text-box fnamebox">
+                <label for="fnamebox">First Name</label>
+                    <input type="text" placeholder="First Name" v-model="fnamebox" v-bind:id="fnamebox"/>
+            </div>
+            <div class="text-box mnamebox">
+                <label for="mnamebox">Middle Name</label>
+                    <input type="text" placeholder="Middle Name" v-model="mnamebox" v-bind:id="mnamebox"/>
+            </div>
+            <div class="text-box lnamebox">
+                <label for="lnamebox">Last Name</label>
+                    <input type="text" placeholder="Last Name" v-model="lnamebox" v-bind:id="lnamebox"/>
+            </div>
+            <div class="text-box address1box">
+                <label for="address1box">Address 1</label>
+                    <input type="text" placeholder="Street Address" v-model="address1box" v-bind:id="address1box"/>
+            </div>
+            <div class="text-box address2box">
+                <label for="address2box">Address 2</label>
+                    <input type="text" placeholder="Apt/Bldg #" v-model="address2box" v-bind:id="address2box"/>
+            </div>
+            <div class="text-box citybox">
+                <label for="citybox">City</label>
+                    <input type="text" placeholder="City" v-model="citybox" v-bind:id="citybox"/>
+            </div>
+            <div class="text-box zipbox">
+                <label for="zipbox">Postal Code</label>
+                    <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/>
+            </div>
+            <div class="select state-box">
+                <label>State</label>
+                    <DropdownNoImg :options="stateArray"
+                                   :selected="selectedState"
+                                   v-on:updateOption="currState"
+                                   :placeholder="'Select a state'">
+                    </DropdownNoImg>
+            </div>
+            <div class="text-box address3box">
+                <label for="address3box">Address 3</label>
+                    <input type="text" placeholder="Region" v-model="address3box" v-bind:id="address3box"/>
+            </div>
+            <div class="select country-box">
+                <label>Country</label>
+                    <Dropdown :options="countryArray"
+                              :selected="selectedCountry"
+                              v-on:updateOption="currCountry"
+                              :placeholder="'Select a country'">
+                    </Dropdown>
+            </div>
+            <div class="select country-code">
+                <label>Country Code</label>
+                    <Dropdown :options="countryCodeArray"
+                              :selected="selectedCountryCode"
+                              v-on:updateOption="currCountryCode"
+                              :placeholder="'Select a country'">
+                    </Dropdown>
+            </div>
+            <div class="text-box phone-input">
+                <label>Phone Number</label>
+                    <PhoneNumberInput id="phone-input" @change="handleChange"/>
+            </div>
+            <div class="text-box orderbox">
+                <label for="orderbox">Contact Order</label>
+                    <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/>
+            </div>
         </div>
-
-        <!-- Buttons are here -->
-        <button type="button" v-on:click="resetContact()">Reset</button>
-        <button type="button" v-on:click="submit()">Submit</button><br><br>
+        <div class="button-holder">
+            <button type="button" id="submit" v-on:click="submit()">Submit</button>
+            <button type="button" id="reset" v-on:click="resetContact()">Reset</button>
+        </div>
     </div>
 </template>
 
@@ -172,13 +194,13 @@
 
             //Dropdown data and so forth
             countryCodeArray: [
-                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                {name: "+1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "+44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "+33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "+86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
             ],
             selectedCountryCode: {
-                name: "U.S.A. +1", code: "1", svgimg: "us.svg",
+                name: "+1", code: "1", svgimg: "us.svg",
             },
             countryArray: [
                 {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
@@ -205,7 +227,7 @@
                 {name: "Wisconsin"}, {name: "Wyoming"},
             ],
             selectedState: {
-                name: 'State Select'
+                name: 'State'
             }
         }},
         //This initializes the above declarations
@@ -217,4 +239,235 @@
 
 <style scoped>
 
+.text-box label{
+    display:block;
+    font-size:12px;
+}
+
+.text-box input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
+
+.text-box{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.select label{
+    display:block;
+    font-size:12px;
+}
+
+.select{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.button-holder{
+    margin-top:30px;
+    height:15px;
+}
+
+#submit{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#ffffff;
+    height:36px;
+    background-color:#28a745;
+    padding-right:16px;
+    padding-left:16px;
+    border-radius:4px;
+    box-sizing:border-box;
+    margin-left:10px;
+    float:right;
+}
+
+#reset{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#5f3417;
+    height:36px;
+    background-color:transparent;
+    padding-right:16px;
+    padding-left:16px;
+    border:1px solid #5f3417;
+    border-radius:4px;
+    float:right;
+    box-sizing:border-box;
+}
+
+/* Large tablets and desktops */
+@media (min-width: 735px) {
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 3;
+        grid-row:2;
+    }
+
+    .address2box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .address3box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .state-box{
+        grid-row:4;
+    }
+
+    .zipbox{
+        grid-row:4
+    }
+
+    .country-box{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .country-code{
+        grid-row:5;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:5;
+    }
+
+    .orderbox{
+        grid-column:6;
+        grid-row:5;
+    }
+}
+
+/* Portrait phones and up */
+@media (min-width: 451px) and (max-width: 734px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+        grid-row: 2;
+    }
+
+    .address1box{
+        grid-column:span 4;
+        grid-row: 3;
+    }
+
+    .address2box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row: 5;
+    }
+
+    .zipbox{
+        grid-row: 5;
+    }
+
+    .address3box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .state-box{
+        grid-row:5;
+    }
+
+    .country-box{
+        grid-row:6;
+    }
+
+    .country-code{
+        grid-row:7;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:7;
+    }
+
+    .orderbox{
+        grid-row:7;
+    }
+}
+
+/* Portrait phones and down */
+@media (max-width: 450px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 2;
+    }
+
+
+}
 </style>

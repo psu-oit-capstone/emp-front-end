@@ -63,4 +63,14 @@ export default {
   background: rgba(255,0,0,0.1);
   color:rgba(255,50,50,1);
 }
+
+
+input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
 </style>
