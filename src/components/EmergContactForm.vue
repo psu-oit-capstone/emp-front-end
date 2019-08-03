@@ -75,14 +75,12 @@
 
 <script>
     //For uses of Dropdown you MUST pass in all defaults
-    import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
     import Dropdown from '@/components/Dropdown.vue'
     import DropdownNoImg from '@/components/DropdownNoImg.vue'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
-            PhoneNumberInput,
             Dropdown,
             DropdownNoImg,
         },
@@ -112,13 +110,12 @@
                 this.$emit('updateContact', this.contact_out);
                 this.resetContact();
             },
-            handleChange: function(childID, errors) {var vm = this;},
             makeContact() {
                 return {
                     name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
                     address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
                     area: {
-                        countrybox: this.countrybox, countryCode: this.countryCode,
+                        countrybox: this.countrybox, countryCode: this.countryCode, phonebox: this.phonebox,
                         statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
                     },
                     order: {orderbox: this.orderbox},
@@ -134,11 +131,13 @@
                 this.address3box = payload.address.address3box;
                 this.citybox = payload.area.citybox;
                 this.statebox = payload.area.statebox;
+                this.selectedState = payload.area.statebox; // Here to set dropdown
                 this.zipbox = payload.area.zipbox;
                 this.countrybox = payload.area.countrybox;
                 this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
                 this.countryCode = payload.area.countryCode;
                 this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
+                this.phonebox = payload.area.phonebox;
                 this.orderbox = payload.order.orderbox;
                 this.regbox = payload.delete.regbox;
             },
@@ -151,9 +150,13 @@
                 this.address3box = "";
                 this.citybox = "";
                 this.statebox = "";
+                this.selectedState = {name: 'State Select'}; // Here to set dropdown to default of Oregon
                 this.zipbox = "";
                 this.countrybox = "USA";
+                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
+                this.phonebox = "";
                 this.countryCode = "1";
+                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}; //Here to set the dropdown
                 this.orderbox = 1;
                 this.regbox = false;
             },
@@ -169,6 +172,14 @@
                 //Here we expect either a string containing a country name
                 for (let i = 0; i < targetCodes.length; i++) {
                     if (targetCodes[i].code === countryCode){
+                        return targetCodes[i];
+                    }
+                }
+            },
+            findByStateName(name, targetCodes) {
+                //Here we expect either a string containing a country name
+                for (let i = 0; i < targetCodes.length; i++) {
+                    if (targetCodes[i].name === name){
                         return targetCodes[i];
                     }
                 }
@@ -189,6 +200,7 @@
             statebox: {type: String, default: ""},
             zipbox: {type: String, default: ""},
             countrybox: {type: String, default: ""},
+            phonebox: {type: String, default: ""},
             countryCode: {type: String, default: ""},
             orderbox: {type: Number},
 
