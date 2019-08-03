@@ -76,7 +76,7 @@
             id="country-selector"
             :options="countryArray"
             :selected="selectedCountry"
-            @updateOption="setCountry"
+            @updateOption="setNationCode"
           />
         </div>
 
@@ -165,88 +165,93 @@
                 contactPriority:        {type: Number},
 
                 countryCodeArray: [
-                    {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},
-                    {name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                    {name: "U.S.A. +1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan +81",nationCode: "LUS", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K. +44",nationCode: "LUS", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany +49",nationCode: "LUS", country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France +33",nationCode: "LUS", country: "France",  code: "7", svgimg: "fr.svg"},
+                    {name: "Russia +7", nationCode: "LUS",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China +86", nationCode: "LUS",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea +82", nationCode: "BTW", country: "South Korea",  code: "86", svgimg: "kr.svg"},
                 ],
                 selectedCountryCode: {
                     name: "U.S.A. +1",
                     code: "1",
+                    nationCode: "LUS",
                     svgimg: "us.svg",
                 },
 
                 countryArray: [
-                    {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},
-                    {name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China", country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan", nationCode: "LUS", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K.", nationCode: "LUS", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany", nationCode: "LUS",country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France", nationCode: "LUS",country: "France",  code: "7", svgimg: "fr.svg"},
+                    {name: "Russia", nationCode: "LUS",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China", nationCode: "LUS",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea", nationCode: "NMU", country: "South Korea",  code: "86", svgimg: "kr.svg"},
                 ],
+
+                // Default country until real contact data is received
                 selectedCountry: {
                     name: "U.S.A.",
+                    nationCode: "LUS",
                     code: "1",
                     svgimg: "us.svg"
                 },
 
+
                 stateArray: [
-                    {name: "Alabama"},
-                    {name: "Alaska"},
-                    {name: "Arizona"},
-                    {name: "Arkansas"},
-                    {name: "California"},
-                    {name: "Colorado"},
-                    {name: "Connecticut"},
-                    {name: "Delaware"},
-                    {name: "Florida"},
-                    {name: "Georgia"},
-                    {name: "Hawaii"},
-                    {name: "Idaho"},
-                    {name: "Illinois"},
-                    {name: "Indiana"},
-                    {name: "Iowa"},
-                    {name: "Kansas"},
-                    {name: "Kentucky"},
-                    {name: "Louisiana"},
-                    {name: "Maine"},
-                    {name: "Maryland"},
-                    {name: "Massachusetts"},
-                    {name: "Michigan"},
-                    {name: "Minnesota"},
-                    {name: "Mississippi"},
-                    {name: "Missouri"},
-                    {name: "Montana"},
-                    {name: "Nebraska"},
-                    {name: "Nevada"},
-                    {name: "New Hampshire"},
-                    {name: "New Jersey"},
-                    {name: "New Mexico"},
-                    {name: "New York"},
-                    {name: "North Carolina"},
-                    {name: "North Dakota"},
-                    {name: "Ohio"},
-                    {name: "Oklahoma"},
-                    {name: "Oregon"},
-                    {name: "Pennsylvania"},
-                    {name: "Rhode Island"},
-                    {name: "South Carolina"},
-                    {name: "South Dakota"},
-                    {name: "Tennessee"},
-                    {name: "Texas"},
-                    {name: "Utah"},
-                    {name: "Vermont"},
-                    {name: "Virginia"},
-                    {name: "Washington"},
-                    {name: "West Virginia"},
-                    {name: "Wisconsin"},
-                    {name: "Wyoming"},
+                    {stateCode:"AL", name: "Alabama"},
+                    {stateCode:"AL", name: "Alaska"},
+                    {stateCode:"AL", name: "Arizona"},
+                    {stateCode:"AL", name: "Arkansas"},
+                    {stateCode:"AL", name: "California"},
+                    {stateCode:"AL", name: "Colorado"},
+                    {stateCode:"AL", name: "Connecticut"},
+                    {stateCode:"AL", name: "Delaware"},
+                    {stateCode:"AL", name: "Florida"},
+                    {stateCode:"AL", name: "Georgia"},
+                    {stateCode:"AL", name: "Hawaii"},
+                    {stateCode:"AL", name: "Idaho"},
+                    {stateCode:"AL", name: "Illinois"},
+                    {stateCode:"AL", name: "Indiana"},
+                    {stateCode:"AL", name: "Iowa"},
+                    {stateCode:"AL", name: "Kansas"},
+                    {stateCode:"AL", name: "Kentucky"},
+                    {stateCode:"AL", name: "Louisiana"},
+                    {stateCode:"AL", name: "Maine"},
+                    {stateCode:"AL", name: "Maryland"},
+                    {stateCode:"AL", name: "Massachusetts"},
+                    {stateCode:"AL", name: "Michigan"},
+                    {stateCode:"AL", name: "Minnesota"},
+                    {stateCode:"AL", name: "Mississippi"},
+                    {stateCode:"AL", name: "Missouri"},
+                    {stateCode:"AL", name: "Montana"},
+                    {stateCode:"AL", name: "Nebraska"},
+                    {stateCode:"AL", name: "Nevada"},
+                    {stateCode:"AL", name: "New Hampshire"},
+                    {stateCode:"AL", name: "New Jersey"},
+                    {stateCode:"AL", name: "New Mexico"},
+                    {stateCode:"AL", name: "New York"},
+                    {stateCode:"AL", name: "North Carolina"},
+                    {stateCode:"AL", name: "North Dakota"},
+                    {stateCode:"AL", name: "Ohio"},
+                    {stateCode:"AL", name: "Oklahoma"},
+                    {stateCode:"OR", name: "Oregon"},
+                    {stateCode:"AL", name: "Pennsylvania"},
+                    {stateCode:"AL", name: "Rhode Island"},
+                    {stateCode:"AL", name: "South Carolina"},
+                    {stateCode:"AL", name: "South Dakota"},
+                    {stateCode:"AL", name: "Tennessee"},
+                    {stateCode:"AL", name: "Texas"},
+                    {stateCode:"AL", name: "Utah"},
+                    {stateCode:"AL", name: "Vermont"},
+                    {stateCode:"AL", name: "Virginia"},
+                    {stateCode:"AL", name: "Washington"},
+                    {stateCode:"AL", name: "West Virginia"},
+                    {stateCode:"AL", name: "Wisconsin"},
+                    {stateCode:"AL", name: "Wyoming"},
                 ],
 
                 selectedState: {
@@ -288,20 +293,27 @@
             for(let key in contactObject) {
               vm[key] = contactObject[key]
             }
+
+            vm['selectedCountry']     = vm.findByNationCode(vm.country)
+            vm['selectedState']       = vm.findStateByCode(vm.state)
+            vm['selectedCountryCode'] = vm.findPhoneCodeByNationCode(vm.country)
           }
         },
 
         methods: {
-            setCountry(countryObject) {
-              this.country = countryObject.country;
+            setNationCode(countryObject) {
+                this.country = countryObject.nationCode;
+                this['selectedCountry'] = this.findByNationCode(this.country)
             },
 
             setCountryCode(countryCodeObject) {
-                this.countryCode = countryCodeObject.code;
+                this.phoneCountryCode = countryCodeObject.code;
+                this['selectedCountryCode'] = this.findPhoneCodeByNationCode(this.country)
             },
 
             setState(stateObject) {
-                this.state = stateObject.name;
+                this.state = stateObject.stateCode;
+                this['selectedState'] = this.findStateByCode(this.state)
             },
 
             updateContact() {
@@ -330,31 +342,35 @@
               for(let key in vm.contactCopy) {
                 vm[key] = vm.contactCopy[key]
               }
+
+              vm['selectedCountry']     = vm.findByNationCode(vm.country)
+
+              vm['selectedState']       = vm.findStateByCode(vm.state)
+              vm['selectedCountryCode'] = vm.findPhoneCodeByNationCode(vm.country)
             },
 
 
 
-            findByCountry(country, targetCountries) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCountries.length; i++) {
-                    if (targetCountries[i].country === country){
-                        return targetCountries[i];
+            findByNationCode(nationCode) {
+                for(let i=0; i<this.countryArray.length; ++i) {
+                    if (this.countryArray[i].nationCode === nationCode) {
+                        return this.countryArray[i]
                     }
                 }
             },
-            findByCountryCode(countryCode, targetCodes) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCodes.length; i++) {
-                    if (targetCodes[i].code === countryCode){
-                        return targetCodes[i];
+
+            findPhoneCodeByNationCode(nationCode) {
+                for (let i = 0; i < this.countryCodeArray.length; i++) {
+                    if (this.countryCodeArray[i].nationCode === nationCode){
+                        return this.countryCodeArray[i];
                     }
                 }
             },
-            findByStateName(name, targetCodes) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCodes.length; i++) {
-                    if (targetCodes[i].name === name){
-                        return targetCodes[i];
+
+            findStateByCode(stateCode) {
+                for (let i = 0; i < this.stateArray.length; i++) {
+                    if (this.stateArray[i].stateCode === stateCode){
+                        return this.stateArray[i];
                     }
                 }
             }
