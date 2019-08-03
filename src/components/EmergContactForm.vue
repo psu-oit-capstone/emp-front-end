@@ -1,97 +1,100 @@
 <template>
     <div class="contact-form">
-        <div>
-            <label for="first-name">
-              First Name
-            </label>
-            <input id="first-name" type="text" placeholder="" v-model="fnamebox"/>
+        <label for="first-name">
+          First Name
+        </label>
+        <input id="first-name" type="text" placeholder="" v-model="fnamebox"/>
 
-            <label for="middle-name">
-              Middle Name
-            </label>
-            <input id="middle-name" type="text" placeholder="" v-model="mnamebox"/>
+        <label for="middle-name">
+          Middle Name
+        </label>
+        <input id="middle-name" type="text" placeholder="" v-model="mnamebox"/>
 
-            <label for="last-name">
-              Last Name
-            </label>
-            <input id="last-name" type="text" placeholder="" v-model="lnamebox"/>
+        <label for="last-name">
+          Last Name
+        </label>
+        <input id="last-name" type="text" placeholder="" v-model="lnamebox"/>
 
-            <label for="street-line-1">
-              Address 1
-            </label>
-            <input id="street-line-1" type="text" placeholder="" v-model="address1box"/>
+        <label for="street-line-1">
+          Address 1
+        </label>
+        <input id="street-line-1" type="text" placeholder="" v-model="address1box"/>
 
-            <label for="street-line-2">
-              Address 2
-            </label>
-            <input id="street-line-2" type="text" placeholder="" v-model="address2box"/>
+        <label for="street-line-2">
+          Address 2
+        </label>
+        <input id="street-line-2" type="text" placeholder="" v-model="address2box"/>
 
-            <label for="street-line-3">
-              Address 3
-            </label>
-            <input id="street-line-3" type="text" placeholder="" v-model="address3box"/>
+        <label for="street-line-3">
+          Address 3
+        </label>
+        <input id="street-line-3" type="text" placeholder="" v-model="address3box"/>
 
-            <label for="city">
-              City
-            </label>
-            <input id="city" type="text" placeholder="" v-model="citybox"/>
+        <label for="city">
+          City
+        </label>
+        <input id="city" type="text" placeholder="" v-model="citybox"/>
 
-            <label for="state-selector">
-              State Select
-            </label>
-            <DropdownNoImg
-              id="state-selector"
-              :options="stateArray"
-              :selected="selectedState"
-              :placeholder="'Select a state'"
-              v-on:updateOption="currState"
-            />
+        <label for="state-selector">
+          State Select
+        </label>
+        <DropdownNoImg
+          id="state-selector"
+          :options="stateArray"
+          :selected="selectedState"
+          :placeholder="'Select a state'"
+          v-on:updateOption="currState"
+        />
 
-            <label for="zip-code">
-              Zip or Postal Code
-            </label>
-            <input id="zip-code" type="text" placeholder="" v-model="zipbox"/>
+        <label for="zip-code">
+          Zip or Postal Code
+        </label>
+        <input id="zip-code" type="text" placeholder="" v-model="zipbox"/>
 
-            <label for="country-selector">
-              Country Select
-            </label>
-            <Dropdown
-              :options="countryArray"
-              :selected="selectedCountry"
-              :placeholder="'Select a country'"
-              v-on:updateOption="currCountry"
-            />
+        <label for="country-selector">
+          Country Select
+        </label>
+        <Dropdown
+          :options="countryArray"
+          :selected="selectedCountry"
+          :placeholder="'Select a country'"
+          v-on:updateOption="currCountry"
+        />
 
-            <label for="phone-number">
-              Phone Number
-            </label>
-            <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phonebox"/>
+        <label for="phone-number">
+          Phone Number
+        </label>
+        <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phonebox"/>
 
-            <label id="phone-country-code">
-              Country Phone Number Code
-            </label>
-            <Dropdown
-              id="phone-country-code"
-              :options="countryCodeArray"
-              :selected="selectedCountryCode"
-              :placeholder="'Select a country'"
-              v-on:updateOption="currCountryCode"
-            />
+        <label id="phone-country-code">
+          Country Phone Number Code
+        </label>
+        <Dropdown
+          id="phone-country-code"
+          :options="countryCodeArray"
+          :selected="selectedCountryCode"
+          :placeholder="'Select a country'"
+          v-on:updateOption="currCountryCode"
+        />
 
-            <label for="contact-priority">
-              Contact Priority
-            </label>
-            <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
+        <label for="contact-priority">
+          Contact Priority
+        </label>
+        <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
 
-            <label for="remove-contact-checkbox">
-              Remove Contact
-            </label>
-            <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
-        </div>
+        <label for="remove-contact-checkbox">
+          Remove Contact
+        </label>
+        <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
 
-        <!-- Buttons are here -->
-        <button type="button" v-on:click="resetContact()">Reset</button>
-        <button type="button" v-on:click="submitEmergencyContactInformation()">Submit</button><br /><br />
+
+        <button type="button" v-on:click="fillEmergencyContactInformation()">
+          Reset
+        </button>
+
+        <button type="button" v-on:click="submitEmergencyContactInformation()">
+          Submit
+        </button>
     </div>
 </template>
 
