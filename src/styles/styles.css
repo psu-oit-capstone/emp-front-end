@@ -31,9 +31,7 @@
 }
 
 .text-box {
-  margin: auto;
-  margin-bottom: 30px;
-  padding: 20px;
+  margin-bottom: 10px;
 }
 
 /* FONTS */
@@ -153,6 +151,49 @@ a {
   float: left;
 }
 
+.text-box label{
+    display:block;
+    font-size:12px;
+}
+
+.text-box input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
+
+.submit{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#ffffff;
+    height:36px;
+    background-color:#28a745;
+    padding-right:16px;
+    padding-left:16px;
+    border-radius:4px;
+    box-sizing:border-box;
+    margin-left:10px;
+    float:right;
+}
+
+.reset{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#5f3417;
+    height:36px;
+    background-color:transparent;
+    padding-right:16px;
+    padding-left:16px;
+    border:1px solid #5f3417;
+    border-radius:4px;
+    float:right;
+    box-sizing:border-box;
+}
 
 
 /*****************************

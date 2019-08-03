@@ -67,8 +67,8 @@
             </div>
         </div>
         <div class="button-holder">
-            <button type="button" id="submit" v-on:click="submit()">Submit</button>
-            <button type="button" id="reset" v-on:click="resetContact()">Reset</button>
+            <button type="button" class="submit" v-on:click="submit()">Submit</button>
+            <button type="button" class="reset" v-on:click="resetContact()">Reset</button>
         </div>
     </div>
 </template>
@@ -150,7 +150,7 @@
                 this.address3box = "";
                 this.citybox = "";
                 this.statebox = "";
-                this.selectedState = {name: 'State Select'}; // Here to set dropdown to default of Oregon
+                this.selectedState = {name: 'State'}; // Here to set dropdown to default of Oregon
                 this.zipbox = "";
                 this.countrybox = "USA";
                 this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
@@ -285,7 +285,7 @@
     height:15px;
 }
 
-#submit{
+.submit{
     font-size:14px;
     font-weight: 500;
     letter-spacing:1px;
@@ -300,7 +300,7 @@
     float:right;
 }
 
-#reset{
+.reset{
     font-size:14px;
     font-weight: 500;
     letter-spacing:1px;

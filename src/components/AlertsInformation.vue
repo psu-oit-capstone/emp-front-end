@@ -70,18 +70,18 @@
     </h2>
     <small class="text-muted">
       Standard text message rates apply. Text messages will come from one of two IDs: 231-77 or 630-79.
-      <br>
+      <br/>
       <span style="color:red">*Required: </span>
         Either enter a text message number or opt-out by reading the notice and checking the box.
     </small>
     <br>
 
-    <div class="row">
+    <div class="row text-box">
       <div class="col-md-3">
-        <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number:" specialelement="true">Text Message Number:</label>
+        <label for="smsDevice1" code="alert.index.textMessage#LABEL" alt="Text Message Number" specialelement="true">Text Message Number</label>
       </div>
       <div class="col-md-9">
-          <input v-model="smsNumber" type="tel" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+          <input v-model="smsNumber" type="tel" placeholder="Text Message Number" class="form-control" id="smsDevice1" name="smsDevice1" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number"/>
       </div>
     </div>
 
@@ -113,21 +113,21 @@
     <small class="text-muted">Standard rates apply. Calls will come from the phone number: 1-877-725-9111.</small>
     <br>
 
-    <div class="row">
+    <div class="row text-box">
       <div class="col-md-3">
-        <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number:" specialelement="true">Primary Phone Number:</label>
+        <label for="mobilePhone" code="alert.index.businessPhone#LABEL" alt="Primary Phone Number" specialelement="true">Primary Phone Number</label>
       </div>
       <div class="col-md-9">
-        <input v-model="phoneNumber" type="tel" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+        <input v-model="phoneNumber" type="tel" placeholder="Primary Phone Number" class="form-control" id="mobilePhone" name="mobilePhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number"/>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row text-box">
       <div class="col-md-3">
-        <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number:" specialelement="true">Alternate Phone Number:</label>
+        <label for="businessPhone" code="alert.index.mobilePhone#LABEL" alt="Alternate Phone Number" specialelement="true">Alternate Phone Number</label>
       </div>
       <div class="col-md-9">
-        <input v-model="alternatePhoneNumber" type="tel" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number">
+        <input v-model="alternatePhoneNumber" type="tel" placeholder="Alternate Phone Number" class="form-control" id="businessPhone" name="businessPhone" maxlength="12" value="" pattern="\d{3}-?\d{3}-?\d{4}" title="10-digit phone number" onkeyup="this.value = formatTelephone(this.value);" aria-label="10-digit phone number"/>
       </div>
     </div>
     <br style="clear: both;">
@@ -140,32 +140,29 @@ All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU 
     If you choose to subscribe an additional email address, that email address will also receive both PSU Alert messages and Timely Warning notifications.
     </small><br>
 
-    <div class="row">
+    <div class="row text-box">
       <div class="col-md-3">
-        <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address:" specialelement="true">PSU email address:</label>
+        <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address" specialelement="true">PSU email address</label>
       </div>
       <div class="col-md-9">
-        <input v-model="psuEmailAddress" type="email" class="form-control" id="psuemail" value="leake@pdx.edu">
+        <input v-model="psuEmailAddress" type="email" placeholder="PSU email address" class="form-control" id="psuemail" value="leake@pdx.edu">
       </div>
     </div>
 
-    <div class="row">
+    <div class="row text-box">
       <div class="col-md-3">
-        <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address:" specialelement="true">Alternate email address:</label>
+        <label for="emailAddress" code="alert.index.emailAddress#LABEL" alt="Alternate email address" specialelement="true">Alternate email address</label>
       </div>
       <div class="col-md-9">
-        <input v-model="alternateEmailAddress" type="email" class="form-control" id="emailAddress" name="emailAddress" value="">
+        <input v-model="alternateEmailAddress" type="email" placeholder="Alternate email address" class="form-control" id="emailAddress" name="emailAddress" value="">
       </div>
     </div>
     <br style="clear: both;">
   </div>
 
-  <fieldset class="form-group" id="formButtons">
-     <label for="reset-btn" class="sr-only">Reset form data:</label>
-     <input v-on:click="fillAlertsInformation()" type="reset" value="Reset" class="btn btn-warning" id="reset-btn">
-     &nbsp;&nbsp;
-     <label for="submit-btn" class="sr-only">Submit form data:</label>
-     <input v-on:click="submitAlertsInformation()" type="submit" value="Submit" class="btn btn-success" id="submit-btn">
+  <fieldset class="form-group" id="formButtons" style="border:0px transparent none;">
+    <button type="button" class="submit" id="reset-btn" v-on:click="submitAlertsInformation()">Submit</button>
+    <button type="button" class="reset" id="submit-btn" v-on:click="fillAlertsInformation()">Reset</button>
    </fieldset>
    <br>
 
@@ -253,4 +250,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.text-box{
+  max-width: 240px;
+}
+
 </style>
