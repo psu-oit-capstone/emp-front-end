@@ -1,91 +1,119 @@
 <template>
-    <div class="contact-form">
-        <label for="first-name">
-          First Name
-        </label>
-        <input id="first-name" type="text" placeholder="" v-model="fnamebox"/>
+    <div id="contact-form">
+        <div class="input-field">
+          <label for="first-name">
+            First Name
+          </label>
+          <input id="first-name" type="text" placeholder="" v-model="first_name"/>
+        </div>
 
-        <label for="middle-name">
-          Middle Name
-        </label>
-        <input id="middle-name" type="text" placeholder="" v-model="mnamebox"/>
+        <div class="input-field">
+          <label for="middle-name">
+            Middle Name
+          </label>
+          <input id="middle-name" type="text" placeholder="" v-model="middle_name"/>
+        </div>
 
-        <label for="last-name">
-          Last Name
-        </label>
-        <input id="last-name" type="text" placeholder="" v-model="lnamebox"/>
+        <div class="input-field">
+          <label for="last-name">
+            Last Name
+          </label>
+          <input id="last-name" type="text" placeholder="" v-model="last_name"/>
+        </div>
 
-        <label for="street-line-1">
-          Address 1
-        </label>
-        <input id="street-line-1" type="text" placeholder="" v-model="address1box"/>
+        <div class="input-field">
+          <label for="street-line-1">
+            Address 1
+          </label>
+          <input id="street-line-1" type="text" placeholder="" v-model="streetLine1"/>
+        </div>
 
-        <label for="street-line-2">
-          Address 2
-        </label>
-        <input id="street-line-2" type="text" placeholder="" v-model="address2box"/>
+        <div class="input-field">
+          <label for="street-line-2">
+            Address 2
+          </label>
+          <input id="street-line-2" type="text" placeholder="" v-model="streetLine2"/>
+        </div>
 
-        <label for="street-line-3">
-          Address 3
-        </label>
-        <input id="street-line-3" type="text" placeholder="" v-model="address3box"/>
+        <div class="input-field">
+          <label for="street-line-3">
+            Address 3
+          </label>
+          <input id="street-line-3" type="text" placeholder="" v-model="streetLine3"/>
+        </div>
 
-        <label for="city">
-          City
-        </label>
-        <input id="city" type="text" placeholder="" v-model="citybox"/>
+        <div class="input-field">
+          <label for="city">
+            City
+          </label>
+          <input id="city" type="text" placeholder="" v-model="city"/>
+        </div>
 
-        <label for="state-selector">
-          State Select
-        </label>
-        <DropdownNoImg
-          id="state-selector"
-          :options="stateArray"
-          :selected="selectedState"
-          :placeholder="'Select a state'"
-          v-on:updateOption="currState"
-        />
+        <div class="input-field">
+          <label for="state-selector">
+            State Select
+          </label>
+          <DropdownNoImg
+            id="state-selector"
+            :options="stateArray"
+            :selected="selectedState"
+            :placeholder="'Select a state'"
+            v-on:updateOption="currState"
+          />
+        </div>
 
-        <label for="zip-code">
-          Zip or Postal Code
-        </label>
-        <input id="zip-code" type="text" placeholder="" v-model="zipbox"/>
+        <div class="input-field">
+          <label for="zip-code">
+            Zip or Postal Code
+          </label>
+          <input id="zip-code" type="text" placeholder="" v-model="zipCode"/>
+        </div>
 
-        <label for="country-selector">
-          Country Select
-        </label>
-        <Dropdown
-          :options="countryArray"
-          :selected="selectedCountry"
-          :placeholder="'Select a country'"
-          v-on:updateOption="currCountry"
-        />
+        <div class="input-field">
+          <label for="country-selector">
+            Country Select
+          </label>
+          <Dropdown
+            :options="countryArray"
+            :selected="selectedCountry"
+            :placeholder="'Select a country'"
+            v-on:updateOption="currCountry"
+          />
+        </div>
 
-        <label for="phone-number">
-          Phone Number
-        </label>
-        <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phonebox"/>
+        <div class="input-field">
+          <label for="phone-number">
+            Phone Number
+          </label>
+          <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phoneNumber"/>
+        </div>
 
-        <label id="phone-country-code">
-          Country Phone Number Code
-        </label>
-        <Dropdown
-          id="phone-country-code"
-          :options="countryCodeArray"
-          :selected="selectedCountryCode"
-          :placeholder="'Select a country'"
-          v-on:updateOption="currCountryCode"
-        />
+        <div class="input-field">
+          <label id="phone-country-code">
+            Country Phone Number Code
+          </label>
+          <Dropdown
+            id="phone-country-code"
+            :options="countryCodeArray"
+            :selected="selectedCountryCode"
+            :placeholder="'Select a country'"
+            v-on:updateOption="currCountryCode"
+          />
+        </div>
 
-        <label for="contact-priority">
-          Contact Priority
-        </label>
-        <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
+        <div class="input-field">
+          <label for="contact-priority">
+            Contact Priority
+          </label>
+          <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
+        </div>
 
-        <label for="remove-contact-checkbox">
-          Remove Contact
-        </label>
-        <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
+        <div class="input-field">
+          <label for="remove-contact-checkbox">
+            Remove Contact
+          </label>
+          <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
+          </div>
 
 
         <button type="button" v-on:click="fillEmergencyContactInformation()">
@@ -97,6 +125,8 @@
         </button>
     </div>
 </template>
+
+
 
 <script>
     //For uses of Dropdown you MUST pass in all defaults
@@ -126,17 +156,17 @@
             phoneExtension: '',
 
             regbox:       {type: Boolean, default: false},
-            fnamebox:     {type: String, default: ""},
-            mnamebox:     {type: String, default: ""},
-            lnamebox:     {type: String, default: ""},
-            address1box:  {type: String, default: ""},
-            address2box:  {type: String, default: ""},
-            address3box:  {type: String, default: ""},
-            citybox:      {type: String, default: ""},
-            statebox:     {type: String, default: ""},
-            zipbox:       {type: String, default: ""},
+            first_name:     {type: String, default: ""},
+            middle_name:     {type: String, default: ""},
+            last_name:     {type: String, default: ""},
+            streetLine1:  {type: String, default: ""},
+            streetLine2:  {type: String, default: ""},
+            streetLine3:  {type: String, default: ""},
+            city:      {type: String, default: ""},
+            state:     {type: String, default: ""},
+            zipCode:       {type: String, default: ""},
             countrybox:   {type: String, default: ""},
-            phonebox:     {type: String, default: ""},
+            phoneNumber:     {type: String, default: ""},
             countryCode:  {type: String, default: ""},
             orderbox:     {type: Number},
 
@@ -207,20 +237,20 @@
               vm.pidm = data['pidm'];
               vm.priority = data['priority'];
 
-              vm.fnamebox = data['first_name'];
-              vm.mnamebox = this.safeNull(data['mi']);
-              vm.lnamebox = data['last_name'];
-              vm.citybox = data['city'];
-              vm.statebox = data['stat_code'];
-              vm.phonebox = data['phone_number'];
-              vm.zipbox = data['zip'];
-              vm.address1box = this.safeNull(data['street_line1']);
-              vm.address2box = this.safeNull(data['street_line2']);
-              vm.address3box = this.safeNull(data['street_line3']);
+              vm.first_name = data['first_name'];
+              vm.middle_name = this.safeNull(data['mi']);
+              vm.last_name = data['last_name'];
+              vm.city = data['city'];
+              vm.state = data['stat_code'];
+              vm.phoneNumber = data['phone_number'];
+              vm.zipCode = data['zip'];
+              vm.streetLine1 = this.safeNull(data['street_line1']);
+              vm.streetLine2 = this.safeNull(data['street_line2']);
+              vm.streetLine3 = this.safeNull(data['street_line3']);
 
               /* TODO: Not form-bound data */
               vm.relation = data['relt_code']
-              vm.statebox = data['stat_code']
+              vm.state = data['stat_code']
               vm.nation = data['natn_code']
               vm.phoneCountryCode = data['ctry_code_phone']
               vm.phoneAreaCode = data['phone_area']
@@ -236,17 +266,17 @@
               'surrogateId': 'surrogate_id',
               'pidm': 'pidm',
               'priority': 'priority',
-              'fnamebox': 'first_name',
-              'mnamebox': 'mi',
-              'lnamebox': 'last_name',
-              'citybox': 'city',
-              'phonebox': 'phone_number',
-              'zipbox': 'zip',
-              'address1box': 'street_line1',
-              'address2box': 'street_line2',
-              'address3box': 'street_line3',
+              'first_name': 'first_name',
+              'middle_name': 'mi',
+              'last_name': 'last_name',
+              'city': 'city',
+              'phoneNumber': 'phone_number',
+              'zipCode': 'zip',
+              'streetLine1': 'street_line1',
+              'streetLine2': 'street_line2',
+              'streetLine3': 'street_line3',
               'relation': 'relt_code',
-              'statebox': 'stat_code',
+              'state': 'stat_code',
               'countrybox': 'natn_code',
               'phoneCountryCode': 'ctry_code_phone',
               'phoneAreaCode': 'phone_area',
@@ -286,7 +316,7 @@
                 this.countryCode = payload.code;
             },
             currState(payload) {
-                this.statebox = payload.name;
+                this.state = payload.name;
             },
             submit() {
                 this.contact_out = this.makeContact();
@@ -295,49 +325,49 @@
             },
             makeContact() {
                 return {
-                    name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
-                    address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
+                    name: {first_name: this.first_name, middle_name: this.middle_name, last_name: this.last_name},
+                    address: {streetLine1: this.streetLine1, streetLine2: this.streetLine2, streetLine3: this.streetLine3},
                     area: {
-                        countrybox: this.countrybox, countryCode: this.countryCode, phonebox: this.phonebox,
-                        statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
+                        countrybox: this.countrybox, countryCode: this.countryCode, phoneNumber: this.phoneNumber,
+                        state: this.state, city: this.city, zipCode: this.zipCode
                     },
                     order: {orderbox: this.orderbox},
                     delete: {regbox: this.regbox}
                 }
             },
             setContact(payload) {
-                this.fnamebox = payload.name.fnamebox;
-                this.mnamebox = payload.name.mnamebox;
-                this.lnamebox = payload.name.lnamebox;
-                this.address1box = payload.address.address1box;
-                this.address2box = payload.address.address2box;
-                this.address3box = payload.address.address3box;
-                this.citybox = payload.area.citybox;
-                this.statebox = payload.area.statebox;
-                this.selectedState = payload.area.statebox;
-                this.zipbox = payload.area.zipbox;
+                this.first_name = payload.name.first_name;
+                this.middle_name = payload.name.middle_name;
+                this.last_name = payload.name.last_name;
+                this.streetLine1 = payload.address.streetLine1;
+                this.streetLine2 = payload.address.streetLine2;
+                this.streetLine3 = payload.address.streetLine3;
+                this.city = payload.area.city;
+                this.state = payload.area.state;
+                this.selectedState = payload.area.state;
+                this.zipCode = payload.area.zipCode;
                 this.countrybox = payload.area.countrybox;
                 this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray);
                 this.countryCode = payload.area.countryCode;
                 this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray);
-                this.phonebox = payload.area.phonebox;
+                this.phoneNumber = payload.area.phoneNumber;
                 this.orderbox = payload.order.orderbox;
                 this.regbox = payload.delete.regbox;
             },
             resetContact() {
-                this.fnamebox = "";
-                this.mnamebox = "";
-                this.lnamebox = "";
-                this.address1box = "";
-                this.address2box = "";
-                this.address3box = "";
-                this.citybox = "";
-                this.statebox = "";
+                this.first_name = "";
+                this.middle_name = "";
+                this.last_name = "";
+                this.streetLine1 = "";
+                this.streetLine2 = "";
+                this.streetLine3 = "";
+                this.city = "";
+                this.state = "";
                 this.selectedState = {name: 'State Select'};
-                this.zipbox = "";
+                this.zipCode = "";
                 this.countrybox = "USA";
                 this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",};
-                this.phonebox = "";
+                this.phoneNumber = "";
                 this.countryCode = "1";
                 this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",};
                 this.orderbox = 1;
@@ -380,6 +410,12 @@
     }
 </script>
 
-<style scoped>
 
+
+<style scoped>
+#contact-form > input::after {
+  background-color:red;
+  content: "\A";
+  white-space: pre;
+}
 </style>
