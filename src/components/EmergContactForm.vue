@@ -114,11 +114,11 @@
         </div>
 
 
-        <button type="button" v-on:click="fillEmergencyContactInformation()">
+        <button type="button" @click="resetContact()">
           Reset
         </button>
 
-        <button type="button" v-on:click="submitEmergencyContactInformation()">
+        <button type="button" @click="updateContact()">
           Submit
         </button>
     </div>
@@ -133,11 +133,15 @@
     export default {
         name: "EmergContactForm.vue",
         components: {
-            Dropdown,
+            Dropdown
         },
+
+        props: ['activeContact'],
 
         data: function() {
             return {
+                contactCopy:            {type: Object},
+
                 pidm:                   {type: String, default: ""},
                 surrogateId:            {type: String, default: ""},
                 relation:               {type: String, default: ""},
@@ -247,63 +251,13 @@
 
                 selectedState: {
                     name: 'State Select'
-                }
-            }
-        },
+                },
 
 
-        methods: {
-            safeNull(str) {
-              if(str === 'null')
-                return ''
-              return str
-            },
-
-            // Grab contacts via axios and bind to Vue model
-            fillEmergencyContactInformation() {
-                var vm = this;
-
-                axios({
-                  method: 'post',
-                  baseURL: 'http://127.0.0.1:8000/getEmergencyContacts/',
-                })
-                .then(response => {
-
-                  let data = response.data[0];
-
-                  vm.surrogateId = data['surrogate_id']
-                  vm.pidm = data['pidm'];
-                  vm.priority = data['priority'];
-
-                  vm.firstName = data['first_name'];
-                  vm.middleName = this.safeNull(data['mi']);
-                  vm.lastName = data['last_name'];
-                  vm.city = data['city'];
-                  vm.state = data['stat_code'];
-                  vm.phoneNumber = data['phone_number'];
-                  vm.zipCode = data['zip'];
-                  vm.streetLine1 = this.safeNull(data['street_line1']);
-                  vm.streetLine2 = this.safeNull(data['street_line2']);
-                  vm.streetLine3 = this.safeNull(data['street_line3']);
-
-                  /* TODO: Not form-bound data */
-                  vm.relation = data['relt_code']
-                  vm.state = data['stat_code']
-                  vm.nation = data['natn_code']
-                  vm.phoneCountryCode = data['ctry_code_phone']
-                  vm.phoneAreaCode = data['phone_area']
-                  vm.phoneExtension = data['phone_ext']
-                })
-                .catch(error => console.log(error.toString()))
-            },
-
-            submitEmergencyContactInformation() {
-                var vm = this;
-
-                let local_to_api_map = {
+                localToAPIMap: {
                   'surrogateId': 'surrogate_id',
                   'pidm': 'pidm',
-                  'priority': 'priority',
+                  'contactPriority': 'priority',
                   'firstName': 'first_name',
                   'middleName': 'mi',
                   'lastName': 'last_name',
@@ -320,36 +274,24 @@
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
                 }
+            }
+        },
 
-                let bodyFormData = new FormData();
+        watch: {
+          // When our parent changes the activate contact, update the form fields
+          activeContact: function(contactObject) {
+            var vm = this
 
-                for (let key in local_to_api_map) {
-                    if(vm[key]) {
-                        bodyFormData.set(local_to_api_map[key], vm[key])
-                    }
-                }
+            // Deep clone the object in case we need a reset
+            vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
 
+            for(let key in contactObject) {
+              vm[key] = contactObject[key]
+            }
+          }
+        },
 
-                axios({
-                  method: 'post',
-                  baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/',
-                  data: bodyFormData
-                })
-                .then(response => {
-                  console.log(response)
-                  if(response['status'] == '200')
-                    console.log('User information was updated.')
-                  if(response['status'] == '422')
-                    console.log('Form fields incorrect or incomplete.')
-                })
-                .catch(error => console.log(error))
-            },
-
-
-            /////////////////////////////////////////
-            /* Setters for Dropdown event handling */
-            /////////////////////////////////////////
-
+        methods: {
             setCountry(countryObject) {
               this.country = countryObject.country;
             },
@@ -362,9 +304,34 @@
                 this.state = stateObject.name;
             },
 
-            submit() {
-                this.$emit('updateContact');
+            updateContact() {
+              var vm = this;
+              let contactObject = vm.toContactObject();
+
+              // Deep clone the object in case we need a reset
+              vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+
+              // Tell our parent to update and submit us to the backend
+              vm.$emit('updateContact', contactObject)
             },
+
+            toContactObject() {
+              var vm = this;
+
+              let contactObject = {}
+              for(let key in vm.localToAPIMap)
+                contactObject[key] = vm[key];
+
+              return contactObject
+            },
+
+            resetContact() {
+              var vm = this;
+              for(let key in vm.contactCopy) {
+                vm[key] = vm.contactCopy[key]
+              }
+            },
+
 
 
             findByCountry(country, targetCountries) {
@@ -390,10 +357,7 @@
                         return targetCodes[i];
                     }
                 }
-            },
-        },
-        mounted: function() {
-            this.fillEmergencyContactInformation()
+            }
         }
     }
 </script>

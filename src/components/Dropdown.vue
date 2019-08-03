@@ -71,6 +71,8 @@
             updateOption(option) {
                 this.selectedOption = option;
                 this.showMenu = false;
+
+                // Let parent Vue model know to update
                 this.$emit('updateOption', this.selectedOption);
             },
 
