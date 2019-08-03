@@ -37,8 +37,8 @@
             let bodyFormData = new FormData();
             bodyFormData.set('username', this.username);
             bodyFormData.set('password', this.password);
-            this.$store.dispatch('login', bodyFormData).
-            then(() => {
+            this.$store.dispatch('login', bodyFormData)
+            .then(() => {
               // Redirect to main page
               vm.$router.push('/emergency-information');
             })
