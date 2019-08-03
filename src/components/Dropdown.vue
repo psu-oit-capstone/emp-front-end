@@ -55,8 +55,8 @@
         },
 
         watch: {
-            selected: function(payload) {
-                this.selectedOption = payload;
+            selected: function() {
+                this.selectedOption = this.selected;
             }
         },
 

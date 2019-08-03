@@ -165,43 +165,36 @@
                 contactPriority:        {type: Number},
 
                 countryCodeArray: [
+                    {name: "Select Phone Code", nationCode: null, code: null},
                     {name: "U.S.A. +1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan +81",nationCode: "LUS", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K. +44",nationCode: "LUS", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany +49",nationCode: "LUS", country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France +33",nationCode: "LUS", country: "France",  code: "7", svgimg: "fr.svg"},
-                    {name: "Russia +7", nationCode: "LUS",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China +86", nationCode: "LUS",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea +82", nationCode: "BTW", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                    {name: "Japan +81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K. +44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany +49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France +33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia +7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China +86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea +82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
                 ],
-                selectedCountryCode: {
-                    name: "U.S.A. +1",
-                    code: "1",
-                    nationCode: "LUS",
-                    svgimg: "us.svg",
-                },
+                selectedCountryCode: {name: "Select Phone Code", nationCode: null, code: null},
 
                 countryArray: [
+                    {name: "Select Country", nationCode: null, code: null},
                     {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan", nationCode: "LUS", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K.", nationCode: "LUS", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany", nationCode: "LUS",country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France", nationCode: "LUS",country: "France",  code: "7", svgimg: "fr.svg"},
-                    {name: "Russia", nationCode: "LUS",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China", nationCode: "LUS",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea", nationCode: "NMU", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
                 ],
 
                 // Default country until real contact data is received
-                selectedCountry: {
-                    name: "U.S.A.",
-                    nationCode: "LUS",
-                    code: "1",
-                    svgimg: "us.svg"
-                },
+                selectedCountry: {name: "Select Country", nationCode: null, code: null},
 
 
                 stateArray: [
+                    {stateCode: null, name: "Select State" },
                     {stateCode:"AL", name: "Alabama"},
                     {stateCode:"AL", name: "Alaska"},
                     {stateCode:"AL", name: "Arizona"},
@@ -283,7 +276,7 @@
         },
 
         watch: {
-          // When our parent changes the activate contact, update the form fields
+          // When our parent changes the active contact, update the form fields
           activeContact: function(contactObject) {
             var vm = this
 
@@ -294,9 +287,7 @@
               vm[key] = contactObject[key]
             }
 
-            vm['selectedCountry']     = vm.findByNationCode(vm.country)
-            vm['selectedState']       = vm.findStateByCode(vm.state)
-            vm['selectedCountryCode'] = vm.findPhoneCodeByNationCode(vm.country)
+            vm.updateDropdowns()
           }
         },
 
@@ -308,7 +299,7 @@
 
             setCountryCode(countryCodeObject) {
                 this.phoneCountryCode = countryCodeObject.code;
-                this['selectedCountryCode'] = this.findPhoneCodeByNationCode(this.country)
+                this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
             },
 
             setState(stateObject) {
@@ -343,13 +334,17 @@
                 vm[key] = vm.contactCopy[key]
               }
 
-              vm['selectedCountry']     = vm.findByNationCode(vm.country)
-
-              vm['selectedState']       = vm.findStateByCode(vm.state)
-              vm['selectedCountryCode'] = vm.findPhoneCodeByNationCode(vm.country)
+              vm.updateDropdowns()
             },
 
+            updateDropdowns() {
+              var vm = this;
 
+              // Place the correct Dropdown options in our dynamically bound variables
+              vm['selectedCountry']     = vm.findByNationCode(vm.country)
+              vm['selectedState']       = vm.findStateByCode(vm.state)
+              vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
+            },
 
             findByNationCode(nationCode) {
                 for(let i=0; i<this.countryArray.length; ++i) {
@@ -359,9 +354,9 @@
                 }
             },
 
-            findPhoneCodeByNationCode(nationCode) {
+            findNationByPhoneCode(phoneCode) {
                 for (let i = 0; i < this.countryCodeArray.length; i++) {
-                    if (this.countryCodeArray[i].nationCode === nationCode){
+                    if (this.countryCodeArray[i].code === phoneCode){
                         return this.countryCodeArray[i];
                     }
                 }
