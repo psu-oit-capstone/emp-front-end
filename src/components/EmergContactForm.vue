@@ -1,53 +1,97 @@
 <template>
     <div class="contact-form">
         <div>
-            <label for="fnamebox">First Name
-                <input type="text" placeholder="" v-model="fnamebox" v-bind:id="fnamebox"/></label><br>
-            <label for="mnamebox">Middle Name
-                <input type="text" placeholder="" v-model="mnamebox" v-bind:id="mnamebox"/></label><br>
-            <label for="lnamebox">Last Name
-                <input type="text" placeholder="" v-model="lnamebox" v-bind:id="lnamebox"/></label><br>
-            <label for="address1box">Address 1
-                <input type="text" placeholder="" v-model="address1box" v-bind:id="address1box"/></label><br>
-            <label for="address2box">Address 2
-                <input type="text" placeholder="" v-model="address2box" v-bind:id="address2box"/></label><br>
-            <label for="address3box">Address 3
-                <input type="text" placeholder="" v-model="address3box" v-bind:id="address3box"/></label><br>
-            <label for="citybox">City
-                <input type="text" placeholder="" v-model="citybox" v-bind:id="citybox"/></label><br>
-            <p class="state_label">State Select
-                <DropdownNoImg :options="stateArray"
-                               :selected="selectedState"
-                               v-on:updateOption="currState"
-                               :placeholder="'Select a state'">
-                </DropdownNoImg><br>
-                <label for="zipbox">Zip or Postal Code
-                    <input type="text" placeholder="" v-model="zipbox" v-bind:id="zipbox"/></label><br>
-            <p class="country_label">Country Select
-                <Dropdown :options="countryArray"
-                          :selected="selectedCountry"
-                          v-on:updateOption="currCountry"
-                          :placeholder="'Select a country'">
-                </Dropdown><br>
-            <label for="phonebox">Phone Number
-                <input type="text" placeholder="555-555-5555" v-model="phonebox" v-bind:id="phonebox"/></label><br>
-            <p class="country_code_label">Country Phone Number Code
-                <Dropdown :options="countryCodeArray"
-                          :selected="selectedCountryCode"
-                          v-on:updateOption="currCountryCode"
-                          :placeholder="'Select a country'">
-                </Dropdown></p>
-            <label for="orderbox">Contact Order
-                <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/></label><br>
+            <label for="first-name">
+              First Name
+            </label>
+            <input id="first-name" type="text" placeholder="" v-model="fnamebox"/>
 
-            <label for="regbox">
-                <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
-                Remove Contact.</label>
+            <label for="middle-name">
+              Middle Name
+            </label>
+            <input id="middle-name" type="text" placeholder="" v-model="mnamebox"/>
+
+            <label for="last-name">
+              Last Name
+            </label>
+            <input id="last-name" type="text" placeholder="" v-model="lnamebox"/>
+
+            <label for="street-line-1">
+              Address 1
+            </label>
+            <input id="street-line-1" type="text" placeholder="" v-model="address1box"/>
+
+            <label for="street-line-2">
+              Address 2
+            </label>
+            <input id="street-line-2" type="text" placeholder="" v-model="address2box"/>
+
+            <label for="street-line-3">
+              Address 3
+            </label>
+            <input id="street-line-3" type="text" placeholder="" v-model="address3box"/>
+
+            <label for="city">
+              City
+            </label>
+            <input id="city" type="text" placeholder="" v-model="citybox"/>
+
+            <label for="state-selector">
+              State Select
+            </label>
+            <DropdownNoImg
+              id="state-selector"
+              :options="stateArray"
+              :selected="selectedState"
+              :placeholder="'Select a state'"
+              v-on:updateOption="currState"
+            />
+
+            <label for="zip-code">
+              Zip or Postal Code
+            </label>
+            <input id="zip-code" type="text" placeholder="" v-model="zipbox"/>
+
+            <label for="country-selector">
+              Country Select
+            </label>
+            <Dropdown
+              :options="countryArray"
+              :selected="selectedCountry"
+              :placeholder="'Select a country'"
+              v-on:updateOption="currCountry"
+            />
+
+            <label for="phone-number">
+              Phone Number
+            </label>
+            <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phonebox"/>
+
+            <label id="phone-country-code">
+              Country Phone Number Code
+            </label>
+            <Dropdown
+              id="phone-country-code"
+              :options="countryCodeArray"
+              :selected="selectedCountryCode"
+              :placeholder="'Select a country'"
+              v-on:updateOption="currCountryCode"
+            />
+
+            <label for="contact-priority">
+              Contact Priority
+            </label>
+            <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
+
+            <label for="remove-contact-checkbox">
+              Remove Contact
+            </label>
+            <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
         </div>
 
         <!-- Buttons are here -->
         <button type="button" v-on:click="resetContact()">Reset</button>
-        <button type="button" v-on:click="submitEmergencyContactInformation()">Submit</button><br><br>
+        <button type="button" v-on:click="submitEmergencyContactInformation()">Submit</button><br /><br />
     </div>
 </template>
 
@@ -74,13 +118,10 @@
             surrogateId: '',
             priority: '',
             relation: '',
-            state: '',
-            nation: '',
             phoneCountryCode: '',
             phoneAreaCode: '',
             phoneExtension: '',
 
-            // Hold data for input fields here like this if it needs to be reactive
             regbox:       {type: Boolean, default: false},
             fnamebox:     {type: String, default: ""},
             mnamebox:     {type: String, default: ""},
@@ -176,7 +217,7 @@
 
               /* TODO: Not form-bound data */
               vm.relation = data['relt_code']
-              vm.state = data['stat_code']
+              vm.statebox = data['stat_code']
               vm.nation = data['natn_code']
               vm.phoneCountryCode = data['ctry_code_phone']
               vm.phoneAreaCode = data['phone_area']
@@ -202,8 +243,8 @@
               'address2box': 'street_line2',
               'address3box': 'street_line3',
               'relation': 'relt_code',
-              'state': 'stat_code',
-              'nation': 'natn_code',
+              'statebox': 'stat_code',
+              'countrybox': 'natn_code',
               'phoneCountryCode': 'ctry_code_phone',
               'phoneAreaCode': 'phone_area',
               'phoneExtension': 'phone_ext'
@@ -270,12 +311,12 @@
                 this.address3box = payload.address.address3box;
                 this.citybox = payload.area.citybox;
                 this.statebox = payload.area.statebox;
-                this.selectedState = payload.area.statebox; // Here to set dropdown
+                this.selectedState = payload.area.statebox;
                 this.zipbox = payload.area.zipbox;
                 this.countrybox = payload.area.countrybox;
-                this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
+                this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray);
                 this.countryCode = payload.area.countryCode;
-                this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
+                this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray);
                 this.phonebox = payload.area.phonebox;
                 this.orderbox = payload.order.orderbox;
                 this.regbox = payload.delete.regbox;
@@ -289,13 +330,13 @@
                 this.address3box = "";
                 this.citybox = "";
                 this.statebox = "";
-                this.selectedState = {name: 'State Select'}; // Here to set dropdown to default of Oregon
+                this.selectedState = {name: 'State Select'};
                 this.zipbox = "";
                 this.countrybox = "USA";
-                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
+                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",};
                 this.phonebox = "";
                 this.countryCode = "1";
-                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}; //Here to set the dropdown
+                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",};
                 this.orderbox = 1;
                 this.regbox = false;
             },
