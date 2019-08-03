@@ -4,21 +4,21 @@
           <label for="first-name">
             First Name
           </label>
-          <input id="first-name" type="text" placeholder="" v-model="first_name"/>
+          <input id="first-name" type="text" placeholder="" v-model="firstName"/>
         </div>
 
         <div class="input-field">
           <label for="middle-name">
             Middle Name
           </label>
-          <input id="middle-name" type="text" placeholder="" v-model="middle_name"/>
+          <input id="middle-name" type="text" placeholder="" v-model="middleName"/>
         </div>
 
         <div class="input-field">
           <label for="last-name">
             Last Name
           </label>
-          <input id="last-name" type="text" placeholder="" v-model="last_name"/>
+          <input id="last-name" type="text" placeholder="" v-model="lastName"/>
         </div>
 
         <div class="input-field">
@@ -105,15 +105,15 @@
           <label for="contact-priority">
             Contact Priority
           </label>
-          <input id="contact-priority" type="number" placeholder="" v-model.number="orderbox" min="1"/>
+          <input id="contact-priority" type="number" placeholder="" v-model.number="contactPriority" min="1"/>
         </div>
 
         <div class="input-field">
           <label for="remove-contact-checkbox">
             Remove Contact
           </label>
-          <input id="remove-contact-checkbox" type="checkbox" v-model="regbox"/>
-          </div>
+          <input id="remove-contact-checkbox" type="checkbox" v-model="removeContactCheckbox"/>
+        </div>
 
 
         <button type="button" v-on:click="fillEmergencyContactInformation()">
@@ -129,7 +129,6 @@
 
 
 <script>
-    //For uses of Dropdown you MUST pass in all defaults
     import Dropdown from '@/components/Dropdown.vue'
     import DropdownNoImg from '@/components/DropdownNoImg.vue'
     import axios from 'axios'
@@ -140,12 +139,11 @@
             Dropdown,
             DropdownNoImg,
         },
-        //Receives contact to be edited from parent
+
         props: [
             'contact_in'
         ],
 
-        //This runs on instance creation
         data: function() { return {
             pidm: '',
             surrogateId: '',
@@ -155,53 +153,98 @@
             phoneAreaCode: '',
             phoneExtension: '',
 
-            regbox:       {type: Boolean, default: false},
-            first_name:     {type: String, default: ""},
-            middle_name:     {type: String, default: ""},
-            last_name:     {type: String, default: ""},
-            streetLine1:  {type: String, default: ""},
-            streetLine2:  {type: String, default: ""},
-            streetLine3:  {type: String, default: ""},
-            city:      {type: String, default: ""},
-            state:     {type: String, default: ""},
-            zipCode:       {type: String, default: ""},
-            countrybox:   {type: String, default: ""},
-            phoneNumber:     {type: String, default: ""},
-            countryCode:  {type: String, default: ""},
-            orderbox:     {type: Number},
+            removeContactCheckbox:  {type: Boolean, default: false},
+            firstName:             {type: String, default: ""},
+            middleName:            {type: String, default: ""},
+            lastName:              {type: String, default: ""},
+            streetLine1:            {type: String, default: ""},
+            streetLine2:            {type: String, default: ""},
+            streetLine3:            {type: String, default: ""},
+            city:                   {type: String, default: ""},
+            state:                  {type: String, default: ""},
+            zipCode:                {type: String, default: ""},
+            countrybox:             {type: String, default: ""},
+            phoneNumber:            {type: String, default: ""},
+            countryCode:            {type: String, default: ""},
+            contactPriority:        {type: Number},
 
             countryCodeArray: [
-                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",},
+                {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K. +44", country: "UK",  code: "44", svgimg: "gb.svg"},
+                {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France +33", country: "France",  code: "7", svgimg: "fr.svg"},
+                {name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China +86", country: "China",  code: "86", svgimg: "cn.svg"},
+                {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
             ],
             selectedCountryCode: {
                 name: "U.S.A. +1", code: "1", svgimg: "us.svg",
             },
             countryArray: [
-                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",},
+                {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"},
+                {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
+                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},
+                {name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
+                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"},
+                {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
             ],
             selectedCountry: {
                 name: "U.S.A.", code: "1", svgimg: "us.svg",
             },
             stateArray: [
-                {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
-                {name: "California"}, {name: "Colorado"}, {name: "Connecticut"}, {name: "Delaware"},
-                {name: "Florida"}, {name: "Georgia"}, {name: "Hawaii"}, {name: "Idaho"},
-                {name: "Illinois"}, {name: "Indiana"}, {name: "Iowa"}, {name: "Kansas"},
-                {name: "Kentucky"}, {name: "Louisiana"}, {name: "Maine"}, {name: "Maryland"},
-                {name: "Massachusetts"}, {name: "Michigan"}, {name: "Minnesota"}, {name: "Mississippi"},
-                {name: "Missouri"}, {name: "Montana"}, {name: "Nebraska"}, {name: "Nevada"},
-                {name: "New Hampshire"}, {name: "New Jersey"}, {name: "New Mexico"}, {name: "New York"},
-                {name: "North Carolina"}, {name: "North Dakota"}, {name: "Ohio"}, {name: "Oklahoma"},
-                {name: "Oregon"}, {name: "Pennsylvania"}, {name: "Rhode Island"}, {name: "South Carolina"},
-                {name: "South Dakota"}, {name: "Tennessee"}, {name: "Texas"}, {name: "Utah"},
-                {name: "Vermont"}, {name: "Virginia"}, {name: "Washington"}, {name: "West Virginia"},
-                {name: "Wisconsin"}, {name: "Wyoming"},
+                {name: "Alabama"},
+                {name: "Alaska"},
+                {name: "Arizona"},
+                {name: "Arkansas"},
+                {name: "California"},
+                {name: "Colorado"},
+                {name: "Connecticut"},
+                {name: "Delaware"},
+                {name: "Florida"},
+                {name: "Georgia"},
+                {name: "Hawaii"},
+                {name: "Idaho"},
+                {name: "Illinois"},
+                {name: "Indiana"},
+                {name: "Iowa"},
+                {name: "Kansas"},
+                {name: "Kentucky"},
+                {name: "Louisiana"},
+                {name: "Maine"},
+                {name: "Maryland"},
+                {name: "Massachusetts"},
+                {name: "Michigan"},
+                {name: "Minnesota"},
+                {name: "Mississippi"},
+                {name: "Missouri"},
+                {name: "Montana"},
+                {name: "Nebraska"},
+                {name: "Nevada"},
+                {name: "New Hampshire"},
+                {name: "New Jersey"},
+                {name: "New Mexico"},
+                {name: "New York"},
+                {name: "North Carolina"},
+                {name: "North Dakota"},
+                {name: "Ohio"},
+                {name: "Oklahoma"},
+                {name: "Oregon"},
+                {name: "Pennsylvania"},
+                {name: "Rhode Island"},
+                {name: "South Carolina"},
+                {name: "South Dakota"},
+                {name: "Tennessee"},
+                {name: "Texas"},
+                {name: "Utah"},
+                {name: "Vermont"},
+                {name: "Virginia"},
+                {name: "Washington"},
+                {name: "West Virginia"},
+                {name: "Wisconsin"},
+                {name: "Wyoming"},
             ],
             selectedState: {
                 name: 'State Select'
@@ -237,9 +280,9 @@
               vm.pidm = data['pidm'];
               vm.priority = data['priority'];
 
-              vm.first_name = data['first_name'];
-              vm.middle_name = this.safeNull(data['mi']);
-              vm.last_name = data['last_name'];
+              vm.firstName = data['first_name'];
+              vm.middleName = this.safeNull(data['mi']);
+              vm.lastName = data['last_name'];
               vm.city = data['city'];
               vm.state = data['stat_code'];
               vm.phoneNumber = data['phone_number'];
@@ -266,9 +309,9 @@
               'surrogateId': 'surrogate_id',
               'pidm': 'pidm',
               'priority': 'priority',
-              'first_name': 'first_name',
-              'middle_name': 'mi',
-              'last_name': 'last_name',
+              'firstName': 'first_name',
+              'middleName': 'mi',
+              'lastName': 'last_name',
               'city': 'city',
               'phoneNumber': 'phone_number',
               'zipCode': 'zip',
@@ -331,8 +374,8 @@
                         countrybox: this.countrybox, countryCode: this.countryCode, phoneNumber: this.phoneNumber,
                         state: this.state, city: this.city, zipCode: this.zipCode
                     },
-                    order: {orderbox: this.orderbox},
-                    delete: {regbox: this.regbox}
+                    order: {contactPriority: this.contactPriority},
+                    delete: {removeContactCheckbox: this.removeContactCheckbox}
                 }
             },
             setContact(payload) {
@@ -351,8 +394,8 @@
                 this.countryCode = payload.area.countryCode;
                 this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray);
                 this.phoneNumber = payload.area.phoneNumber;
-                this.orderbox = payload.order.orderbox;
-                this.regbox = payload.delete.regbox;
+                this.contactPriority = payload.order.contactPriority;
+                this.removeContactCheckbox = payload.delete.removeContactCheckbox;
             },
             resetContact() {
                 this.first_name = "";
@@ -370,8 +413,8 @@
                 this.phoneNumber = "";
                 this.countryCode = "1";
                 this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",};
-                this.orderbox = 1;
-                this.regbox = false;
+                this.contactPriority = 1;
+                this.removeContactCheckbox = false;
             },
             findByCountry(country, targetCountries) {
                 //Here we expect either a string containing a country name
