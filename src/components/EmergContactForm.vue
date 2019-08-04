@@ -1,55 +1,64 @@
 <template>
     <div id="contact-form">
-        <div class="input-field">
+      <div id="form-body">
+
+        <div class="text-box fnamebox">
           <label for="first-name">
             First Name
           </label>
-          <input id="first-name" type="text" placeholder="" v-model="firstName"/>
+          <input id="first-name" type="text" placeholder="First Name" v-model="firstName"/>
         </div>
 
-        <div class="input-field">
+        <div class="text-box mnamebox">
           <label for="middle-name">
             Middle Name
           </label>
-          <input id="middle-name" type="text" placeholder="" v-model="middleName"/>
+          <input id="middle-name" type="text" placeholder="Middle Initial" v-model="middleName"/>
         </div>
 
-        <div class="input-field">
+        <div class="text-box lnamebox">
           <label for="last-name">
             Last Name
           </label>
-          <input id="last-name" type="text" placeholder="" v-model="lastName"/>
+          <input id="last-name" type="text" placeholder="Last Name" v-model="lastName"/>
         </div>
 
-        <div class="input-field">
+        <div class="text-box address1box">
           <label for="street-line-1">
             Address 1
           </label>
-          <input id="street-line-1" type="text" placeholder="" v-model="streetLine1"/>
+          <input id="street-line-1" type="text" placeholder="Street Address" v-model="streetLine1"/>
         </div>
 
-        <div class="input-field">
+        <div class="text-box address2box">
           <label for="street-line-2">
             Address 2
           </label>
-          <input id="street-line-2" type="text" placeholder="" v-model="streetLine2"/>
+          <input id="street-line-2" type="text" placeholder="Apt/Bldg #" v-model="streetLine2"/>
         </div>
 
-        <div class="input-field">
-          <label for="street-line-3">
-            Address 3
-          </label>
-          <input id="street-line-3" type="text" placeholder="" v-model="streetLine3"/>
-        </div>
-
-        <div class="input-field">
+        <div class="text-box citybox">
           <label for="city">
             City
           </label>
-          <input id="city" type="text" placeholder="" v-model="city"/>
+          <input id="city" type="text" placeholder="City" v-model="city"/>
         </div>
 
-        <div class="input-field">
+        <div class="text-box zipbox">
+          <label for="zip-code">
+            Zip or Postal Code
+          </label>
+          <input id="zip-code" type="text" placeholder="97201" v-model="zipCode"/>
+        </div>
+
+        <div class="text-box address3box">
+          <label for="street-line-3">
+            Address 3
+          </label>
+          <input id="street-line-3" type="text" placeholder="Region" v-model="streetLine3"/>
+        </div>
+
+        <div class="select state-box">
           <label for="state-selector">
             State Select
           </label>
@@ -61,14 +70,7 @@
           />
         </div>
 
-        <div class="input-field">
-          <label for="zip-code">
-            Zip or Postal Code
-          </label>
-          <input id="zip-code" type="text" placeholder="" v-model="zipCode"/>
-        </div>
-
-        <div class="input-field">
+        <div class="select country-box">
           <label for="country-selector">
             Country Select
           </label>
@@ -80,14 +82,14 @@
           />
         </div>
 
-        <div class="input-field">
+        <div class="text-box phone-input">
           <label for="phone-number">
             Phone Number
           </label>
           <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phoneNumber"/>
         </div>
 
-        <div class="input-field">
+        <div class="select country-code">
           <label id="phone-country-code">
             Country Phone Number Code
           </label>
@@ -99,11 +101,11 @@
           />
         </div>
 
-        <div class="input-field">
-          <label for="contact-priority">
-            Contact Priority
-          </label>
-          <input id="contact-priority" type="number" placeholder="" v-model.number="contactPriority" min="1"/>
+        <div class="text-box orderbox">
+            <label for="contact-priority">
+              Contact Priority
+            </label>
+            <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
         </div>
 
         <div class="input-field">
@@ -113,14 +115,11 @@
           <input id="remove-contact-checkbox" type="checkbox" v-model="removeContactCheckbox"/>
         </div>
 
-
-        <button type="button" @click="resetContact()">
-          Reset
-        </button>
-
-        <button type="button" @click="updateContact()">
-          Submit
-        </button>
+        <div class="button-holder">
+            <button type="button" class="submit" @click="updateContact()">Submit</button>
+            <button type="button" class="reset" @click="resetContact()">Reset</button>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -375,10 +374,240 @@
 
 
 
-<style scoped>
-#contact-form > input::after {
-  background-color:red;
-  content: "\A";
-  white-space: pre;
+
+
+
+
+
+.text-box label{
+    display:block;
+    font-size:12px;
+}
+
+.text-box input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
+
+.text-box{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.select label{
+    display:block;
+    font-size:12px;
+}
+
+.select{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.button-holder{
+    margin-top:30px;
+    height:15px;
+}
+
+.submit{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#ffffff;
+    height:36px;
+    background-color:#28a745;
+    padding-right:16px;
+    padding-left:16px;
+    border-radius:4px;
+    box-sizing:border-box;
+    margin-left:10px;
+    float:right;
+}
+
+.reset{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#5f3417;
+    height:36px;
+    background-color:transparent;
+    padding-right:16px;
+    padding-left:16px;
+    border:1px solid #5f3417;
+    border-radius:4px;
+    float:right;
+    box-sizing:border-box;
+}
+
+/* Large tablets and desktops */
+@media (min-width: 735px) {
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 3;
+        grid-row:2;
+    }
+
+    .address2box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .address3box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .state-box{
+        grid-row:4;
+    }
+
+    .zipbox{
+        grid-row:4
+    }
+
+    .country-box{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .country-code{
+        grid-row:5;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:5;
+    }
+
+    .orderbox{
+        grid-column:6;
+        grid-row:5;
+    }
+}
+
+/* Portrait phones and up */
+@media (min-width: 451px) and (max-width: 734px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+        grid-row: 2;
+    }
+
+    .address1box{
+        grid-column:span 4;
+        grid-row: 3;
+    }
+
+    .address2box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row: 5;
+    }
+
+    .zipbox{
+        grid-row: 5;
+    }
+
+    .address3box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .state-box{
+        grid-row:5;
+    }
+
+    .country-box{
+        grid-row:6;
+    }
+
+    .country-code{
+        grid-row:7;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:7;
+    }
+
+    .orderbox{
+        grid-row:7;
+    }
+}
+
+/* Portrait phones and down */
+@media (max-width: 450px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 2;
+    }
+
+
 }
 </style>

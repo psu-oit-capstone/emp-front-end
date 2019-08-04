@@ -90,7 +90,7 @@
 
 <style scoped>
 .btn-group {
-  min-width: 180px;
+  //min-width: 160px;
   height: 40px;
   position: relative;
   margin: 10px 1px;
@@ -103,7 +103,7 @@
 
 .dropdown-option {
   color: #636b6f;
-  min-width: 160px;
+  //min-width: 180px;
   padding: 10px;
   text-transform: none;
   font-weight: 300;
@@ -130,7 +130,7 @@
   left: 0;
   z-index: 1000;
   float: left;
-  min-width: 180px;
+  //min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
@@ -160,7 +160,7 @@
 
 .dropdown-menu > li {
   overflow: hidden;
-  width: 100%;
+  //width: 100%;
   position: relative;
   margin: 0;
 }
@@ -185,7 +185,7 @@ li {
 
 ul {
     height:200px;
-    width:18%;
+    //width:18%;
     overflow:hidden;
     overflow-y:scroll;
 }

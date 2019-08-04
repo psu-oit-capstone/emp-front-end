@@ -67,8 +67,10 @@
             </div>
         </div><br>
         <!-- Buttons are here -->
-        <button type="button" v-on:click="fillEvacAssistInformation()">Reset</button>
-        <button type="button" v-on:click="submit()">Submit</button><br><br>
+        <div class="button-holder" style="margin-bottom:20px;">
+            <button type="button" class="submit" v-on:click="submit()">Submit</button>
+            <button type="button" class="reset" v-on:click="fillEvacAssistInformation()">Reset</button>
+        </div>
 
         <div id="helpful-links">
             <ul class="c">
