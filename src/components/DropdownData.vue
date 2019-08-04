@@ -1,5 +1,5 @@
 <template>
-    
+
 </template>
 
 <script>
@@ -331,12 +331,15 @@
             name: 'State Select'
         },
         relationshipArray: [
-            {name: "Not Applicable"}, {name: "Agent"},  {name: "Friend"},{name: "Guardian/Parent"},
-            {name: "Other Relative"}, {name: "Other Representative"}, {name: "Spouse/Significant Other"}, {name: "Unknown"},
+            {name: "Relation", code: null},
+            {name: "Agent", code: "A"},
+            {name: "Friend", code: "F"},
+            {name: "Guardian/Parent", code: "G"},
+            {name: "Other Relative", code: "O"},
+            {name: "Other Representative", code: "R"},
+            {name: "Spouse/Significant Other", code: "S"},
+            {name: "Unknown", code: "U"},
         ],
-        selectedRel: {
-            name: 'Select Relation'
-        }
     }
 </script>
 
