@@ -23,6 +23,18 @@
           <input id="last-name" type="text" placeholder="Last Name" v-model="lastName"/>
         </div>
 
+        <div class="select relation-box">
+          <label>
+            Relationship to Person
+          </label>
+          <Dropdown
+            :options="relationshipArray"
+            :selected="selectedRelation"
+            @updateOption="setRelation"
+            :placeholder="'Relation'"
+          />
+        </div>
+
         <div class="text-box address1box">
           <label for="street-line-1">
             Address 1
@@ -120,18 +132,22 @@
 
 <script>
     import Dropdown from '@/components/Dropdown.vue'
+    import DropdownData from '@/components/DropdownData.vue'
     import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
-            Dropdown
+            Dropdown,
+            DropdownData
         },
 
         props: ['activeContact'],
 
         data: function() {
             return {
+                relationshipArray: DropdownData.relationshipArray,
+
                 contactCopy:            {type: Object},
 
                 pidm:                   {type: String, default: ""},
@@ -265,11 +281,16 @@
                   'phoneExtension': 'phone_ext'
                 },
 
+                selectedRelation: {
+                  name: 'Relation',
+                  code: null
+                },
 
                 dropdownFields: [
                   'country',
                   'state',
-                  'phoneCountryCode'
+                  'phoneCountryCode',
+                  'relation'
                 ]
             }
         },
@@ -317,6 +338,11 @@
                 this['selectedState'] = this.findStateByCode(this.state)
             },
 
+            setRelation(relationObject) {
+                this.relation = relationObject.code;
+                this['selectedRelation'] = this.findRelationByCode(this.relation)
+            },
+
             updateContact() {
               var vm = this;
               let contactObject = vm.toContactObject();
@@ -350,6 +376,7 @@
               vm['selectedCountry']     = vm.findByNationCode(vm.country)
               vm['selectedState']       = vm.findStateByCode(vm.state)
               vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
+              vm['selectedRelation']    = vm.findRelationByCode(vm.relation)
             },
 
             findByNationCode(nationCode) {
@@ -359,6 +386,18 @@
                 for(let i=0; i<this.countryArray.length; ++i) {
                     if (this.countryArray[i].nationCode === nationCode) {
                         return this.countryArray[i]
+                    }
+                }
+            },
+
+            findRelationByCode(code) {
+                if([null, 'null'].includes(code)) {
+                  return this.relationshipArray[0]
+                }
+
+                for (let i = 0; i < this.relationshipArray.length; i++) {
+                    if (this.relationshipArray[i].code === code){
+                        return this.relationshipArray[i];
                     }
                 }
             },
