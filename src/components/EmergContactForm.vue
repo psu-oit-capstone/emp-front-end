@@ -282,7 +282,6 @@
             // Deep clone the object in case we need a reset
             vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
 
-            console.log(contactObject.country)
             vm.fillForm(contactObject)
           }
         },
