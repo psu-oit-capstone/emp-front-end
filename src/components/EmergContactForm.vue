@@ -157,7 +157,6 @@
                 phoneAreaCode:          {type: String, default: ""},
                 phoneExtension:         {type: String, default: ""},
 
-                removeContactCheckbox:  {type: Boolean, default: false},
                 firstName:              {type: String, default: ""},
                 middleName:             {type: String, default: ""},
                 lastName:               {type: String, default: ""},
@@ -172,18 +171,9 @@
                 countryCode:            {type: String, default: ""},
                 contactPriority:        {type: Number},
 
-                countryCodeArray: [
-                    {name: "N/A", nationCode: null, code: null},
-                    {name: "+1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "+81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "+44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "+49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "+33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
-                    {name: "+7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "+86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "+82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-                ],
+
                 selectedCountryCode: {name: "N/A", nationCode: null, code: null},
+                countryCodeArray: DropdownData.countryCodeArray,
 
                 countryArray: [
                     {name: "Country", nationCode: null, code: null},

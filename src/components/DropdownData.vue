@@ -9,6 +9,9 @@
         //Dropdown data and so forth
         //Please note that Andorra's flag file name cannot be 'ad.svg' as this will trigger ad-blockers
         countryCodeArray: [
+            // Null option
+            {name: "N/A", nationCode: null, code: null},
+
             //A countries
             {name: "Afghanistan +93", country: "Afghanistan",  code: "93", svgimg: "af.svg"}, {name: "Albania +355", country: "Albania",  code: "355", svgimg: "al.svg"},
             {name: "Algeria +213", country: "Algeria",  code: "213", svgimg: "dz.svg"}, {name: "American Samoa +1684", country: "American Samoa",  code: "1684", svgimg: "as.svg"},
