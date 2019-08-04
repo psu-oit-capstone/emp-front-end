@@ -1,19 +1,37 @@
+// Adapted code from https://github.com/mikerodham/vue-dropdowns under the MIT License
+
 <template>
     <div class="btn-group">
-        <li @click="toggleMenu()" class="dropdown-toggle" v-if="selectedOption.name !== undefined">
-          <img :src="getImg(selectedOption.svgimg)" alt="country flag" height="24" width="18" /> {{ selectedOption.name }}
-          <span class="caret"></span>
-        </li>
-
-        <li @click="toggleMenu()" class="dropdown-toggle" v-if="selectedOption.name === undefined">
-          {{placeholderText}}
-          <span class="caret"></span>
+        <!-- Selected element -->
+        <li
+          id="selected-option"
+          class="dropdown-option"
+          @click="toggleMenu()"
+          v-if="selectedOption.name !== undefined"
+        >
+          <!-- Display an image if one was passed 'svgimg' -->
+          <img
+            v-if="'svgimg' in selectedOption"
+            height="24px"
+            width="18px"
+            :alt="selectedOption.name"
+            :src="getImage(selectedOption.svgimg)"
+          />
+          {{ selectedOption.name }}
         </li>
 
         <ul class="dropdown-menu" v-if="showMenu">
-            <li v-for="option in options" v-bind:key="option.svgimg">
+            <li v-for="option in options" :key="option.svgimg">
                 <a href="javascript:void(0)" @click="updateOption(option)">
-                    <img :src="getImg(option.svgimg)" alt="country flag" height="24" width="18" /> {{ option.name }}
+                    <!-- Display an image if one was passed 'svgimg' -->
+                    <img
+                      v-if="'svgimg' in option"
+                      height="24px"
+                      width="18px"
+                      :alt="option.name"
+                      :src="getImage(option.svgimg)"
+                    />
+                    {{ option.name }}
                 </a>
             </li>
         </ul>
@@ -22,7 +40,6 @@
 
 <script>
     export default {
-        //Adapted code from https://github.com/mikerodham/vue-dropdowns under the MIT License
         data() {
             return {
                 selectedOption: {},
@@ -30,26 +47,22 @@
                 placeholderText: 'Please select an item',
             }
         },
+
         props: {
-            options: {
-                type: [Array, Object],
-            },
-            selected: {
-                type: Object
-            },
-            placeholder: [String]
+            options:  {type: [Array, Object]},
+            selected: {type: Object},
+            placeholder: [String],
         },
 
         watch: {
-            selected: function(payload) {
-                this.selectedOption = payload;
+            selected: function() {
+                this.selectedOption = this.selected;
             }
         },
 
         mounted() {
             this.selectedOption = this.selected;
-            if (this.placeholder)
-            {
+            if (this.placeholder) {
                 this.placeholderText = this.placeholder;
             }
         },
@@ -58,24 +71,26 @@
             updateOption(option) {
                 this.selectedOption = option;
                 this.showMenu = false;
+
+                // Let parent Vue model know to update
                 this.$emit('updateOption', this.selectedOption);
             },
 
             toggleMenu() {
-              this.showMenu = !this.showMenu;
+                this.showMenu = !this.showMenu;
             },
 
-            getImg(picName) {
-                return require("../image-assets/4x3/" + picName)
-            },
+            getImage(imageName) {
+                return require("../image-assets/4x3/" + imageName)
+            }
         }
     }
 </script>
 
-<style scoped>
 
+<style scoped>
 .btn-group {
-  min-width: 180px;
+  //min-width: 160px;
   height: 40px;
   position: relative;
   margin: 10px 1px;
@@ -86,9 +101,9 @@
   text-decoration: none;
 }
 
-.dropdown-toggle {
+.dropdown-option {
   color: #636b6f;
-  min-width: 160px;
+  //min-width: 180px;
   padding: 10px;
   text-transform: none;
   font-weight: 300;
@@ -104,7 +119,7 @@
   box-shadow: none;
   border-radius: 0;
 }
-.dropdown-toggle:hover {
+.dropdown-option:hover {
   background: #e1e1e1;
   cursor: pointer;
 }
@@ -115,7 +130,7 @@
   left: 0;
   z-index: 1000;
   float: left;
-  min-width: 180px;
+  //min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0;
   list-style: none;
@@ -145,7 +160,7 @@
 
 .dropdown-menu > li {
   overflow: hidden;
-  width: 100%;
+  //width: 100%;
   position: relative;
   margin: 0;
 }
@@ -170,7 +185,7 @@ li {
 
 ul {
     height:200px;
-    width:18%;
+    //width:18%;
     overflow:hidden;
     overflow-y:scroll;
 }

@@ -3,37 +3,6 @@
   can be accessed throughout the app.
 */
 
-/*****************************
-Site-wide Media Queried Styles
-*****************************/
-/* Large desktop */
-@media (min-width: 980px) {
-  .main-content-container {
-    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-}
-
-/* Landscape phone to landscape and desktop */
-@media (min-width: 481px) and (max-width: 979px) {
-  .main-content-container {
-    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-}
-
-/* Landscape phones and down */
-@media (max-width: 500px) {
-  .main-content-container {
-    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
-    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
-  }
-  .logo {
-    visibility: hidden;
-  }
-}
-
-
 * {
 }
 
@@ -62,9 +31,7 @@ Site-wide Media Queried Styles
 }
 
 .text-box {
-  margin: auto;
-  margin-bottom: 30px;
-  padding: 20px;
+  margin-bottom: 10px;
 }
 
 /* FONTS */
@@ -182,4 +149,93 @@ a {
 
 .pull-left {
   float: left;
+}
+
+.text-box label{
+    display:block;
+    font-size:12px;
+}
+
+.text-box input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
+
+.submit{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#ffffff;
+    height:36px;
+    background-color:#28a745;
+    padding-right:16px;
+    padding-left:16px;
+    border-radius:4px;
+    box-sizing:border-box;
+    margin-left:10px;
+    float:right;
+}
+
+.reset{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#5f3417;
+    height:36px;
+    background-color:transparent;
+    padding-right:16px;
+    padding-left:16px;
+    border:1px solid #5f3417;
+    border-radius:4px;
+    float:right;
+    box-sizing:border-box;
+}
+
+
+/*****************************
+Site-wide Media Queried Styles
+*****************************/
+/* Large desktop */
+@media (min-width: 980px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+}
+
+/* Landscape phone to landscape and desktop */
+@media (min-width: 481px) and (max-width: 979px) {
+  .main-content-container {
+    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 500px) {
+  body {
+    margin:0;
+  }
+
+  .main-content-container {
+    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
+    grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
+  }
+
+  #header-wrap {
+    display: none;
+  }
+
+  #main {
+    margin-top: 0px;
+  }
+
+  #app-navigation {
+    margin: 0;
+    border-radius: 0;
+  }
 }

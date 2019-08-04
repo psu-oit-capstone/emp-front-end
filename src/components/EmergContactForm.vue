@@ -1,204 +1,664 @@
 <template>
-    <div class="contact-form">
-        <div>
-            <label for="fnamebox">First Name
-                <input type="text" placeholder="" v-model="fnamebox" v-bind:id="fnamebox"/></label><br>
-            <label for="mnamebox">Middle Name
-                <input type="text" placeholder="" v-model="mnamebox" v-bind:id="mnamebox"/></label><br>
-            <label for="lnamebox">Last Name
-                <input type="text" placeholder="" v-model="lnamebox" v-bind:id="lnamebox"/></label><br>
-            <p class="relationship_label">Relationship to Person
-                <DropdownNoImg :options="relationshipArray"
-                               :selected="selectedRel"
-                               v-on:updateOption="currRel"
-                               :placeholder="'Select a Relationship'">
-                </DropdownNoImg><br>
-            <label for="address1box">Address 1
-                <input type="text" placeholder="" v-model="address1box" v-bind:id="address1box"/></label><br>
-            <label for="address2box">Address 2
-                <input type="text" placeholder="" v-model="address2box" v-bind:id="address2box"/></label><br>
-            <label for="address3box">Address 3
-                <input type="text" placeholder="" v-model="address3box" v-bind:id="address3box"/></label><br>
-            <label for="citybox">City
-                <input type="text" placeholder="" v-model="citybox" v-bind:id="citybox"/></label><br>
-            <p class="state_label">State Select
-                <DropdownNoImg :options="stateArray"
-                               :selected="selectedState"
-                               v-on:updateOption="currState"
-                               :placeholder="'Select a state'">
-                </DropdownNoImg><br>
-                <label for="zipbox">Zip or Postal Code
-                    <input type="text" placeholder="" v-model="zipbox" v-bind:id="zipbox"/></label><br>
-            <p class="country_label">Country Select
-                <Dropdown :options="countryArray"
-                          :selected="selectedCountry"
-                          v-on:updateOption="currCountry"
-                          :placeholder="'Select a country'">
-                </Dropdown><br>
-            <label for="phonebox">Phone Number
-                <input type="text" placeholder="555 555 5555" v-model="phonebox" v-bind:id="phonebox"/></label><br>
-            <p class="country_code_label">Country Phone Number Code
-                <Dropdown :options="countryCodeArray"
-                          :selected="selectedCountryCode"
-                          v-on:updateOption="currCountryCode"
-                          :placeholder="'Select a country'">
-                </Dropdown></p>
-            <label for="orderbox">Contact Order
-                <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/></label><br>
+    <div id="contact-form">
+      <div id="form-body">
+
+        <div class="text-box fnamebox">
+          <label for="first-name">
+            First Name
+          </label>
+          <input id="first-name" type="text" placeholder="First Name" v-model="firstName"/>
         </div>
 
-        <!-- Buttons are here -->
-        <button type="button" v-on:click="resetContact()">Reset</button>
-        <button type="button" v-on:click="submit()">Submit</button><br><br>
+        <div class="text-box mnamebox">
+          <label for="middle-name">
+            Middle Name
+          </label>
+          <input id="middle-name" type="text" placeholder="Middle Initial" v-model="middleName"/>
+        </div>
+
+        <div class="text-box lnamebox">
+          <label for="last-name">
+            Last Name
+          </label>
+          <input id="last-name" type="text" placeholder="Last Name" v-model="lastName"/>
+        </div>
+
+        <div class="select relation-box">
+          <label>
+            Relationship to Person
+          </label>
+          <Dropdown
+            :options="relationshipArray"
+            :selected="selectedRelation"
+            @updateOption="setRelation"
+            :placeholder="'Relation'"
+          />
+        </div>
+
+        <div class="text-box address1box">
+          <label for="street-line-1">
+            Address 1
+          </label>
+          <input id="street-line-1" type="text" placeholder="Street Address" v-model="streetLine1"/>
+        </div>
+
+        <div class="text-box address2box">
+          <label for="street-line-2">
+            Address 2
+          </label>
+          <input id="street-line-2" type="text" placeholder="Apt/Bldg #" v-model="streetLine2"/>
+        </div>
+
+        <div class="text-box citybox">
+          <label for="city">
+            City
+          </label>
+          <input id="city" type="text" placeholder="City" v-model="city"/>
+        </div>
+
+        <div class="text-box zipbox">
+          <label for="zip-code">
+            Zip or Postal Code
+          </label>
+          <input id="zip-code" type="text" placeholder="97201" v-model="zipCode"/>
+        </div>
+
+        <div class="text-box address3box">
+          <label for="street-line-3">
+            Address 3
+          </label>
+          <input id="street-line-3" type="text" placeholder="Region" v-model="streetLine3"/>
+        </div>
+
+        <div class="select state-box">
+          <label for="state-selector">
+            State
+          </label>
+          <Dropdown
+            id="state-selector"
+            :options="stateArray"
+            :selected="selectedState"
+            @updateOption="setState"
+          />
+        </div>
+
+        <div class="select country-box">
+          <label for="country-selector">
+            Country
+          </label>
+          <Dropdown
+            id="country-selector"
+            :options="countryArray"
+            :selected="selectedCountry"
+            @updateOption="setNationCode"
+          />
+        </div>
+
+        <div class="select country-code">
+          <label id="phone-country-code">
+            Country Code
+          </label>
+          <Dropdown
+            id="phone-country-code"
+            :options="countryCodeArray"
+            :selected="selectedCountryCode"
+            @updateOption="setCountryCode"
+          />
+        </div>
+
+        <div class="text-box phone-input">
+          <label for="phone-number">
+            Phone Number
+          </label>
+          <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phoneNumber"/>
+        </div>
+
+        <div class="text-box orderbox">
+            <label for="contact-priority">
+              Contact Priority
+            </label>
+            <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
+        </div>
+
+    </div>
+    <div class="button-holder">
+        <button type="button" class="submit" @click="updateContact()">Submit</button>
+        <button type="button" class="reset" @click="resetContact()">Reset</button>
+    </div>
     </div>
 </template>
 
+
+
 <script>
-    //For uses of Dropdown you MUST pass in all defaults
     import Dropdown from '@/components/Dropdown.vue'
-    import DropdownNoImg from '@/components/DropdownNoImg.vue'
-    import DropdownData from "@/components/DropdownData.vue";
+    import DropdownData from '@/components/DropdownData.vue'
+    import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
             Dropdown,
-            DropdownNoImg,
-            DropdownData,
+            DropdownData
         },
-        //Receives contact to be edited from parent
-        props: [
-            'contact_in'
-        ],
-        //Whenever something in props is updated the matching function here executes
-        watch: {
-            contact_in: function(payload) {
-                this.setContact(payload)
+
+        props: ['activeContact'],
+
+        data: function() {
+            return {
+                relationshipArray: DropdownData.relationshipArray,
+
+                contactCopy:            {type: Object},
+
+                pidm:                   {type: String, default: ""},
+                surrogateId:            {type: String, default: ""},
+                relation:               {type: String, default: ""},
+                phoneCountryCode:       {type: String, default: ""},
+                phoneAreaCode:          {type: String, default: ""},
+                phoneExtension:         {type: String, default: ""},
+
+                removeContactCheckbox:  {type: Boolean, default: false},
+                firstName:              {type: String, default: ""},
+                middleName:             {type: String, default: ""},
+                lastName:               {type: String, default: ""},
+                streetLine1:            {type: String, default: ""},
+                streetLine2:            {type: String, default: ""},
+                streetLine3:            {type: String, default: ""},
+                city:                   {type: String, default: ""},
+                state:                  {type: String, default: ""},
+                zipCode:                {type: String, default: ""},
+                country:                {type: String, default: ""},
+                phoneNumber:            {type: String, default: ""},
+                countryCode:            {type: String, default: ""},
+                contactPriority:        {type: Number},
+
+                countryCodeArray: [
+                    {name: "N/A", nationCode: null, code: null},
+                    {name: "+1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "+81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "+44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "+49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "+33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "+7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "+86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "+82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                ],
+                selectedCountryCode: {name: "N/A", nationCode: null, code: null},
+
+                countryArray: [
+                    {name: "Country", nationCode: null, code: null},
+                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                ],
+
+                // Default country until real contact data is received
+                selectedCountry: {name: "Country", nationCode: null, code: null},
+
+
+                stateArray: [
+                    {stateCode: null, name: "State" },
+                    {stateCode:"AL", name: "Alabama"},
+                    {stateCode:"AL", name: "Alaska"},
+                    {stateCode:"AL", name: "Arizona"},
+                    {stateCode:"AL", name: "Arkansas"},
+                    {stateCode:"AL", name: "California"},
+                    {stateCode:"AL", name: "Colorado"},
+                    {stateCode:"AL", name: "Connecticut"},
+                    {stateCode:"AL", name: "Delaware"},
+                    {stateCode:"AL", name: "Florida"},
+                    {stateCode:"AL", name: "Georgia"},
+                    {stateCode:"AL", name: "Hawaii"},
+                    {stateCode:"AL", name: "Idaho"},
+                    {stateCode:"AL", name: "Illinois"},
+                    {stateCode:"AL", name: "Indiana"},
+                    {stateCode:"AL", name: "Iowa"},
+                    {stateCode:"AL", name: "Kansas"},
+                    {stateCode:"AL", name: "Kentucky"},
+                    {stateCode:"AL", name: "Louisiana"},
+                    {stateCode:"AL", name: "Maine"},
+                    {stateCode:"AL", name: "Maryland"},
+                    {stateCode:"AL", name: "Massachusetts"},
+                    {stateCode:"AL", name: "Michigan"},
+                    {stateCode:"AL", name: "Minnesota"},
+                    {stateCode:"AL", name: "Mississippi"},
+                    {stateCode:"AL", name: "Missouri"},
+                    {stateCode:"AL", name: "Montana"},
+                    {stateCode:"AL", name: "Nebraska"},
+                    {stateCode:"AL", name: "Nevada"},
+                    {stateCode:"AL", name: "New Hampshire"},
+                    {stateCode:"AL", name: "New Jersey"},
+                    {stateCode:"AL", name: "New Mexico"},
+                    {stateCode:"AL", name: "New York"},
+                    {stateCode:"AL", name: "North Carolina"},
+                    {stateCode:"AL", name: "North Dakota"},
+                    {stateCode:"AL", name: "Ohio"},
+                    {stateCode:"AL", name: "Oklahoma"},
+                    {stateCode:"OR", name: "Oregon"},
+                    {stateCode:"AL", name: "Pennsylvania"},
+                    {stateCode:"AL", name: "Rhode Island"},
+                    {stateCode:"AL", name: "South Carolina"},
+                    {stateCode:"AL", name: "South Dakota"},
+                    {stateCode:"AL", name: "Tennessee"},
+                    {stateCode:"AL", name: "Texas"},
+                    {stateCode:"AL", name: "Utah"},
+                    {stateCode:"AL", name: "Vermont"},
+                    {stateCode:"AL", name: "Virginia"},
+                    {stateCode:"AL", name: "Washington"},
+                    {stateCode:"AL", name: "West Virginia"},
+                    {stateCode:"AL", name: "Wisconsin"},
+                    {stateCode:"AL", name: "Wyoming"},
+                ],
+
+                selectedState: {
+                    name: 'State'
+                },
+
+
+                localToAPIMap: {
+                  'surrogateId': 'surrogate_id',
+                  'pidm': 'pidm',
+                  'contactPriority': 'priority',
+                  'firstName': 'first_name',
+                  'middleName': 'mi',
+                  'lastName': 'last_name',
+                  'city': 'city',
+                  'phoneNumber': 'phone_number',
+                  'zipCode': 'zip',
+                  'streetLine1': 'street_line1',
+                  'streetLine2': 'street_line2',
+                  'streetLine3': 'street_line3',
+                  'relation': 'relt_code',
+                  'state': 'stat_code',
+                  'country': 'natn_code',
+                  'phoneCountryCode': 'ctry_code_phone',
+                  'phoneAreaCode': 'phone_area',
+                  'phoneExtension': 'phone_ext'
+                },
+
+                selectedRelation: {
+                  name: 'Relation',
+                  code: null
+                },
+
+                dropdownFields: [
+                  'country',
+                  'state',
+                  'phoneCountryCode',
+                  'relation'
+                ]
             }
         },
-        //This is for button clicks
+
+        watch: {
+          // When our parent changes the active contact, update the form fields
+          activeContact: function(contactObject) {
+            var vm = this
+
+            // Deep clone the object in case we need a reset
+            vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+
+            vm.fillForm(contactObject)
+          }
+        },
+
         methods: {
-            currCountry(payload) {
-                this.countrybox = payload.country;
-            },
-            currCountryCode(payload) {
-                this.countryCode = payload.code;
-            },
-            currState(payload) {
-                this.statebox = payload;
-            },
-            currRel(payload) {
-                this.relbox = payload;
-            },
-            submit() {
-                this.contact_out = this.makeContact();
-                this.$emit('updateContact', this.contact_out);
-                this.resetContact();
-            },
-            makeContact() {
-                return {
-                    name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox, relbox: this.relbox},
-                    address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
-                    area: {
-                        countrybox: this.countrybox, countryCode: this.countryCode, phonebox: this.phonebox,
-                        statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
-                    },
-                    order: {orderbox: this.orderbox},
+            fillForm(contactObject) {
+              var vm = this;
+
+              for(let key in contactObject) {
+                if(vm.dropdownFields.includes(key) || (contactObject[key] !== null && contactObject[key] !== 'null')) {
+                  vm[key] = contactObject[key]
                 }
+                else {
+                  vm[key] = ''
+                }
+              }
+
+              vm.updateDropdowns()
             },
-            setContact(payload) {
-                this.fnamebox = payload.name.fnamebox;
-                this.mnamebox = payload.name.mnamebox;
-                this.lnamebox = payload.name.lnamebox;
-                this.relbox = payload.name.relbox;
-                this.selectedRel = payload.name.relbox;
-                this.address1box = payload.address.address1box;
-                this.address2box = payload.address.address2box;
-                this.address3box = payload.address.address3box;
-                this.citybox = payload.area.citybox;
-                this.statebox = payload.area.statebox;
-                this.selectedState = payload.area.statebox; // Here to set dropdown
-                this.zipbox = payload.area.zipbox;
-                this.countrybox = payload.area.countrybox;
-                this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
-                this.countryCode = payload.area.countryCode;
-                this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
-                this.phonebox = payload.area.phonebox;
-                this.orderbox = payload.order.orderbox;
+
+            setNationCode(countryObject) {
+                this.country = countryObject.nationCode;
+                this['selectedCountry'] = this.findByNationCode(this.country)
             },
+
+            setCountryCode(countryCodeObject) {
+                this.phoneCountryCode = countryCodeObject.code;
+                this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
+            },
+
+            setState(stateObject) {
+                this.state = stateObject.stateCode;
+                this['selectedState'] = this.findStateByCode(this.state)
+            },
+
+            setRelation(relationObject) {
+                this.relation = relationObject.code;
+                this['selectedRelation'] = this.findRelationByCode(this.relation)
+            },
+
+            updateContact() {
+              var vm = this;
+              let contactObject = vm.toContactObject();
+
+              // Deep clone the object in case we need a reset
+              vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+
+              // Tell our parent to update and submit us to the backend
+              vm.$emit('updateContact', contactObject)
+            },
+
+            toContactObject() {
+              var vm = this;
+
+              let contactObject = {}
+              for(let key in vm.localToAPIMap)
+                contactObject[key] = vm[key];
+
+              return contactObject
+            },
+
             resetContact() {
-                this.fnamebox = "";
-                this.mnamebox = "";
-                this.lnamebox = "";
-                this.relbox = "";
-                this.selectedRel = {name: 'Select Relation'};
-                this.address1box = "";
-                this.address2box = "";
-                this.address3box = "";
-                this.citybox = "";
-                this.statebox = "";
-                this.selectedState = {name: 'State Select'}; // Here to set dropdown to default
-                this.zipbox = "";
-                this.countrybox = "USA";
-                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
-                this.phonebox = "";
-                this.countryCode = "1";
-                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}; //Here to set the dropdown
-                this.orderbox = 1;
+              var vm = this;
+              vm.fillForm(vm.contactCopy)
             },
-            findByCountry(country, targetCountries) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCountries.length; i++) {
-                    if (targetCountries[i].country === country){
-                        return targetCountries[i];
+
+            updateDropdowns() {
+              var vm = this;
+
+              // Place the correct Dropdown options in our dynamically bound variables
+              vm['selectedCountry']     = vm.findByNationCode(vm.country)
+              vm['selectedState']       = vm.findStateByCode(vm.state)
+              vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
+              vm['selectedRelation']    = vm.findRelationByCode(vm.relation)
+            },
+
+            findByNationCode(nationCode) {
+                if([null, 'null'].includes(nationCode))
+                  return this.countryArray[0]
+
+                for(let i=0; i<this.countryArray.length; ++i) {
+                    if (this.countryArray[i].nationCode === nationCode) {
+                        return this.countryArray[i]
                     }
                 }
             },
-            findByCountryCode(countryCode, targetCodes) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCodes.length; i++) {
-                    if (targetCodes[i].code === countryCode){
-                        return targetCodes[i];
+
+            findRelationByCode(code) {
+                if([null, 'null'].includes(code)) {
+                  return this.relationshipArray[0]
+                }
+
+                for (let i = 0; i < this.relationshipArray.length; i++) {
+                    if (this.relationshipArray[i].code === code){
+                        return this.relationshipArray[i];
                     }
                 }
             },
-        },
 
-        //This runs on instance creation
-        data: function() { return {
-            //Hold data for input fields here like this if it needs to be mutated
-            fnamebox: {type: String, default: ""},
-            mnamebox: {type: String, default: ""},
-            lnamebox: {type: String, default: ""},
-            relbox: {type: String, default: ""},
-            address1box: {type: String, default: ""},
-            address2box: {type: String, default: ""},
-            address3box: {type: String, default: ""},
-            citybox: {type: String, default: ""},
-            statebox: {type: String, default: ""},
-            zipbox: {type: String, default: ""},
-            countrybox: {type: String, default: ""},
-            phonebox: {type: String, default: ""},
-            countryCode: {type: String, default: ""},
-            orderbox: {type: Number},
+            findNationByPhoneCode(phoneCode) {
+                if([null, 'null'].includes(phoneCode))
+                  return this.countryCodeArray[0]
 
-            //Dropdown data and so forth
-            countryCodeArray: DropdownData.countryCodeArray,
-            selectedCountryCode: DropdownData.selectedCountryCode,
-            countryArray: DropdownData.countryArray,
-            selectedCountry: DropdownData.selectedCountry,
-            stateArray: DropdownData.stateArray,
-            selectedState: DropdownData.selectedState,
-            relationshipArray: DropdownData.relationshipArray,
-            selectedRel: DropdownData.selectedRel,
-        }},
-        //This initializes the above declarations
-        created: function() {
-            this.resetContact()
-        },
+                for (let i = 0; i < this.countryCodeArray.length; i++) {
+                    if (this.countryCodeArray[i].code === phoneCode){
+                        return this.countryCodeArray[i];
+                    }
+                }
+            },
+
+            findStateByCode(stateCode) {
+                if([null, 'null'].includes(stateCode))
+                  return this.stateArray[0]
+
+                for (let i = 0; i < this.stateArray.length; i++) {
+                    if (this.stateArray[i].stateCode === stateCode){
+                        return this.stateArray[i];
+                    }
+                }
+            }
+        }
     }
 </script>
 
-<style scoped>
 
+<style>
+
+.text-box label{
+    display:block;
+    font-size:12px;
+}
+
+.text-box input{
+    border:1px solid black;
+    border-radius:4px;
+    padding:16px 8px 16px 14px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing : border-box;
+}
+
+.text-box{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.select label{
+    display:block;
+    font-size:12px;
+}
+
+.select{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+
+.button-holder{
+    margin-top:30px;
+    height:15px;
+}
+
+.submit{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#ffffff;
+    height:36px;
+    background-color:#28a745;
+    padding-right:16px;
+    padding-left:16px;
+    border-radius:4px;
+    box-sizing:border-box;
+    margin-left:10px;
+    float:right;
+}
+
+.reset{
+    font-size:14px;
+    font-weight: 500;
+    letter-spacing:1px;
+    color:#5f3417;
+    height:36px;
+    background-color:transparent;
+    padding-right:16px;
+    padding-left:16px;
+    border:1px solid #5f3417;
+    border-radius:4px;
+    float:right;
+    box-sizing:border-box;
+}
+
+/* Large tablets and desktops */
+@media (min-width: 735px) {
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 3;
+        grid-row:2;
+    }
+
+    .address2box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .address3box{
+        grid-column:span 3;
+        grid-row:3;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .state-box{
+        grid-row:4;
+    }
+
+    .zipbox{
+        grid-row:4
+    }
+
+    .country-box{
+        grid-column:span 2;
+        grid-row:4;
+    }
+
+    .country-code{
+        grid-row:5;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:5;
+    }
+
+    .orderbox{
+        grid-column:6;
+        grid-row:5;
+    }
+}
+
+/* Portrait phones and up */
+@media (min-width: 451px) and (max-width: 734px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+        grid-row: 1;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+        grid-row: 2;
+    }
+
+    .address1box{
+        grid-column:span 4;
+        grid-row: 3;
+    }
+
+    .address2box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .citybox{
+        grid-column:span 2;
+        grid-row: 5;
+    }
+
+    .zipbox{
+        grid-row: 5;
+    }
+
+    .address3box{
+        grid-column:span 2;
+        grid-row: 4;
+    }
+
+    .state-box{
+        grid-row:5;
+    }
+
+    .country-box{
+        grid-row:6;
+    }
+
+    .country-code{
+        grid-row:7;
+    }
+
+    .phone-input{
+        grid-column:span 2;
+        grid-row:7;
+    }
+
+    .orderbox{
+        grid-row:7;
+    }
+}
+
+/* Portrait phones and down */
+@media (max-width: 450px) {
+
+    #form-body{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+    }
+
+    .fnamebox{
+        grid-column:span 2;
+    }
+
+    .mnamebox{
+        grid-column:span 2;
+    }
+
+    .lnamebox{
+        grid-column:span 2;
+    }
+
+    .address1box{
+        grid-column:span 2;
+    }
+
+
+}
 </style>
