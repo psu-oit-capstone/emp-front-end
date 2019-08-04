@@ -1,255 +1,383 @@
 <template>
-    <div class="contact-form">
-        <div id="form-body">
-            <div class="text-box fnamebox">
-                <label for="fnamebox">First Name</label>
-                    <input type="text" placeholder="First Name" v-model="fnamebox" v-bind:id="fnamebox"/>
-            </div>
-            <div class="text-box mnamebox">
-                <label for="mnamebox">Middle Name</label>
-                    <input type="text" placeholder="Middle Name" v-model="mnamebox" v-bind:id="mnamebox"/>
-            </div>
-            <div class="text-box lnamebox">
-                <label for="lnamebox">Last Name</label>
-                    <input type="text" placeholder="Last Name" v-model="lnamebox" v-bind:id="lnamebox"/>
-            </div>
-            <div class="text-box address1box">
-                <label for="address1box">Address 1</label>
-                    <input type="text" placeholder="Street Address" v-model="address1box" v-bind:id="address1box"/>
-            </div>
-            <div class="text-box address2box">
-                <label for="address2box">Address 2</label>
-                    <input type="text" placeholder="Apt/Bldg #" v-model="address2box" v-bind:id="address2box"/>
-            </div>
-            <div class="text-box citybox">
-                <label for="citybox">City</label>
-                    <input type="text" placeholder="City" v-model="citybox" v-bind:id="citybox"/>
-            </div>
-            <div class="text-box zipbox">
-                <label for="zipbox">Postal Code</label>
-                    <input type="text" placeholder="97201" v-model="zipbox" v-bind:id="zipbox"/>
-            </div>
-            <div class="select state-box">
-                <label>State</label>
-                    <DropdownNoImg :options="stateArray"
-                                   :selected="selectedState"
-                                   v-on:updateOption="currState"
-                                   :placeholder="'Select a state'">
-                    </DropdownNoImg>
-            </div>
-            <div class="text-box address3box">
-                <label for="address3box">Address 3</label>
-                    <input type="text" placeholder="Region" v-model="address3box" v-bind:id="address3box"/>
-            </div>
-            <div class="select country-box">
-                <label>Country</label>
-                    <Dropdown :options="countryArray"
-                              :selected="selectedCountry"
-                              v-on:updateOption="currCountry"
-                              :placeholder="'Select a country'">
-                    </Dropdown>
-            </div>
-            <div class="select country-code">
-                <label>Country Code</label>
-                    <Dropdown :options="countryCodeArray"
-                              :selected="selectedCountryCode"
-                              v-on:updateOption="currCountryCode"
-                              :placeholder="'Select a country'">
-                    </Dropdown>
-            </div>
-            <div class="text-box phone-input">
-                <label>Phone Number</label>
-                    <PhoneNumberInput id="phone-input" @change="handleChange"/>
-            </div>
-            <div class="text-box orderbox">
-                <label for="orderbox">Contact Order</label>
-                    <input type="number" placeholder="" v-model.number="orderbox" v-bind:id="orderbox" min="1"/>
-            </div>
+    <div id="contact-form">
+      <div id="form-body">
+
+        <div class="text-box fnamebox">
+          <label for="first-name">
+            First Name
+          </label>
+          <input id="first-name" type="text" placeholder="First Name" v-model="firstName"/>
         </div>
+
+        <div class="text-box mnamebox">
+          <label for="middle-name">
+            Middle Name
+          </label>
+          <input id="middle-name" type="text" placeholder="Middle Initial" v-model="middleName"/>
+        </div>
+
+        <div class="text-box lnamebox">
+          <label for="last-name">
+            Last Name
+          </label>
+          <input id="last-name" type="text" placeholder="Last Name" v-model="lastName"/>
+        </div>
+
+        <div class="text-box address1box">
+          <label for="street-line-1">
+            Address 1
+          </label>
+          <input id="street-line-1" type="text" placeholder="Street Address" v-model="streetLine1"/>
+        </div>
+
+        <div class="text-box address2box">
+          <label for="street-line-2">
+            Address 2
+          </label>
+          <input id="street-line-2" type="text" placeholder="Apt/Bldg #" v-model="streetLine2"/>
+        </div>
+
+        <div class="text-box citybox">
+          <label for="city">
+            City
+          </label>
+          <input id="city" type="text" placeholder="City" v-model="city"/>
+        </div>
+
+        <div class="text-box zipbox">
+          <label for="zip-code">
+            Zip or Postal Code
+          </label>
+          <input id="zip-code" type="text" placeholder="97201" v-model="zipCode"/>
+        </div>
+
+        <div class="text-box address3box">
+          <label for="street-line-3">
+            Address 3
+          </label>
+          <input id="street-line-3" type="text" placeholder="Region" v-model="streetLine3"/>
+        </div>
+
+        <div class="select state-box">
+          <label for="state-selector">
+            State Select
+          </label>
+          <Dropdown
+            id="state-selector"
+            :options="stateArray"
+            :selected="selectedState"
+            @updateOption="setState"
+          />
+        </div>
+
+        <div class="select country-box">
+          <label for="country-selector">
+            Country Select
+          </label>
+          <Dropdown
+            id="country-selector"
+            :options="countryArray"
+            :selected="selectedCountry"
+            @updateOption="setNationCode"
+          />
+        </div>
+
+        <div class="text-box phone-input">
+          <label for="phone-number">
+            Phone Number
+          </label>
+          <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phoneNumber"/>
+        </div>
+
+        <div class="select country-code">
+          <label id="phone-country-code">
+            Country Phone Number Code
+          </label>
+          <Dropdown
+            id="phone-country-code"
+            :options="countryCodeArray"
+            :selected="selectedCountryCode"
+            @updateOption="setCountryCode"
+          />
+        </div>
+
+        <div class="text-box orderbox">
+            <label for="contact-priority">
+              Contact Priority
+            </label>
+            <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
+        </div>
+
+        <div class="input-field">
+          <label for="remove-contact-checkbox">
+            Remove Contact
+          </label>
+          <input id="remove-contact-checkbox" type="checkbox" v-model="removeContactCheckbox"/>
+        </div>
+
         <div class="button-holder">
-            <button type="button" class="submit" v-on:click="submit()">Submit</button>
-            <button type="button" class="reset" v-on:click="resetContact()">Reset</button>
+            <button type="button" class="submit" @click="updateContact()">Submit</button>
+            <button type="button" class="reset" @click="resetContact()">Reset</button>
         </div>
+      </div>
     </div>
 </template>
 
+
+
 <script>
-    //For uses of Dropdown you MUST pass in all defaults
     import Dropdown from '@/components/Dropdown.vue'
-    import DropdownNoImg from '@/components/DropdownNoImg.vue'
+    import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
-            Dropdown,
-            DropdownNoImg,
+            Dropdown
         },
-        //Receives contact to be edited from parent
-        props: [
-            'contact_in'
-        ],
-        //Whenever something in props is updated the matching function here executes
+
+        props: ['activeContact'],
+
+        data: function() {
+            return {
+                contactCopy:            {type: Object},
+
+                pidm:                   {type: String, default: ""},
+                surrogateId:            {type: String, default: ""},
+                relation:               {type: String, default: ""},
+                phoneCountryCode:       {type: String, default: ""},
+                phoneAreaCode:          {type: String, default: ""},
+                phoneExtension:         {type: String, default: ""},
+
+                removeContactCheckbox:  {type: Boolean, default: false},
+                firstName:              {type: String, default: ""},
+                middleName:             {type: String, default: ""},
+                lastName:               {type: String, default: ""},
+                streetLine1:            {type: String, default: ""},
+                streetLine2:            {type: String, default: ""},
+                streetLine3:            {type: String, default: ""},
+                city:                   {type: String, default: ""},
+                state:                  {type: String, default: ""},
+                zipCode:                {type: String, default: ""},
+                country:                {type: String, default: ""},
+                phoneNumber:            {type: String, default: ""},
+                countryCode:            {type: String, default: ""},
+                contactPriority:        {type: Number},
+
+                countryCodeArray: [
+                    {name: "Select Phone Code", nationCode: null, code: null},
+                    {name: "U.S.A. +1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan +81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K. +44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany +49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France +33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia +7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China +86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea +82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                ],
+                selectedCountryCode: {name: "Select Phone Code", nationCode: null, code: null},
+
+                countryArray: [
+                    {name: "Select Country", nationCode: null, code: null},
+                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                ],
+
+                // Default country until real contact data is received
+                selectedCountry: {name: "Select Country", nationCode: null, code: null},
+
+
+                stateArray: [
+                    {stateCode: null, name: "Select State" },
+                    {stateCode:"AL", name: "Alabama"},
+                    {stateCode:"AL", name: "Alaska"},
+                    {stateCode:"AL", name: "Arizona"},
+                    {stateCode:"AL", name: "Arkansas"},
+                    {stateCode:"AL", name: "California"},
+                    {stateCode:"AL", name: "Colorado"},
+                    {stateCode:"AL", name: "Connecticut"},
+                    {stateCode:"AL", name: "Delaware"},
+                    {stateCode:"AL", name: "Florida"},
+                    {stateCode:"AL", name: "Georgia"},
+                    {stateCode:"AL", name: "Hawaii"},
+                    {stateCode:"AL", name: "Idaho"},
+                    {stateCode:"AL", name: "Illinois"},
+                    {stateCode:"AL", name: "Indiana"},
+                    {stateCode:"AL", name: "Iowa"},
+                    {stateCode:"AL", name: "Kansas"},
+                    {stateCode:"AL", name: "Kentucky"},
+                    {stateCode:"AL", name: "Louisiana"},
+                    {stateCode:"AL", name: "Maine"},
+                    {stateCode:"AL", name: "Maryland"},
+                    {stateCode:"AL", name: "Massachusetts"},
+                    {stateCode:"AL", name: "Michigan"},
+                    {stateCode:"AL", name: "Minnesota"},
+                    {stateCode:"AL", name: "Mississippi"},
+                    {stateCode:"AL", name: "Missouri"},
+                    {stateCode:"AL", name: "Montana"},
+                    {stateCode:"AL", name: "Nebraska"},
+                    {stateCode:"AL", name: "Nevada"},
+                    {stateCode:"AL", name: "New Hampshire"},
+                    {stateCode:"AL", name: "New Jersey"},
+                    {stateCode:"AL", name: "New Mexico"},
+                    {stateCode:"AL", name: "New York"},
+                    {stateCode:"AL", name: "North Carolina"},
+                    {stateCode:"AL", name: "North Dakota"},
+                    {stateCode:"AL", name: "Ohio"},
+                    {stateCode:"AL", name: "Oklahoma"},
+                    {stateCode:"OR", name: "Oregon"},
+                    {stateCode:"AL", name: "Pennsylvania"},
+                    {stateCode:"AL", name: "Rhode Island"},
+                    {stateCode:"AL", name: "South Carolina"},
+                    {stateCode:"AL", name: "South Dakota"},
+                    {stateCode:"AL", name: "Tennessee"},
+                    {stateCode:"AL", name: "Texas"},
+                    {stateCode:"AL", name: "Utah"},
+                    {stateCode:"AL", name: "Vermont"},
+                    {stateCode:"AL", name: "Virginia"},
+                    {stateCode:"AL", name: "Washington"},
+                    {stateCode:"AL", name: "West Virginia"},
+                    {stateCode:"AL", name: "Wisconsin"},
+                    {stateCode:"AL", name: "Wyoming"},
+                ],
+
+                selectedState: {
+                    name: 'State Select'
+                },
+
+
+                localToAPIMap: {
+                  'surrogateId': 'surrogate_id',
+                  'pidm': 'pidm',
+                  'contactPriority': 'priority',
+                  'firstName': 'first_name',
+                  'middleName': 'mi',
+                  'lastName': 'last_name',
+                  'city': 'city',
+                  'phoneNumber': 'phone_number',
+                  'zipCode': 'zip',
+                  'streetLine1': 'street_line1',
+                  'streetLine2': 'street_line2',
+                  'streetLine3': 'street_line3',
+                  'relation': 'relt_code',
+                  'state': 'stat_code',
+                  'country': 'natn_code',
+                  'phoneCountryCode': 'ctry_code_phone',
+                  'phoneAreaCode': 'phone_area',
+                  'phoneExtension': 'phone_ext'
+                }
+            }
+        },
+
         watch: {
-            contact_in: function(payload) {
-                this.setContact(payload)
+          // When our parent changes the active contact, update the form fields
+          activeContact: function(contactObject) {
+            var vm = this
+
+            // Deep clone the object in case we need a reset
+            vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+
+            for(let key in contactObject) {
+              vm[key] = contactObject[key]
             }
+
+            vm.updateDropdowns()
+          }
         },
-        //This is for button clicks
+
         methods: {
-            currCountry(payload) {
-                this.countrybox = payload.country;
+            setNationCode(countryObject) {
+                this.country = countryObject.nationCode;
+                this['selectedCountry'] = this.findByNationCode(this.country)
             },
-            currCountryCode(payload) {
-                this.countryCode = payload.code;
+
+            setCountryCode(countryCodeObject) {
+                this.phoneCountryCode = countryCodeObject.code;
+                this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
             },
-            currState(payload) {
-                this.statebox = payload;
+
+            setState(stateObject) {
+                this.state = stateObject.stateCode;
+                this['selectedState'] = this.findStateByCode(this.state)
             },
-            submit() {
-                this.contact_out = this.makeContact();
-                this.$emit('updateContact', this.contact_out);
-                this.resetContact();
+
+            updateContact() {
+              var vm = this;
+              let contactObject = vm.toContactObject();
+
+              // Deep clone the object in case we need a reset
+              vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+
+              // Tell our parent to update and submit us to the backend
+              vm.$emit('updateContact', contactObject)
             },
-            makeContact() {
-                return {
-                    name: {fnamebox: this.fnamebox, mnamebox: this.mnamebox, lnamebox: this.lnamebox},
-                    address: {address1box: this.address1box, address2box: this.address2box, address3box: this.address3box},
-                    area: {
-                        countrybox: this.countrybox, countryCode: this.countryCode, phonebox: this.phonebox,
-                        statebox: this.statebox, citybox: this.citybox, zipbox: this.zipbox
-                    },
-                    order: {orderbox: this.orderbox},
-                    delete: {regbox: this.regbox}
-                }
+
+            toContactObject() {
+              var vm = this;
+
+              let contactObject = {}
+              for(let key in vm.localToAPIMap)
+                contactObject[key] = vm[key];
+
+              return contactObject
             },
-            setContact(payload) {
-                this.fnamebox = payload.name.fnamebox;
-                this.mnamebox = payload.name.mnamebox;
-                this.lnamebox = payload.name.lnamebox;
-                this.address1box = payload.address.address1box;
-                this.address2box = payload.address.address2box;
-                this.address3box = payload.address.address3box;
-                this.citybox = payload.area.citybox;
-                this.statebox = payload.area.statebox;
-                this.selectedState = payload.area.statebox; // Here to set dropdown
-                this.zipbox = payload.area.zipbox;
-                this.countrybox = payload.area.countrybox;
-                this.selectedCountry = this.findByCountry(payload.area.countrybox, this.countryArray); // Here to set the dropdown
-                this.countryCode = payload.area.countryCode;
-                this.selectedCountryCode = this.findByCountryCode(payload.area.countryCode, this.countryCodeArray); //Here to set the dropdown
-                this.phonebox = payload.area.phonebox;
-                this.orderbox = payload.order.orderbox;
-                this.regbox = payload.delete.regbox;
-            },
+
             resetContact() {
-                this.fnamebox = "";
-                this.mnamebox = "";
-                this.lnamebox = "";
-                this.address1box = "";
-                this.address2box = "";
-                this.address3box = "";
-                this.citybox = "";
-                this.statebox = "";
-                this.selectedState = {name: 'State'}; // Here to set dropdown to default of Oregon
-                this.zipbox = "";
-                this.countrybox = "USA";
-                this.selectedCountry = {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}; // Here to set the dropdown
-                this.phonebox = "";
-                this.countryCode = "1";
-                this.selectedCountryCode = {name: "U.S.A. +1", country: "USA", code: "1", svgimg: "us.svg",}; //Here to set the dropdown
-                this.orderbox = 1;
-                this.regbox = false;
-            },
-            findByCountry(country, targetCountries) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCountries.length; i++) {
-                    if (targetCountries[i].country === country){
-                        return targetCountries[i];
-                    }
-                }
-            },
-            findByCountryCode(countryCode, targetCodes) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCodes.length; i++) {
-                    if (targetCodes[i].code === countryCode){
-                        return targetCodes[i];
-                    }
-                }
-            },
-            findByStateName(name, targetCodes) {
-                //Here we expect either a string containing a country name
-                for (let i = 0; i < targetCodes.length; i++) {
-                    if (targetCodes[i].name === name){
-                        return targetCodes[i];
-                    }
-                }
-            },
-        },
+              var vm = this;
+              for(let key in vm.contactCopy) {
+                vm[key] = vm.contactCopy[key]
+              }
 
-        //This runs on instance creation
-        data: function() { return {
-            //Hold data for input fields here like this if it needs to be mutated
-            regbox: {type: Boolean, default: false},
-            fnamebox: {type: String, default: ""},
-            mnamebox: {type: String, default: ""},
-            lnamebox: {type: String, default: ""},
-            address1box: {type: String, default: ""},
-            address2box: {type: String, default: ""},
-            address3box: {type: String, default: ""},
-            citybox: {type: String, default: ""},
-            statebox: {type: String, default: ""},
-            zipbox: {type: String, default: ""},
-            countrybox: {type: String, default: ""},
-            phonebox: {type: String, default: ""},
-            countryCode: {type: String, default: ""},
-            orderbox: {type: Number},
+              vm.updateDropdowns()
+            },
 
-            //Dropdown data and so forth
-            countryCodeArray: [
-                {name: "+1", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan +81", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "+44", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany +49", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "+33", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia +7", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "+86", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea +82", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-            ],
-            selectedCountryCode: {
-                name: "+1", code: "1", svgimg: "us.svg",
+            updateDropdowns() {
+              var vm = this;
+
+              // Place the correct Dropdown options in our dynamically bound variables
+              vm['selectedCountry']     = vm.findByNationCode(vm.country)
+              vm['selectedState']       = vm.findStateByCode(vm.state)
+              vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
             },
-            countryArray: [
-                {name: "U.S.A.", country: "USA", code: "1", svgimg: "us.svg",}, {name: "Japan", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                {name: "U.K.", country: "UK",  code: "44", svgimg: "gb.svg"}, {name: "Germany", country: "Germany",  code: "49", svgimg: "de.svg"},
-                {name: "France", country: "France",  code: "7", svgimg: "fr.svg"},{name: "Russia", country: "Russia",  code: "7", svgimg: "ru.svg"},
-                {name: "China", country: "China",  code: "86", svgimg: "cn.svg"}, {name: "South Korea", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-            ],
-            selectedCountry: {
-                name: "U.S.A.", code: "1", svgimg: "us.svg",
+
+            findByNationCode(nationCode) {
+                for(let i=0; i<this.countryArray.length; ++i) {
+                    if (this.countryArray[i].nationCode === nationCode) {
+                        return this.countryArray[i]
+                    }
+                }
             },
-            stateArray: [
-                {name: "Alabama"}, {name: "Alaska"}, {name: "Arizona"}, {name: "Arkansas"},
-                {name: "California"}, {name: "Colorado"}, {name: "Connecticut"}, {name: "Delaware"},
-                {name: "Florida"}, {name: "Georgia"}, {name: "Hawaii"}, {name: "Idaho"},
-                {name: "Illinois"}, {name: "Indiana"}, {name: "Iowa"}, {name: "Kansas"},
-                {name: "Kentucky"}, {name: "Louisiana"}, {name: "Maine"}, {name: "Maryland"},
-                {name: "Massachusetts"}, {name: "Michigan"}, {name: "Minnesota"}, {name: "Mississippi"},
-                {name: "Missouri"}, {name: "Montana"}, {name: "Nebraska"}, {name: "Nevada"},
-                {name: "New Hampshire"}, {name: "New Jersey"}, {name: "New Mexico"}, {name: "New York"},
-                {name: "North Carolina"}, {name: "North Dakota"}, {name: "Ohio"}, {name: "Oklahoma"},
-                {name: "Oregon"}, {name: "Pennsylvania"}, {name: "Rhode Island"}, {name: "South Carolina"},
-                {name: "South Dakota"}, {name: "Tennessee"}, {name: "Texas"}, {name: "Utah"},
-                {name: "Vermont"}, {name: "Virginia"}, {name: "Washington"}, {name: "West Virginia"},
-                {name: "Wisconsin"}, {name: "Wyoming"},
-            ],
-            selectedState: {
-                name: 'State'
+
+            findNationByPhoneCode(phoneCode) {
+                for (let i = 0; i < this.countryCodeArray.length; i++) {
+                    if (this.countryCodeArray[i].code === phoneCode){
+                        return this.countryCodeArray[i];
+                    }
+                }
+            },
+
+            findStateByCode(stateCode) {
+                for (let i = 0; i < this.stateArray.length; i++) {
+                    if (this.stateArray[i].stateCode === stateCode){
+                        return this.stateArray[i];
+                    }
+                }
             }
-        }},
-        //This initializes the above declarations
-        created: function() {
-            this.resetContact()
-        },
+        }
     }
 </script>
 
-<style scoped>
+
+
+
+
+
+
 
 .text-box label{
     display:block;

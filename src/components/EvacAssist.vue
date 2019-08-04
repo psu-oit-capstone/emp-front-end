@@ -118,9 +118,8 @@
         //This runs on instance creation
         data: function() {
           return {
-            //Hold data for input fields here like this if it needs to be mutated
-            about_registry_text1: {type: String},
-            regbox: {type: Boolean, default: false},
+              about_registry_text1: {type: String},
+              regbox: {type: Boolean},
             }
         },
 
@@ -132,8 +131,7 @@
                 " an emergency evacuation. If you register, your information will become accessible to first responders" +
                 " (information could include, as applicable: name, assigned residence hall room (PSU residents only)," +
                 " location of registered courses (student or instructor/faculty), assigned office location (staff)," +
-                " and/or contact information) The registry is confidential and is managed by CPSO. Data is refreshed weekly. ",
-            this.regbox = false
+                " and/or contact information) The registry is confidential and is managed by CPSO. Data is refreshed weekly. "
         },
 
         //This is for button clicks
@@ -165,13 +163,12 @@
                   this.regbox = false;
               })
               .catch(error => console.log(error))
+            }
         },
 
-        //TODO It seems Auth tokens are clearing or not working if we make repeat requests after a refresh. Don't know why.
         mounted() {
           this.fillEvacAssistInformation()
         }
-      }
     }
 </script>
 
