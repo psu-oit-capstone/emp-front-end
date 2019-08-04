@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <div id="login-field">
+        <form id="login-field" @submit.prevent="login" >
             <div id="login-greeting">
                 <h2>PSU Emergency Management Portal</h2>
             </div>
@@ -13,8 +13,8 @@
                     <input type="password" id="password" name="password" v-model="password" placeholder="Password" />
             </div>
 
-            <button type="button" class="submit" v-on:click="login()">Login</button>
-        </div>
+            <button type="submit" class="submit">Login</button>
+        </form>
     </div>
 
 </template>
