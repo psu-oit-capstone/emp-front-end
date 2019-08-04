@@ -107,7 +107,7 @@
             </label>
             <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
         </div>
-         
+
     </div>
     <div class="button-holder">
         <button type="button" class="submit" @click="updateContact()">Submit</button>
@@ -263,7 +263,14 @@
                   'phoneCountryCode': 'ctry_code_phone',
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
-                }
+                },
+
+
+                dropdownFields: [
+                  'country',
+                  'state',
+                  'phoneCountryCode'
+                ]
             }
         },
 
@@ -275,15 +282,26 @@
             // Deep clone the object in case we need a reset
             vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
 
-            for(let key in contactObject) {
-              vm[key] = contactObject[key]
-            }
-
-            vm.updateDropdowns()
+            vm.fillForm(contactObject)
           }
         },
 
         methods: {
+            fillForm(contactObject) {
+              var vm = this;
+
+              for(let key in contactObject) {
+                if(vm.dropdownFields.includes(key) || (contactObject[key] !== null && contactObject[key] !== 'null')) {
+                  vm[key] = contactObject[key]
+                }
+                else {
+                  vm[key] = ''
+                }
+              }
+
+              vm.updateDropdowns()
+            },
+
             setNationCode(countryObject) {
                 this.country = countryObject.nationCode;
                 this['selectedCountry'] = this.findByNationCode(this.country)
@@ -323,7 +341,7 @@
             resetContact() {
               var vm = this;
               for(let key in vm.contactCopy) {
-                vm[key] = vm.contactCopy[key]
+                  vm[key] = vm.contactCopy[key]
               }
 
               vm.updateDropdowns()

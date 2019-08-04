@@ -10,6 +10,9 @@
                 <button @click="editContact(contactObject, index)">
                   Edit
                 </button>
+                <button @click="deleteContact(contactObject, index)">
+                  Delete
+                </button>
             </li>
         </ul>
 
@@ -107,6 +110,20 @@
               this.activeIndex = index;
             },
 
+            deleteContact(contactObject, index) {
+              this.activeIndex = 0;
+              this.contacts.splice(index, 1);
+
+
+              // TODO: Add Delete.
+              /*
+              axios({
+                method: 'post',
+                baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/',
+                data: bodyFormData
+              })
+              */
+            },
 
 
             localToAPI(key) { return this.localToAPIMap[key] },
