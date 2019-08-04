@@ -60,7 +60,7 @@
 
         <div class="select state-box">
           <label for="state-selector">
-            State Select
+            State
           </label>
           <Dropdown
             id="state-selector"
@@ -72,13 +72,25 @@
 
         <div class="select country-box">
           <label for="country-selector">
-            Country Select
+            Country
           </label>
           <Dropdown
             id="country-selector"
             :options="countryArray"
             :selected="selectedCountry"
             @updateOption="setNationCode"
+          />
+        </div>
+
+        <div class="select country-code">
+          <label id="phone-country-code">
+            Country Code
+          </label>
+          <Dropdown
+            id="phone-country-code"
+            :options="countryCodeArray"
+            :selected="selectedCountryCode"
+            @updateOption="setCountryCode"
           />
         </div>
 
@@ -89,37 +101,18 @@
           <input id="phone-number" type="text" placeholder="555-555-5555" v-model="phoneNumber"/>
         </div>
 
-        <div class="select country-code">
-          <label id="phone-country-code">
-            Country Phone Number Code
-          </label>
-          <Dropdown
-            id="phone-country-code"
-            :options="countryCodeArray"
-            :selected="selectedCountryCode"
-            @updateOption="setCountryCode"
-          />
-        </div>
-
         <div class="text-box orderbox">
             <label for="contact-priority">
               Contact Priority
             </label>
             <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
         </div>
-
-        <div class="input-field">
-          <label for="remove-contact-checkbox">
-            Remove Contact
-          </label>
-          <input id="remove-contact-checkbox" type="checkbox" v-model="removeContactCheckbox"/>
-        </div>
-
-        <div class="button-holder">
-            <button type="button" class="submit" @click="updateContact()">Submit</button>
-            <button type="button" class="reset" @click="resetContact()">Reset</button>
-        </div>
-      </div>
+         
+    </div>
+    <div class="button-holder">
+        <button type="button" class="submit" @click="updateContact()">Submit</button>
+        <button type="button" class="reset" @click="resetContact()">Reset</button>
+    </div>
     </div>
 </template>
 
@@ -164,20 +157,20 @@
                 contactPriority:        {type: Number},
 
                 countryCodeArray: [
-                    {name: "Select Phone Code", nationCode: null, code: null},
-                    {name: "U.S.A. +1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan +81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K. +44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany +49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France +33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
-                    {name: "Russia +7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China +86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea +82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                    {name: "N/A", nationCode: null, code: null},
+                    {name: "+1",nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "+81",nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "+44",nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "+49",nationCode: "GER", country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "+33",nationCode: "FR", country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "+7", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "+86", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "+82", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
                 ],
-                selectedCountryCode: {name: "Select Phone Code", nationCode: null, code: null},
+                selectedCountryCode: {name: "N/A", nationCode: null, code: null},
 
                 countryArray: [
-                    {name: "Select Country", nationCode: null, code: null},
+                    {name: "Country", nationCode: null, code: null},
                     {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
                     {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
                     {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
@@ -189,11 +182,11 @@
                 ],
 
                 // Default country until real contact data is received
-                selectedCountry: {name: "Select Country", nationCode: null, code: null},
+                selectedCountry: {name: "Country", nationCode: null, code: null},
 
 
                 stateArray: [
-                    {stateCode: null, name: "Select State" },
+                    {stateCode: null, name: "State" },
                     {stateCode:"AL", name: "Alabama"},
                     {stateCode:"AL", name: "Alaska"},
                     {stateCode:"AL", name: "Arizona"},
@@ -247,7 +240,7 @@
                 ],
 
                 selectedState: {
-                    name: 'State Select'
+                    name: 'State'
                 },
 
 
@@ -373,11 +366,7 @@
 </script>
 
 
-
-
-
-
-
+<style>
 
 .text-box label{
     display:block;
