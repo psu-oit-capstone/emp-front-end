@@ -107,7 +107,7 @@
             </label>
             <input id="contact-priority"  type="number" placeholder="" v-model.number="contactPriority" min="1"/>
         </div>
-         
+
     </div>
     <div class="button-holder">
         <button type="button" class="submit" @click="updateContact()">Submit</button>
@@ -263,7 +263,14 @@
                   'phoneCountryCode': 'ctry_code_phone',
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
-                }
+                },
+
+
+                dropdownFields: [
+                  'country',
+                  'state',
+                  'phoneCountryCode'
+                ]
             }
         },
 
@@ -275,15 +282,27 @@
             // Deep clone the object in case we need a reset
             vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
 
-            for(let key in contactObject) {
-              vm[key] = contactObject[key]
-            }
-
-            vm.updateDropdowns()
+            console.log(contactObject.country)
+            vm.fillForm(contactObject)
           }
         },
 
         methods: {
+            fillForm(contactObject) {
+              var vm = this;
+
+              for(let key in contactObject) {
+                if(vm.dropdownFields.includes(key) || (contactObject[key] !== null && contactObject[key] !== 'null')) {
+                  vm[key] = contactObject[key]
+                }
+                else {
+                  vm[key] = ''
+                }
+              }
+
+              vm.updateDropdowns()
+            },
+
             setNationCode(countryObject) {
                 this.country = countryObject.nationCode;
                 this['selectedCountry'] = this.findByNationCode(this.country)
@@ -322,11 +341,7 @@
 
             resetContact() {
               var vm = this;
-              for(let key in vm.contactCopy) {
-                vm[key] = vm.contactCopy[key]
-              }
-
-              vm.updateDropdowns()
+              vm.fillForm(vm.contactCopy)
             },
 
             updateDropdowns() {
@@ -339,6 +354,9 @@
             },
 
             findByNationCode(nationCode) {
+                if([null, 'null'].includes(nationCode))
+                  return this.countryArray[0]
+
                 for(let i=0; i<this.countryArray.length; ++i) {
                     if (this.countryArray[i].nationCode === nationCode) {
                         return this.countryArray[i]
@@ -347,6 +365,9 @@
             },
 
             findNationByPhoneCode(phoneCode) {
+                if([null, 'null'].includes(phoneCode))
+                  return this.countryCodeArray[0]
+
                 for (let i = 0; i < this.countryCodeArray.length; i++) {
                     if (this.countryCodeArray[i].code === phoneCode){
                         return this.countryCodeArray[i];
@@ -355,6 +376,9 @@
             },
 
             findStateByCode(stateCode) {
+                if([null, 'null'].includes(stateCode))
+                  return this.stateArray[0]
+
                 for (let i = 0; i < this.stateArray.length; i++) {
                     if (this.stateArray[i].stateCode === stateCode){
                         return this.stateArray[i];
