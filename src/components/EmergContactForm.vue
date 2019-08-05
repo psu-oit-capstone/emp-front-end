@@ -25,7 +25,7 @@
 
         <div class="select relation-box">
           <label>
-            Relationship to Person
+            Relationship
           </label>
           <Dropdown
             :options="relationshipArray"
@@ -58,7 +58,7 @@
 
         <div class="text-box zipbox">
           <label for="zip-code">
-            Zip or Postal Code
+            Postal Code
           </label>
           <input id="zip-code" type="text" placeholder="97201" v-model="zipCode"/>
         </div>
@@ -505,6 +505,10 @@
         grid-column:span 2;
     }
 
+    .relation-box{
+        grid-column:span 2;
+    }
+
     .address1box{
         grid-column:span 3;
         grid-row:2;
@@ -578,6 +582,11 @@
         grid-row: 2;
     }
 
+    .relation-box{
+        grid-column:span 2;
+        grid-row: 2;
+    }
+
     .address1box{
         grid-column:span 4;
         grid-row: 3;
@@ -642,6 +651,10 @@
     }
 
     .lnamebox{
+        grid-column:span 2;
+    }
+
+    .relation-box{
         grid-column:span 2;
     }
 
