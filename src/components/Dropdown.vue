@@ -2,12 +2,23 @@
 
 <template>
     <div class="btn-group">
+        <!-- Null Selection -->
+        <div
+          v-if="selectedOption === null"
+          id="null-option"
+          class="dropdown-option"
+          @click="toggleMenu()"
+        >
+          {{ placeholderText }}
+        </div>
+
+
         <!-- Selected element -->
         <li
+          v-else
           id="selected-option"
           class="dropdown-option"
           @click="toggleMenu()"
-          v-if="selectedOption.name !== undefined"
         >
           <!-- Display an image if one was passed 'svgimg' -->
           <img
@@ -17,7 +28,7 @@
             :alt="selectedOption.name"
             :src="getImage(selectedOption.svgimg)"
           />
-          {{ selectedOption.name }}
+          {{ selectedOption.value }}
         </li>
 
         <ul class="dropdown-menu" v-if="showMenu">
@@ -31,7 +42,7 @@
                       :alt="option.name"
                       :src="getImage(option.svgimg)"
                     />
-                    {{ option.name }}
+                    {{ option.value }}
                 </a>
             </li>
         </ul>

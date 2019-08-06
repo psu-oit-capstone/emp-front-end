@@ -23,6 +23,11 @@
             <EmergContactForm
               id="emergency-contact-form"
               :activeContact="contacts[activeIndex]"
+              :countryArray="countryArray"
+              :relationshipArray="relationshipArray"
+              :stateArray="stateArray"
+              :countryCodeArray="countryCodeArray"
+              :isFetching="isFetching"
               @updateContact="updateContact"
             />
         </div>
@@ -33,18 +38,39 @@
     import EmergContactForm from '@/components/EmergContactForm.vue'
     import axios from 'axios'
 
+    import DropdownData from '@/components/DropdownData.vue'
+
     export default {
         name: "EmergencyContactList",
         components: {
-            EmergContactForm
+            EmergContactForm,
+            DropdownData
+
         },
 
         mounted() {
           // Retrieve contacts from backend and store in this.contacts[]
           this.getEmergencyContactInformation()
+
+          this.getStateDropdownOptions()
         },
 
         methods: {
+            getStateDropdownOptions() {
+              axios({
+                method: 'get',
+                baseURL: 'http://127.0.0.1:8000/getStateCodes/',
+              })
+              .then(response => {
+                var stateCodes = response.data
+                this.stateArray = stateCodes
+
+                this.resourcesToFetch -= 1
+              })
+              .catch(error => console.log(error.toString()))
+            },
+
+
             // Grab contacts via axios and bind to Vue model
             async getEmergencyContactInformation() {
                 var vm = this;
@@ -69,6 +95,7 @@
                     }
 
                     vm.contacts.push(contactObject)
+                    vm.resourcesToFetch -= 1
                   }
                 })
                 .catch(error => console.log(error.toString()))
@@ -143,10 +170,21 @@
             }
         },
 
+        watch: {
+          resourcesToFetch: function(count) {this.isFetching = count === 0}
+        },
+
         data: function() {
             return {
+                isFetching: true,
+                resourcesToFetch: 2,
+
                 // List which holds all contact objects
                 contacts: [],
+
+
+                stateArray: [],
+
 
                 // The contact which occupies the form
                 activeIndex: 0,
@@ -170,7 +208,23 @@
                   'phoneCountryCode': 'ctry_code_phone',
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
-                }
+                },
+                countryCodeArray: DropdownData.countryCodeArray,
+
+
+                countryArray: [
+                    {name: "Country", nationCode: null, code: null},
+                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
+                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
+                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
+                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
+                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
+                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
+                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
+                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                ],
+                relationshipArray: DropdownData.relationshipArray,
+
             }
         },
     }
