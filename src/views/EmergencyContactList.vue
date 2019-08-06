@@ -53,6 +53,7 @@
           this.getEmergencyContactInformation()
 
           this.getStateDropdownOptions()
+          this.getCountryDropdownOptions()
         },
 
         methods: {
@@ -64,6 +65,22 @@
               .then(response => {
                 var stateCodes = response.data
                 this.stateArray = stateCodes
+
+                this.resourcesToFetch -= 1
+              })
+              .catch(error => console.log(error.toString()))
+            },
+
+            getCountryDropdownOptions() {
+              axios({
+                method: 'get',
+                baseURL: 'http://127.0.0.1:8000/getNationCodes/',
+              })
+              .then(response => {
+                var countryCodes = response.data
+                this.countryArray = countryCodes
+
+                console.log(this.countryArray)
 
                 this.resourcesToFetch -= 1
               })
@@ -177,7 +194,7 @@
         data: function() {
             return {
                 isFetching: true,
-                resourcesToFetch: 2,
+                resourcesToFetch: 3,
 
                 // List which holds all contact objects
                 contacts: [],

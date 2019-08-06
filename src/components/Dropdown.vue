@@ -25,21 +25,21 @@
             v-if="'svgimg' in selectedOption"
             height="24px"
             width="18px"
-            :alt="selectedOption.name"
+            :alt="selectedOption.value"
             :src="getImage(selectedOption.svgimg)"
           />
           {{ selectedOption.value }}
         </li>
 
         <ul class="dropdown-menu" v-if="showMenu">
-            <li v-for="option in options" :key="option.svgimg">
+            <li v-for="option in options" :key="option.id">
                 <a href="javascript:void(0)" @click="updateOption(option)">
                     <!-- Display an image if one was passed 'svgimg' -->
                     <img
                       v-if="'svgimg' in option"
                       height="24px"
                       width="18px"
-                      :alt="option.name"
+                      :alt="option.value"
                       :src="getImage(option.svgimg)"
                     />
                     {{ option.value }}
@@ -92,6 +92,9 @@
             },
 
             getImage(imageName) {
+                // TODO: Check out Nigeria
+                if(imageName === null)
+                  return
                 return require("../image-assets/4x3/" + imageName)
             }
         }

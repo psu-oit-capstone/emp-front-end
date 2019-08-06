@@ -226,12 +226,10 @@
           },
 
           isFetching: function(state) {
-            console.log(this.selectedState)
 
             // If we've just now fetched all the dropdown & contact data
             if(state === false)
               this.updateDropdowns()
-            console.log(this.selectedState)
           }
         },
 
@@ -268,7 +266,7 @@
             },
 
             setNationCode(countryObject) {
-                this.country = countryObject.nationCode;
+                this.country = countryObject.id;
                 this['selectedCountry'] = this.findByNationCode(this.country)
             },
 
@@ -309,11 +307,12 @@
             },
 
             findByNationCode(nationCode) {
-                if([null, 'null'].includes(nationCode))
+                if([null, 'null'].includes(nationCode)) {
                   return this.countryArray[0]
+                }
 
                 for(let i=0; i<this.countryArray.length; ++i) {
-                    if (this.countryArray[i].nationCode === nationCode) {
+                    if (this.countryArray[i].id === nationCode) {
                         return this.countryArray[i]
                     }
                 }
