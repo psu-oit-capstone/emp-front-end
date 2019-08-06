@@ -28,9 +28,10 @@
             Relationship
           </label>
           <Dropdown
-            :options="relationshipArray"
+            :options="relationArray"
             :selected="selectedRelation"
             @updateOption="setRelation"
+            displayField="value"
             placeholder="Relation"
           />
         </div>
@@ -79,6 +80,7 @@
             :options="stateArray"
             :selected="selectedState"
             @updateOption="setState"
+            displayField="value"
             placeholder="State"
           />
         </div>
@@ -92,6 +94,7 @@
             :options="countryArray"
             :selected="selectedCountry"
             @updateOption="setNationCode"
+            displayField="value"
             placeholder="Country"
           />
         </div>
@@ -102,9 +105,10 @@
           </label>
           <Dropdown
             id="phone-country-code"
-            :options="countryCodeArray"
+            :options="countryArray"
             :selected="selectedCountryCode"
             @updateOption="setCountryCode"
+            displayField="phone_code"
             placeholder="N/A"
           />
         </div>
@@ -147,7 +151,7 @@
           'activeContact',
           'countryArray',
           'stateArray',
-          'relationshipArray',
+          'relationArray',
           'countryCodeArray',
           'isFetching'
         ],
@@ -175,7 +179,6 @@
                 zipCode:                {type: String, default: ""},
                 country:                {type: String, default: ""},
                 phoneNumber:            {type: String, default: ""},
-                countryCode:            {type: String, default: ""},
                 contactPriority:        {type: Number},
 
                 /*
@@ -226,7 +229,6 @@
           },
 
           isFetching: function(state) {
-
             // If we've just now fetched all the dropdown & contact data
             if(state === false)
               this.updateDropdowns()
@@ -270,8 +272,8 @@
                 this['selectedCountry'] = this.findByNationCode(this.country)
             },
 
-            setCountryCode(countryCodeObject) {
-                this.phoneCountryCode = countryCodeObject.code;
+            setCountryCode(countryObject) {
+                this.phoneCountryCode = countryObject.phone_code;
                 this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
             },
 
@@ -307,10 +309,6 @@
             },
 
             findByNationCode(nationCode) {
-                if([null, 'null'].includes(nationCode)) {
-                  return this.countryArray[0]
-                }
-
                 for(let i=0; i<this.countryArray.length; ++i) {
                     if (this.countryArray[i].id === nationCode) {
                         return this.countryArray[i]
@@ -322,13 +320,9 @@
             },
 
             findRelationByCode(code) {
-                if([null, 'null'].includes(code)) {
-                  return this.relationshipArray[0]
-                }
-
-                for (let i = 0; i < this.relationshipArray.length; i++) {
-                    if (this.relationshipArray[i].code === code){
-                        return this.relationshipArray[i];
+                for (let i = 0; i < this.relationArray.length; i++) {
+                    if (this.relationArray[i].id === code){
+                        return this.relationArray[i];
                     }
                 }
 
@@ -337,12 +331,9 @@
             },
 
             findNationByPhoneCode(phoneCode) {
-                if([null, 'null'].includes(phoneCode))
-                  return this.countryCodeArray[0]
-
-                for (let i = 0; i < this.countryCodeArray.length; i++) {
-                    if (this.countryCodeArray[i].code === phoneCode){
-                        return this.countryCodeArray[i];
+                for (let i = 0; i < this.countryArray.length; i++) {
+                    if (this.countryArray[i].phone_code === phoneCode){
+                        return this.countryArray[i];
                     }
                 }
 
@@ -351,9 +342,6 @@
             },
 
             findStateByCode(stateCode) {
-                if([null, 'null'].includes(stateCode))
-                  return this.stateArray[0]
-
                 for (let i = 0; i < this.stateArray.length; i++) {
                     if (this.stateArray[i].id === stateCode){
                         return this.stateArray[i];

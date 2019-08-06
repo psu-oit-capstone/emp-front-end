@@ -24,9 +24,8 @@
               id="emergency-contact-form"
               :activeContact="contacts[activeIndex]"
               :countryArray="countryArray"
-              :relationshipArray="relationshipArray"
+              :relationArray="relationArray"
               :stateArray="stateArray"
-              :countryCodeArray="countryCodeArray"
               :isFetching="isFetching"
               @updateContact="updateContact"
             />
@@ -38,20 +37,15 @@
     import EmergContactForm from '@/components/EmergContactForm.vue'
     import axios from 'axios'
 
-    import DropdownData from '@/components/DropdownData.vue'
-
     export default {
         name: "EmergencyContactList",
         components: {
             EmergContactForm,
-            DropdownData
-
         },
 
         mounted() {
           // Retrieve contacts from backend and store in this.contacts[]
           this.getEmergencyContactInformation()
-
           this.getStateDropdownOptions()
           this.getCountryDropdownOptions()
         },
@@ -79,9 +73,6 @@
               .then(response => {
                 var countryCodes = response.data
                 this.countryArray = countryCodes
-
-                console.log(this.countryArray)
-
                 this.resourcesToFetch -= 1
               })
               .catch(error => console.log(error.toString()))
@@ -226,22 +217,18 @@
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
                 },
-                countryCodeArray: DropdownData.countryCodeArray,
 
-
-                countryArray: [
-                    {name: "Country", nationCode: null, code: null},
-                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
-                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
+                relationArray: [
+                    {value: "Agent", id: "A"},
+                    {value: "Friend", id: "F"},
+                    {value: "Guardian/Parent", id: "G"},
+                    {value: "Other Relative", id: "O"},
+                    {value: "Other Representative", id: "R"},
+                    {value: "Spouse/Significant Other", id: "S"},
+                    {value: "Unknown", id: "U"},
                 ],
-                relationshipArray: DropdownData.relationshipArray,
 
+                countryArray: []
             }
         },
     }

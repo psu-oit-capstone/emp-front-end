@@ -22,13 +22,13 @@
         >
           <!-- Display an image if one was passed 'svgimg' -->
           <img
-            v-if="'svgimg' in selectedOption"
+            v-if="selectedOption.svgimg !== undefined"
             height="24px"
             width="18px"
             :alt="selectedOption.value"
             :src="getImage(selectedOption.svgimg)"
           />
-          {{ selectedOption.value }}
+          {{ selectedOption[displayField] }}
         </li>
 
         <ul class="dropdown-menu" v-if="showMenu">
@@ -36,13 +36,13 @@
                 <a href="javascript:void(0)" @click="updateOption(option)">
                     <!-- Display an image if one was passed 'svgimg' -->
                     <img
-                      v-if="'svgimg' in option"
+                      v-if="option.svgimg !== undefined"
                       height="24px"
                       width="18px"
                       :alt="option.value"
                       :src="getImage(option.svgimg)"
                     />
-                    {{ option.value }}
+                    {{ option[displayField] }}
                 </a>
             </li>
         </ul>
@@ -63,6 +63,7 @@
             options:  {type: [Array, Object]},
             selected: {type: Object},
             placeholder: [String],
+            displayField: [String],
         },
 
         watch: {
