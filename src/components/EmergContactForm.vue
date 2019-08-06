@@ -28,10 +28,11 @@
             Relationship
           </label>
           <Dropdown
-            :options="relationshipArray"
+            :options="relationArray"
             :selected="selectedRelation"
             @updateOption="setRelation"
-            :placeholder="'Relation'"
+            displayField="value"
+            placeholder="Relation"
           />
         </div>
 
@@ -79,6 +80,8 @@
             :options="stateArray"
             :selected="selectedState"
             @updateOption="setState"
+            displayField="value"
+            placeholder="State"
           />
         </div>
 
@@ -91,6 +94,8 @@
             :options="countryArray"
             :selected="selectedCountry"
             @updateOption="setNationCode"
+            displayField="value"
+            placeholder="Country"
           />
         </div>
 
@@ -100,9 +105,11 @@
           </label>
           <Dropdown
             id="phone-country-code"
-            :options="countryCodeArray"
+            :options="countryArray"
             :selected="selectedCountryCode"
             @updateOption="setCountryCode"
+            displayField="phone_code"
+            placeholder="N/A"
           />
         </div>
 
@@ -132,21 +139,25 @@
 
 <script>
     import Dropdown from '@/components/Dropdown.vue'
-    import DropdownData from '@/components/DropdownData.vue'
     import axios from 'axios'
 
     export default {
         name: "EmergContactForm.vue",
         components: {
-            Dropdown,
-            DropdownData
+            Dropdown
         },
 
-        props: ['activeContact'],
+        props: [
+          'activeContact',
+          'countryArray',
+          'stateArray',
+          'relationArray',
+          'countryCodeArray',
+          'isFetching'
+        ],
 
         data: function() {
             return {
-                relationshipArray: DropdownData.relationshipArray,
 
                 contactCopy:            {type: Object},
 
@@ -168,87 +179,16 @@
                 zipCode:                {type: String, default: ""},
                 country:                {type: String, default: ""},
                 phoneNumber:            {type: String, default: ""},
-                countryCode:            {type: String, default: ""},
                 contactPriority:        {type: Number},
 
-
-                selectedCountryCode: {name: "N/A", nationCode: null, code: null},
-                countryCodeArray: DropdownData.countryCodeArray,
-
-                countryArray: [
-                    {name: "Country", nationCode: null, code: null},
-                    {name: "U.S.A.", nationCode: "LUS", country: "USA", code: "1", svgimg: "us.svg",},
-                    {name: "Japan", nationCode: "JAP", country: "Japan",  code: "81", svgimg: "jp.svg"},
-                    {name: "U.K.", nationCode: "UKA", country: "UK",  code: "44", svgimg: "gb.svg"},
-                    {name: "Germany", nationCode: "GER",country: "Germany",  code: "49", svgimg: "de.svg"},
-                    {name: "France", nationCode: "FR",country: "France",  code: "33", svgimg: "fr.svg"},
-                    {name: "Russia", nationCode: "RU",country: "Russia",  code: "7", svgimg: "ru.svg"},
-                    {name: "China", nationCode: "CH",country: "China",  code: "86", svgimg: "cn.svg"},
-                    {name: "South Korea", nationCode: "SK", country: "South Korea",  code: "86", svgimg: "kr.svg"},
-                ],
-
-                // Default country until real contact data is received
-                selectedCountry: {name: "Country", nationCode: null, code: null},
-
-
-                stateArray: [
-                    {stateCode: null, name: "State" },
-                    {stateCode:"AL", name: "Alabama"},
-                    {stateCode:"AL", name: "Alaska"},
-                    {stateCode:"AL", name: "Arizona"},
-                    {stateCode:"AL", name: "Arkansas"},
-                    {stateCode:"AL", name: "California"},
-                    {stateCode:"AL", name: "Colorado"},
-                    {stateCode:"AL", name: "Connecticut"},
-                    {stateCode:"AL", name: "Delaware"},
-                    {stateCode:"AL", name: "Florida"},
-                    {stateCode:"AL", name: "Georgia"},
-                    {stateCode:"AL", name: "Hawaii"},
-                    {stateCode:"AL", name: "Idaho"},
-                    {stateCode:"AL", name: "Illinois"},
-                    {stateCode:"AL", name: "Indiana"},
-                    {stateCode:"AL", name: "Iowa"},
-                    {stateCode:"AL", name: "Kansas"},
-                    {stateCode:"AL", name: "Kentucky"},
-                    {stateCode:"AL", name: "Louisiana"},
-                    {stateCode:"AL", name: "Maine"},
-                    {stateCode:"AL", name: "Maryland"},
-                    {stateCode:"AL", name: "Massachusetts"},
-                    {stateCode:"AL", name: "Michigan"},
-                    {stateCode:"AL", name: "Minnesota"},
-                    {stateCode:"AL", name: "Mississippi"},
-                    {stateCode:"AL", name: "Missouri"},
-                    {stateCode:"AL", name: "Montana"},
-                    {stateCode:"AL", name: "Nebraska"},
-                    {stateCode:"AL", name: "Nevada"},
-                    {stateCode:"AL", name: "New Hampshire"},
-                    {stateCode:"AL", name: "New Jersey"},
-                    {stateCode:"AL", name: "New Mexico"},
-                    {stateCode:"AL", name: "New York"},
-                    {stateCode:"AL", name: "North Carolina"},
-                    {stateCode:"AL", name: "North Dakota"},
-                    {stateCode:"AL", name: "Ohio"},
-                    {stateCode:"AL", name: "Oklahoma"},
-                    {stateCode:"OR", name: "Oregon"},
-                    {stateCode:"AL", name: "Pennsylvania"},
-                    {stateCode:"AL", name: "Rhode Island"},
-                    {stateCode:"AL", name: "South Carolina"},
-                    {stateCode:"AL", name: "South Dakota"},
-                    {stateCode:"AL", name: "Tennessee"},
-                    {stateCode:"AL", name: "Texas"},
-                    {stateCode:"AL", name: "Utah"},
-                    {stateCode:"AL", name: "Vermont"},
-                    {stateCode:"AL", name: "Virginia"},
-                    {stateCode:"AL", name: "Washington"},
-                    {stateCode:"AL", name: "West Virginia"},
-                    {stateCode:"AL", name: "Wisconsin"},
-                    {stateCode:"AL", name: "Wyoming"},
-                ],
-
-                selectedState: {
-                    name: 'State'
-                },
-
+                /*
+                  Here we'll hold objects representing country, state, relation,
+                  and phoneCountryCode. e.g. {name: "USA", code: "LUS", svgimg: "us.svg"}
+                */
+                selectedCountryCode:  null,
+                selectedCountry:      null,
+                selectedState:        null,
+                selectedRelation:     null,
 
                 localToAPIMap: {
                   'surrogateId': 'surrogate_id',
@@ -271,12 +211,7 @@
                   'phoneExtension': 'phone_ext'
                 },
 
-                selectedRelation: {
-                  name: 'Relation',
-                  code: null
-                },
-
-                dropdownFields: [
+                nullableFields: [
                   'country',
                   'state',
                   'phoneCountryCode',
@@ -288,44 +223,58 @@
         watch: {
           // When our parent changes the active contact, update the form fields
           activeContact: function(contactObject) {
-            var vm = this
-
             // Deep clone the object in case we need a reset
-            vm.contactCopy = JSON.parse(JSON.stringify(contactObject))
+            this.contactCopy = JSON.parse(JSON.stringify(contactObject))
+            this.fillForm(contactObject)
+          },
 
-            vm.fillForm(contactObject)
+          isFetching: function(state) {
+            // If we've just now fetched all the dropdown & contact data
+            if(state === false)
+              this.updateDropdowns()
           }
         },
 
         methods: {
+            // Takes an object with contact attributes filled. Fills the Vue model with the contact data.
             fillForm(contactObject) {
-              var vm = this;
-
               for(let key in contactObject) {
-                if(vm.dropdownFields.includes(key) || (contactObject[key] !== null && contactObject[key] !== 'null')) {
-                  vm[key] = contactObject[key]
+                // Attribute is nullable OR is a completed non-nullable key
+                if(this.nullableFields.includes(key) || (contactObject[key] !== null && contactObject[key] !== 'null')) {
+                  this[key] = contactObject[key]
                 }
                 else {
-                  vm[key] = ''
+                  this[key] = ''
                 }
               }
 
-              vm.updateDropdowns()
+              this.updateDropdowns()
             },
 
-            setNationCode(countryObject) {
-                this.country = countryObject.nationCode;
-                this['selectedCountry'] = this.findByNationCode(this.country)
-            },
+            // Assign selected dropdown elements by mapping codes to their dropdown options
+            updateDropdowns() {
+              var vm = this;
 
-            setCountryCode(countryCodeObject) {
-                this.phoneCountryCode = countryCodeObject.code;
-                this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
+              // Place the correct Dropdown options in our dynamically bound variables
+              vm['selectedCountry']     = vm.findByNationCode(vm.country)
+              vm['selectedState']       = vm.findStateByCode(vm.state)
+              vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
+              vm['selectedRelation']    = vm.findRelationByCode(vm.relation)
             },
 
             setState(stateObject) {
-                this.state = stateObject.stateCode;
+                this.state = stateObject.id;
                 this['selectedState'] = this.findStateByCode(this.state)
+            },
+
+            setNationCode(countryObject) {
+                this.country = countryObject.id;
+                this['selectedCountry'] = this.findByNationCode(this.country)
+            },
+
+            setCountryCode(countryObject) {
+                this.phoneCountryCode = countryObject.phone_code;
+                this['selectedCountryCode'] = this.findNationByPhoneCode(this.phoneCountryCode)
             },
 
             setRelation(relationObject) {
@@ -354,64 +303,53 @@
               return contactObject
             },
 
+            // Read the contact clone back into the form fields & dropdowns
             resetContact() {
-              var vm = this;
-              vm.fillForm(vm.contactCopy)
-            },
-
-            updateDropdowns() {
-              var vm = this;
-
-              // Place the correct Dropdown options in our dynamically bound variables
-              vm['selectedCountry']     = vm.findByNationCode(vm.country)
-              vm['selectedState']       = vm.findStateByCode(vm.state)
-              vm['selectedCountryCode'] = vm.findNationByPhoneCode(vm.phoneCountryCode)
-              vm['selectedRelation']    = vm.findRelationByCode(vm.relation)
+              this.fillForm(this.contactCopy)
             },
 
             findByNationCode(nationCode) {
-                if([null, 'null'].includes(nationCode))
-                  return this.countryArray[0]
-
                 for(let i=0; i<this.countryArray.length; ++i) {
-                    if (this.countryArray[i].nationCode === nationCode) {
+                    if (this.countryArray[i].id === nationCode) {
                         return this.countryArray[i]
                     }
                 }
+
+                // The given code matches no country
+                return null;
             },
 
             findRelationByCode(code) {
-                if([null, 'null'].includes(code)) {
-                  return this.relationshipArray[0]
-                }
-
-                for (let i = 0; i < this.relationshipArray.length; i++) {
-                    if (this.relationshipArray[i].code === code){
-                        return this.relationshipArray[i];
+                for (let i = 0; i < this.relationArray.length; i++) {
+                    if (this.relationArray[i].id === code){
+                        return this.relationArray[i];
                     }
                 }
+
+                // The given code matches no relation
+                return null;
             },
 
             findNationByPhoneCode(phoneCode) {
-                if([null, 'null'].includes(phoneCode))
-                  return this.countryCodeArray[0]
-
-                for (let i = 0; i < this.countryCodeArray.length; i++) {
-                    if (this.countryCodeArray[i].code === phoneCode){
-                        return this.countryCodeArray[i];
+                for (let i = 0; i < this.countryArray.length; i++) {
+                    if (this.countryArray[i].phone_code === phoneCode){
+                        return this.countryArray[i];
                     }
                 }
+
+                // The given code matches no phone code
+                return null;
             },
 
             findStateByCode(stateCode) {
-                if([null, 'null'].includes(stateCode))
-                  return this.stateArray[0]
-
                 for (let i = 0; i < this.stateArray.length; i++) {
-                    if (this.stateArray[i].stateCode === stateCode){
+                    if (this.stateArray[i].id === stateCode){
                         return this.stateArray[i];
                     }
                 }
+
+                // The given code matches no state
+                return null;
             }
         }
     }

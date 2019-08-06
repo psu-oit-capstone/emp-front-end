@@ -23,6 +23,10 @@
             <EmergContactForm
               id="emergency-contact-form"
               :activeContact="contacts[activeIndex]"
+              :countryArray="countryArray"
+              :relationArray="relationArray"
+              :stateArray="stateArray"
+              :isFetching="isFetching"
               @updateContact="updateContact"
             />
         </div>
@@ -36,15 +40,45 @@
     export default {
         name: "EmergencyContactList",
         components: {
-            EmergContactForm
+            EmergContactForm,
         },
 
         mounted() {
           // Retrieve contacts from backend and store in this.contacts[]
           this.getEmergencyContactInformation()
+          this.getStateDropdownOptions()
+          this.getCountryDropdownOptions()
         },
 
         methods: {
+            getStateDropdownOptions() {
+              axios({
+                method: 'get',
+                baseURL: 'http://127.0.0.1:8000/getStateCodes/',
+              })
+              .then(response => {
+                var stateCodes = response.data
+                this.stateArray = stateCodes
+
+                this.resourcesToFetch -= 1
+              })
+              .catch(error => console.log(error.toString()))
+            },
+
+            getCountryDropdownOptions() {
+              axios({
+                method: 'get',
+                baseURL: 'http://127.0.0.1:8000/getNationCodes/',
+              })
+              .then(response => {
+                var countryCodes = response.data
+                this.countryArray = countryCodes
+                this.resourcesToFetch -= 1
+              })
+              .catch(error => console.log(error.toString()))
+            },
+
+
             // Grab contacts via axios and bind to Vue model
             async getEmergencyContactInformation() {
                 var vm = this;
@@ -69,6 +103,7 @@
                     }
 
                     vm.contacts.push(contactObject)
+                    vm.resourcesToFetch -= 1
                   }
                 })
                 .catch(error => console.log(error.toString()))
@@ -143,10 +178,21 @@
             }
         },
 
+        watch: {
+          resourcesToFetch: function(count) {this.isFetching = count === 0}
+        },
+
         data: function() {
             return {
+                isFetching: true,
+                resourcesToFetch: 3,
+
                 // List which holds all contact objects
                 contacts: [],
+
+
+                stateArray: [],
+
 
                 // The contact which occupies the form
                 activeIndex: 0,
@@ -170,7 +216,19 @@
                   'phoneCountryCode': 'ctry_code_phone',
                   'phoneAreaCode': 'phone_area',
                   'phoneExtension': 'phone_ext'
-                }
+                },
+
+                relationArray: [
+                    {value: "Agent", id: "A"},
+                    {value: "Friend", id: "F"},
+                    {value: "Guardian/Parent", id: "G"},
+                    {value: "Other Relative", id: "O"},
+                    {value: "Other Representative", id: "R"},
+                    {value: "Spouse/Significant Other", id: "S"},
+                    {value: "Unknown", id: "U"},
+                ],
+
+                countryArray: []
             }
         },
     }

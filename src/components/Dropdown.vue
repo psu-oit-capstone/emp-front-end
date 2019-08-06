@@ -2,36 +2,47 @@
 
 <template>
     <div class="btn-group">
+        <!-- Null Selection -->
+        <div
+          v-if="selectedOption === null"
+          id="null-option"
+          class="dropdown-option"
+          @click="toggleMenu()"
+        >
+          {{ placeholderText }}
+        </div>
+
+
         <!-- Selected element -->
         <li
+          v-else
           id="selected-option"
           class="dropdown-option"
           @click="toggleMenu()"
-          v-if="selectedOption.name !== undefined"
         >
           <!-- Display an image if one was passed 'svgimg' -->
           <img
-            v-if="'svgimg' in selectedOption"
+            v-if="selectedOption.svgimg !== undefined"
             height="24px"
             width="18px"
-            :alt="selectedOption.name"
+            :alt="selectedOption.value"
             :src="getImage(selectedOption.svgimg)"
           />
-          {{ selectedOption.name }}
+          {{ selectedOption[displayField] }}
         </li>
 
         <ul class="dropdown-menu" v-if="showMenu">
-            <li v-for="option in options" :key="option.svgimg">
+            <li v-for="option in options" :key="option.id">
                 <a href="javascript:void(0)" @click="updateOption(option)">
                     <!-- Display an image if one was passed 'svgimg' -->
                     <img
-                      v-if="'svgimg' in option"
+                      v-if="option.svgimg !== undefined"
                       height="24px"
                       width="18px"
-                      :alt="option.name"
+                      :alt="option.value"
                       :src="getImage(option.svgimg)"
                     />
-                    {{ option.name }}
+                    {{ option[displayField] }}
                 </a>
             </li>
         </ul>
@@ -52,6 +63,7 @@
             options:  {type: [Array, Object]},
             selected: {type: Object},
             placeholder: [String],
+            displayField: [String],
         },
 
         watch: {
@@ -81,6 +93,9 @@
             },
 
             getImage(imageName) {
+                // TODO: Check out Nigeria
+                if(imageName === null)
+                  return
                 return require("../image-assets/4x3/" + imageName)
             }
         }
