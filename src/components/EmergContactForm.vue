@@ -220,12 +220,17 @@
             }
         },
 
+        mounted() {
+            // Deep clone the object in case we need a reset
+            this.contactCopy = JSON.parse(JSON.stringify(this.activeContact))
+            this.fillForm(this.activeContact)
+        },
+
+
         watch: {
+          // TODO: Can this watcher be deleted? Mounted carries the burden now
           // When our parent changes the active contact, update the form fields
           activeContact: function(contactObject) {
-
-            console.log(contactObject)
-
             // Deep clone the object in case we need a reset
             this.contactCopy = JSON.parse(JSON.stringify(contactObject))
             this.fillForm(contactObject)

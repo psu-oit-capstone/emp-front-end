@@ -5,7 +5,7 @@
         </h1>
 
         <div id="contact-display-container">
-          <div v-for="(contactObject, index) in contacts">
+          <span v-for="(contactObject, index) in contacts" :key="contactObject.surrogateId">
 
             <!-- Show contact First and Last name if not selected -->
             <div
@@ -21,20 +21,23 @@
               </button>
             </div>
 
+            <!-- Duration is a millisecond value -->
+            <CollapseTransition :duration="1000">
+
             <!-- Show contact in form if selected -->
             <EmergContactForm
               v-show="activeIndex === index"
               id="emergency-contact-form"
-              :activeContact="contacts[activeIndex]"
+              :activeContact="contactObject"
               :countryArray="countryArray"
               :relationArray="relationArray"
               :stateArray="stateArray"
               :isFetching="isFetching"
               @updateContact="updateContact"
             />
+          </CollapseTransition>
 
-          </div>
-
+          </span>
           <button @click="clearContactForm()">
             Add Contact
           </button>
@@ -43,6 +46,7 @@
 </template>
 
 <script>
+    import { CollapseTransition } from 'vue2-transitions'
     import EmergContactForm from '@/components/EmergContactForm.vue'
     import axios from 'axios'
 
@@ -50,6 +54,7 @@
         name: "EmergencyContactList",
         components: {
             EmergContactForm,
+            CollapseTransition
         },
 
         mounted() {
@@ -279,5 +284,10 @@
 </script>
 
 <style scoped>
-
+.fade-enter-active, .fade-leave-active {
+  transition: all 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
