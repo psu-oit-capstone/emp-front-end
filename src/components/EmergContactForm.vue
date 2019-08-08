@@ -31,7 +31,7 @@
             :options="relationArray"
             :selected="selectedRelation"
             @updateOption="setRelation"
-            displayField="value"
+            displayField="description"
             placeholder="Relation"
           />
         </div>
@@ -278,7 +278,7 @@
             },
 
             setRelation(relationObject) {
-                this.relation = relationObject.code;
+                this.relation = relationObject.id;
                 this['selectedRelation'] = this.findRelationByCode(this.relation)
             },
 
@@ -321,7 +321,7 @@
 
             findRelationByCode(code) {
                 for (let i = 0; i < this.relationArray.length; i++) {
-                    if (this.relationArray[i].id === code){
+                    if (this.relationArray[i].code === code){
                         return this.relationArray[i];
                     }
                 }

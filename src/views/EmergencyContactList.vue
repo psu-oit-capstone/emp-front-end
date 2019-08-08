@@ -48,9 +48,24 @@
           this.getEmergencyContactInformation()
           this.getStateDropdownOptions()
           this.getCountryDropdownOptions()
+          this.getRelationDropdownOptions()
         },
 
         methods: {
+            getRelationDropdownOptions() {
+              axios({
+                method: 'get',
+                baseURL: 'http://127.0.0.1:8000/getRelations/',
+              })
+              .then(response => {
+                var relationCodes = response.data
+                this.relationArray = relationCodes
+
+                this.resourcesToFetch -= 1
+              })
+              .catch(error => console.log(error.toString()))
+            },
+
             getStateDropdownOptions() {
               axios({
                 method: 'get',
@@ -185,7 +200,7 @@
         data: function() {
             return {
                 isFetching: true,
-                resourcesToFetch: 3,
+                resourcesToFetch: 4,
 
                 // List which holds all contact objects
                 contacts: [],
@@ -218,15 +233,7 @@
                   'phoneExtension': 'phone_ext'
                 },
 
-                relationArray: [
-                    {value: "Agent", id: "A"},
-                    {value: "Friend", id: "F"},
-                    {value: "Guardian/Parent", id: "G"},
-                    {value: "Other Relative", id: "O"},
-                    {value: "Other Representative", id: "R"},
-                    {value: "Spouse/Significant Other", id: "S"},
-                    {value: "Unknown", id: "U"},
-                ],
+                relationArray: [],
 
                 countryArray: []
             }
