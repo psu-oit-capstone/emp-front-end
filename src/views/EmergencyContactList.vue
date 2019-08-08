@@ -9,15 +9,13 @@
         </button>
 
         <ul v-for="(contactObject, index) in contacts">
-            <li>
-                {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
-                <button @click="editContact(contactObject, index)">
-                  Edit
-                </button>
-                <button @click="deleteContact(contactObject, index)">
-                  Delete
-                </button>
-            </li>
+            {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
+            <button @click="editContact(contactObject, index)">
+              Edit
+            </button>
+            <button @click="deleteContact(contactObject, index)">
+              Delete
+            </button>
         </ul>
 
         <div>
@@ -145,6 +143,10 @@
                     vm.contacts.push(contactObject)
                     vm.resourcesToFetch -= 1
                   }
+
+                  // Sort the contacts by priority for sorted display
+                  let sortByPriority = (a, b) => a.contactPriority < b.contactPriority ? -1 : 1
+                  vm.contacts.sort(sortByPriority)
                 })
                 .catch(error => console.log(error.toString()))
             },
