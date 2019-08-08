@@ -62,7 +62,7 @@
             would you like your information to be available for use by emergency responders as someone who may need
             physical assistance during an evacuation?
             <div>
-                <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox"/>
+                <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox" true-value="Y" false-value="N"/>
                 <label for="regbox">Yes, make my information accessible to emergency responders.</label>
             </div>
         </div><br>
@@ -119,7 +119,7 @@
         data: function() {
           return {
               about_registry_text1: {type: String},
-              regbox: {type: Boolean},
+              regbox: {type: String},
             }
         },
 
@@ -139,8 +139,7 @@
             submit() {
               // Update Registration checkbox state in the database
               let bodyFormData = new FormData();
-              if(this.regbox)
-                bodyFormData.set('evacuation_assistance', 'Y');
+                bodyFormData.set('evacuation_assistance', this.regbox);
 
               axios({
                 method: 'post',
@@ -156,11 +155,7 @@
                 baseURL: 'http://127.0.0.1:8000/getEvacuationAssistance/',
               })
               .then(response => {
-                let evacuation_assistance_state = response.data[0]['evacuation_assistance']
-                if(evacuation_assistance_state == 'Y')
-                  this.regbox = true;
-                else
-                  this.regbox = false;
+                this.regbox = response.data[0]['evacuation_assistance']
               })
               .catch(error => console.log(error))
             }
