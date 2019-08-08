@@ -4,6 +4,10 @@
           Emergency Contact List
         </h1>
 
+        <button @click="clearContactForm()">
+          Add Contact
+        </button>
+
         <ul v-for="(contactObject, index) in contacts">
             <li>
                 {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
@@ -52,6 +56,27 @@
         },
 
         methods: {
+            clearContactForm() {
+              var vm = this;
+
+              let blankContact = {}
+
+              for(let localKey in this.localToAPIMap) {
+                if(localKey !== 'surrogateId')
+                  blankContact[localKey] = null
+                if(localKey === 'phone_area')
+                  blankContact['phone_area'] = 503
+                if(localKey === 'contactPriority')
+                  blankContact['contactPriority'] = vm.contacts.length+1
+              }
+
+              // Add blank contact
+              vm.contacts.push(blankContact)
+              vm.activeIndex = vm.contacts.length-1;
+
+              vm.addingContact = true
+            },
+
             getRelationDropdownOptions() {
               axios({
                 method: 'get',
@@ -137,7 +162,8 @@
 
               for (let key in vm.localToAPIMap) {
                   if(key in contactObject) {
-                      bodyFormData.set(vm.localToAPIMap[key], contactObject[key])
+                      if(key !== 'surrogateId' || !vm.addingContact)
+                          bodyFormData.set(vm.localToAPIMap[key], contactObject[key])
                   }
               }
 
@@ -148,12 +174,16 @@
               })
               .then(response => {
                 console.log(response)
-                if(response['status'] == '200')
+                if(response['status'] === '200')
+                  if(vm.addingContact)
+                    vm.addingContact = false
                   console.log('User information was updated.')
-                if(response['status'] == '422')
+                if(response['status'] === '422')
                   console.log('Form fields incorrect or incomplete.')
               })
               .catch(error => console.log(error))
+
+
             },
 
             editContact(contactObject, index) {
@@ -161,18 +191,15 @@
             },
 
             deleteContact(contactObject, index) {
+              // Remove the contact from local memory
               this.activeIndex = 0;
               this.contacts.splice(index, 1);
 
-
               // TODO: Add Delete.
-              /*
               axios({
-                method: 'post',
-                baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/',
-                data: bodyFormData
+                method: 'delete',
+                baseURL: 'http://127.0.0.1:8000/updateEmergencyContact/' + contactObject.surrogateId + '/'
               })
-              */
             },
 
 
@@ -201,6 +228,8 @@
             return {
                 isFetching: true,
                 resourcesToFetch: 4,
+
+                addingContact: false,
 
                 // List which holds all contact objects
                 contacts: [],
