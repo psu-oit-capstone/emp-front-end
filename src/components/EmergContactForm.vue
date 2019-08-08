@@ -160,27 +160,26 @@
         data: function() {
             return {
 
-                contactCopy:            {type: Object},
+                contactCopy:            null,
 
-                pidm:                   {type: String, default: ""},
-                surrogateId:            {type: String, default: ""},
-                relation:               {type: String, default: ""},
-                phoneCountryCode:       {type: String, default: ""},
-                phoneAreaCode:          {type: String, default: ""},
-                phoneExtension:         {type: String, default: ""},
-
-                firstName:              {type: String, default: ""},
-                middleName:             {type: String, default: ""},
-                lastName:               {type: String, default: ""},
-                streetLine1:            {type: String, default: ""},
-                streetLine2:            {type: String, default: ""},
-                streetLine3:            {type: String, default: ""},
-                city:                   {type: String, default: ""},
-                state:                  {type: String, default: ""},
-                zipCode:                {type: String, default: ""},
-                country:                {type: String, default: ""},
-                phoneNumber:            {type: String, default: ""},
-                contactPriority:        {type: Number},
+                pidm:                   null,
+                surrogateId:            null,
+                relation:               null,
+                phoneCountryCode:       null,
+                phoneAreaCode:          null,
+                phoneExtension:         null,
+                firstName:              null,
+                middleName:             null,
+                lastName:               null,
+                streetLine1:            null,
+                streetLine2:            null,
+                streetLine3:            null,
+                city:                   null,
+                state:                  null,
+                zipCode:                null,
+                country:                null,
+                phoneNumber:            null,
+                contactPriority:        null,
 
                 /*
                   Here we'll hold objects representing country, state, relation,
@@ -224,6 +223,9 @@
         watch: {
           // When our parent changes the active contact, update the form fields
           activeContact: function(contactObject) {
+
+            console.log(contactObject)
+
             // Deep clone the object in case we need a reset
             this.contactCopy = JSON.parse(JSON.stringify(contactObject))
             this.fillForm(contactObject)

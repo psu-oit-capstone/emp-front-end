@@ -4,25 +4,26 @@
           Emergency Contact List
         </h1>
 
-        <button @click="clearContactForm()">
-          Add Contact
-        </button>
+        <div id="contact-display-container">
+          <div v-for="(contactObject, index) in contacts">
 
-        <ul v-for="(contactObject, index) in contacts">
-            {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
-            <button @click="editContact(contactObject, index)">
-              Edit
-            </button>
-            <button @click="deleteContact(contactObject, index)">
-              Delete
-            </button>
-        </ul>
+            <!-- Show contact First and Last name if not selected -->
+            <div
+              v-show="activeIndex !== index"
+              class="contact-display"
+            >
+              {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
+              <button @click="editContact(contactObject, index)">
+                Edit
+              </button>
+              <button @click="deleteContact(contactObject, index)">
+                Delete
+              </button>
+            </div>
 
-        <div>
-            <b>
-              Emergency Contact Form
-            </b>
+            <!-- Show contact in form if selected -->
             <EmergContactForm
+              v-show="activeIndex === index"
               id="emergency-contact-form"
               :activeContact="contacts[activeIndex]"
               :countryArray="countryArray"
@@ -31,6 +32,12 @@
               :isFetching="isFetching"
               @updateContact="updateContact"
             />
+
+          </div>
+
+          <button @click="clearContactForm()">
+            Add Contact
+          </button>
         </div>
     </div>
 </template>
@@ -70,8 +77,8 @@
 
               // Add blank contact
               vm.contacts.push(blankContact)
-              vm.activeIndex = vm.contacts.length-1;
 
+              vm.activeIndex = vm.contacts.length-1;
               vm.addingContact = true
             },
 
@@ -141,12 +148,13 @@
                     }
 
                     vm.contacts.push(contactObject)
-                    vm.resourcesToFetch -= 1
                   }
 
                   // Sort the contacts by priority for sorted display
                   let sortByPriority = (a, b) => a.contactPriority < b.contactPriority ? -1 : 1
                   vm.contacts.sort(sortByPriority)
+
+                  vm.resourcesToFetch -= 1
                 })
                 .catch(error => console.log(error.toString()))
             },
@@ -194,7 +202,7 @@
 
             deleteContact(contactObject, index) {
               // Remove the contact from local memory
-              this.activeIndex = 0;
+              this.activeIndex = -1;
               this.contacts.splice(index, 1);
 
               // TODO: Add Delete.
@@ -223,25 +231,23 @@
         },
 
         watch: {
-          resourcesToFetch: function(count) {this.isFetching = count === 0}
+          resourcesToFetch: function(count) {this.isFetching = count !== 0}
         },
 
         data: function() {
             return {
+                // State flag which lets us know when all dropdown & contact resources are retrieved
                 isFetching: true,
                 resourcesToFetch: 4,
-
-                addingContact: false,
 
                 // List which holds all contact objects
                 contacts: [],
 
+                // The contact which occupies the form (-1 means none do by default)
+                activeIndex: -1,
 
-                stateArray: [],
-
-
-                // The contact which occupies the form
-                activeIndex: 0,
+                // State flag which tells us not to submit a surrogateId on update the backend
+                addingContact: false,
 
                 localToAPIMap: {
                   'surrogateId': 'surrogate_id',
@@ -264,8 +270,8 @@
                   'phoneExtension': 'phone_ext'
                 },
 
+                stateArray: [],
                 relationArray: [],
-
                 countryArray: []
             }
         },
@@ -273,4 +279,5 @@
 </script>
 
 <style scoped>
+
 </style>
