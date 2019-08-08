@@ -1,9 +1,12 @@
 // Adapted code from https://github.com/mikerodham/vue-dropdowns under the MIT License
+// Used vue-closable from https://github.com/TahaSh/vue-closable under the MIT License
 
 <template>
-    <div class="btn-group">
+
+    <div class="btn-group" ref="dropdown">
         <!-- Null Selection -->
         <div
+
           v-if="selectedOption === null"
           id="null-option"
           class="dropdown-option"
@@ -11,7 +14,6 @@
         >
           {{ placeholderText }}
         </div>
-
 
         <!-- Selected element -->
         <li
@@ -46,11 +48,22 @@
                 </a>
             </li>
         </ul>
+
+        <div
+        v-closable="{
+                handler: 'onClose',
+                exclude: ['dropdown']
+                }"></div>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
+    import VueClosable from 'vue-closable'
+    Vue.use(VueClosable);
+
     export default {
+
         data() {
             return {
                 selectedOption: {},
@@ -80,6 +93,10 @@
         },
 
         methods: {
+            onClose () {
+                this.showMenu = false;
+            },
+
             updateOption(option) {
                 this.selectedOption = option;
                 this.showMenu = false;
@@ -93,7 +110,6 @@
             },
 
             getImage(imageName) {
-                // TODO: Check out Nigeria
                 if(imageName === null)
                   return
                 return require("../image-assets/4x3/" + imageName)
