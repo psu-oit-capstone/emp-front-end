@@ -202,7 +202,14 @@
             },
 
             editContact(contactObject, index) {
-              this.activeIndex = index;
+              // If we didn't finish adding a new contact, delete it from memory
+              if(this.addingContact) {
+                // Delete the added contact
+                this.contacts.splice(this.contacts.length-1, 1);
+                this.addingContact = false
+              }
+
+              this.activeIndex = index
             },
 
             deleteContact(contactObject, index) {
