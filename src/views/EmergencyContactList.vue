@@ -175,14 +175,15 @@
               .then(response => {
                 console.log(response)
                 if(response['status'] === '200')
+                  if(vm.addingContact)
+                    vm.addingContact = false
                   console.log('User information was updated.')
                 if(response['status'] === '422')
                   console.log('Form fields incorrect or incomplete.')
               })
               .catch(error => console.log(error))
 
-              if(vm.addingContact)
-                vm.addingContact = false
+
             },
 
             editContact(contactObject, index) {
