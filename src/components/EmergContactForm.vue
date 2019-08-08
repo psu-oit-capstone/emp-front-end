@@ -278,7 +278,7 @@
             },
 
             setRelation(relationObject) {
-                this.relation = relationObject.id;
+                this.relation = relationObject.code;
                 this['selectedRelation'] = this.findRelationByCode(this.relation)
             },
 
