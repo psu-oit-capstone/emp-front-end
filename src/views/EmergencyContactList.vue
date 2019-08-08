@@ -61,12 +61,13 @@
 
               let blankContact = {}
 
-              // Fill object mapping from API names to more readable names
               for(let localKey in this.localToAPIMap) {
                 if(localKey !== 'surrogateId')
                   blankContact[localKey] = null
                 if(localKey === 'phone_area')
                   blankContact['phone_area'] = 503
+                if(localKey === 'contactPriority')
+                  blankContact['contactPriority'] = vm.contacts.length+1
               }
 
               // Add blank contact
