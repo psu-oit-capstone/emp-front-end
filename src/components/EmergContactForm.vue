@@ -50,6 +50,14 @@
           <input id="street-line-2" type="text" placeholder="Apt/Bldg #" v-model="streetLine2"/>
         </div>
 
+
+        <div class="text-box address3box">
+          <label for="street-line-3">
+            Address 3
+          </label>
+          <input id="street-line-3" type="text" placeholder="Region" v-model="streetLine3"/>
+        </div>
+
         <div class="text-box citybox">
           <label for="city">
             City
@@ -62,13 +70,6 @@
             Postal Code
           </label>
           <input id="zip-code" type="text" placeholder="97201" v-model="zipCode"/>
-        </div>
-
-        <div class="text-box address3box">
-          <label for="street-line-3">
-            Address 3
-          </label>
-          <input id="street-line-3" type="text" placeholder="Region" v-model="streetLine3"/>
         </div>
 
         <div class="select state-box">
@@ -582,24 +583,48 @@
 
     .fnamebox{
         grid-column:span 2;
+        grid-row: 1;
     }
 
     .mnamebox{
         grid-column:span 2;
+        grid-row: 2;
     }
 
     .lnamebox{
         grid-column:span 2;
+        grid-row: 3;
     }
 
     .relation-box{
         grid-column:span 2;
+        grid-row: 4;
     }
 
     .address1box{
         grid-column:span 2;
+        grid-row:5;
     }
 
+    .address2box{
+        grid-column:span 1;
+        grid-row:6;
+    }
+
+    .citybox{
+        grid-column:span 1;
+        grid-row:6;
+    }
+
+    .zipbox{
+        grid-column:span 1;
+        grid-row:7;
+    }
+
+    .address3box{
+        grid-column:span 1;
+        grid-row:7;
+    }
 
 }
 </style>
