@@ -1,5 +1,7 @@
 <template>
+
   <div id="emergency-information" class="main-content">
+    <StickyNavbar />
     <TimeoutPopup
       :timeLimit="9999"
       @timedOut.once="endSession"
@@ -16,7 +18,7 @@ import TimeoutPopup from '@/components/TimeoutPopup.vue'
 import EvacAssist from '@/components/EvacAssist.vue'
 import AlertsInformation from '@/components/AlertsInformation.vue'
 import EmergencyContactList from '@/views/EmergencyContactList'
-
+import StickyNavbar from '@/components/StickyNavbar.vue'
 
 export default {
   name: 'EmergencyInformation',
@@ -25,6 +27,7 @@ export default {
     AlertsInformation,
     EmergencyContactList,
     TimeoutPopup,
+    StickyNavbar
   },
 
   methods: {

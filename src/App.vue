@@ -2,7 +2,6 @@
   <div id="app">
 
     <Navbar />
-    
 
     <div id="main" class="main-content-container">
       <ul id="app-navigation" class="nav">
@@ -16,10 +15,14 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import StickyNavbar from '@/components/StickyNavbar.vue'
 
 export default {
   name: 'App',
-  components: {Navbar}
+  components: {
+    Navbar,
+    StickyNavbar
+  }
 }
 
 </script>
