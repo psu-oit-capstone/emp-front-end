@@ -4,13 +4,16 @@
             <div id="login-greeting">
                 <h2>PSU Emergency Management Portal</h2>
             </div>
+            <div v-show="badLogin">
+              WOW U SUCK. AND YOU AINT BECKY
+            </div>
             <div class="text-box">
                 <label for="user">Username</label>
-                    <input type="text" id="user" name="user" v-model="username" placeholder="Username" />
+                <input type="text" id="user" name="user" v-model="username" placeholder="Username" />
             </div>
             <div class="text-box">
                 <label for="password">Password</label>
-                    <input type="password" id="password" name="password" v-model="password" placeholder="Password" />
+                <input type="password" id="password" name="password" v-model="password" placeholder="Password" />
             </div>
 
             <button type="submit" class="submit">Login</button>
@@ -25,7 +28,8 @@
         data: function() {
           return {
             username: '',
-            password: ''
+            password: '',
+            badLogin: false
           }
         },
 
@@ -33,13 +37,18 @@
           login() {
             var vm = this;
 
+            // Add username and password to the form data section in our request
             let bodyFormData = new FormData();
             bodyFormData.set('username', this.username);
             bodyFormData.set('password', this.password);
             this.$store.dispatch('login', bodyFormData)
             .then(() => {
-              // Redirect to main page
-              vm.$router.push('/emergency-information');
+              // Redirect to emergency information page
+              vm.$router.push('/emergency-information')
+            })
+            .catch(err => {
+              // Login failed
+              this.badLogin = true
             })
           }
         }
