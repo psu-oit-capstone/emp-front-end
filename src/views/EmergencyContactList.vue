@@ -4,40 +4,49 @@
           Emergency Contact List
         </h1>
 
-        <button @click="clearContactForm()">
-          Add Contact
-        </button>
+        <div id="contact-display-container">
+          <span v-for="(contactObject, index) in contacts" :key="contactObject.surrogateId">
 
-        <ul v-for="(contactObject, index) in contacts">
-            <li>
-                {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
-                <button @click="editContact(contactObject, index)">
-                  Edit
-                </button>
-                <button @click="deleteContact(contactObject, index)">
-                  Delete
-                </button>
-            </li>
-        </ul>
+            <!-- Show contact First and Last name if not selected -->
+            <div
+              v-show="activeIndex !== index"
+              class="contact-display"
+            >
+              {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
+              <button @click="editContact(contactObject, index)">
+                Edit
+              </button>
+              <button @click="deleteContact(contactObject, index)">
+                Delete
+              </button>
+            </div>
 
-        <div>
-            <b>
-              Emergency Contact Form
-            </b>
+            <!-- Duration is a millisecond value -->
+            <CollapseTransition :duration="1000">
+
+            <!-- Show contact in form if selected -->
             <EmergContactForm
+              v-show="activeIndex === index"
               id="emergency-contact-form"
-              :activeContact="contacts[activeIndex]"
+              :activeContact="contactObject"
               :countryArray="countryArray"
               :relationArray="relationArray"
               :stateArray="stateArray"
               :isFetching="isFetching"
               @updateContact="updateContact"
             />
+          </CollapseTransition>
+
+          </span>
+          <button @click="clearContactForm()">
+            Add Contact
+          </button>
         </div>
     </div>
 </template>
 
 <script>
+    import { CollapseTransition } from 'vue2-transitions'
     import EmergContactForm from '@/components/EmergContactForm.vue'
     import axios from 'axios'
 
@@ -45,6 +54,7 @@
         name: "EmergencyContactList",
         components: {
             EmergContactForm,
+            CollapseTransition
         },
 
         mounted() {
@@ -72,8 +82,8 @@
 
               // Add blank contact
               vm.contacts.push(blankContact)
-              vm.activeIndex = vm.contacts.length-1;
 
+              vm.activeIndex = vm.contacts.length-1;
               vm.addingContact = true
             },
 
@@ -143,8 +153,13 @@
                     }
 
                     vm.contacts.push(contactObject)
-                    vm.resourcesToFetch -= 1
                   }
+
+                  // Sort the contacts by priority for sorted display
+                  let sortByPriority = (a, b) => a.contactPriority < b.contactPriority ? -1 : 1
+                  vm.contacts.sort(sortByPriority)
+
+                  vm.resourcesToFetch -= 1
                 })
                 .catch(error => console.log(error.toString()))
             },
@@ -187,12 +202,19 @@
             },
 
             editContact(contactObject, index) {
-              this.activeIndex = index;
+              // If we didn't finish adding a new contact, delete it from memory
+              if(this.addingContact) {
+                // Delete the added contact
+                this.contacts.splice(this.contacts.length-1, 1);
+                this.addingContact = false
+              }
+
+              this.activeIndex = index
             },
 
             deleteContact(contactObject, index) {
               // Remove the contact from local memory
-              this.activeIndex = 0;
+              this.activeIndex = -1;
               this.contacts.splice(index, 1);
 
               // TODO: Add Delete.
@@ -221,25 +243,23 @@
         },
 
         watch: {
-          resourcesToFetch: function(count) {this.isFetching = count === 0}
+          resourcesToFetch: function(count) {this.isFetching = count !== 0}
         },
 
         data: function() {
             return {
+                // State flag which lets us know when all dropdown & contact resources are retrieved
                 isFetching: true,
                 resourcesToFetch: 4,
-
-                addingContact: false,
 
                 // List which holds all contact objects
                 contacts: [],
 
+                // The contact which occupies the form (-1 means none do by default)
+                activeIndex: -1,
 
-                stateArray: [],
-
-
-                // The contact which occupies the form
-                activeIndex: 0,
+                // State flag which tells us not to submit a surrogateId on update the backend
+                addingContact: false,
 
                 localToAPIMap: {
                   'surrogateId': 'surrogate_id',
@@ -262,8 +282,8 @@
                   'phoneExtension': 'phone_ext'
                 },
 
+                stateArray: [],
                 relationArray: [],
-
                 countryArray: []
             }
         },
@@ -271,4 +291,10 @@
 </script>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: all 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
