@@ -98,7 +98,7 @@
         active shooter, evacuation, etc.).
         <br>
         <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-          <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" value="N" checked="">
+          <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" true-value="Y" false-value="N"/>
           I acknowledge that I have read and understand the risks described
           above and I choose to opt out of receiving PSU Alert notifications
           via text message.
@@ -234,9 +234,6 @@ export default {
 
       for (let key in local_to_api_map) {
         if(vm[key]) {
-          if(key === 'smsStatusInd')
-            bodyFormData.set(local_to_api_map[key], 'Y')
-          else
             bodyFormData.set(local_to_api_map[key], vm[key])
         }
       }
