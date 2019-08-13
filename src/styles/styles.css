@@ -3,7 +3,8 @@
   can be accessed throughout the app.
 */
 
-* {
+body {
+  margin-bottom: 0px;
 }
 
 .page-component {
@@ -83,6 +84,10 @@ a {
   font-size: 1em;
 }
 
+#emergency-contacts-list{
+  margin-bottom: 20px;
+}
+
 #header-wrap{
   height:230px;
   width:100%;
@@ -107,7 +112,7 @@ a {
   width:auto;
   margin:0 auto;
   margin-top:-120px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   position:relative;
   z-index:5;
   background-color:transparent;
@@ -202,7 +207,7 @@ Site-wide Media Queried Styles
 /* Large desktop */
 @media (min-width: 980px) {
   .main-content-container {
-    grid-template-columns: auto [left-gutter] 650px [right-gutter] auto;
+    grid-template-columns: [far-left] auto [left-gutter] 950px [right-gutter] auto [far-right];
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
 }
@@ -210,7 +215,7 @@ Site-wide Media Queried Styles
 /* Landscape phone to landscape and desktop */
 @media (min-width: 481px) and (max-width: 979px) {
   .main-content-container {
-    grid-template-columns: auto [left-gutter] 480px [right-gutter] auto;
+    grid-template-columns: [far-left] auto [left-gutter] 480px [right-gutter] auto [far-right];
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
 }
@@ -222,7 +227,7 @@ Site-wide Media Queried Styles
   }
 
   .main-content-container {
-    grid-template-columns: 20px [left-gutter] auto [right-gutter] 20px;
+    grid-template-columns: [far-left] 20px [left-gutter] auto [right-gutter] 20px [far-right];
     grid-template-rows: 100px [top-gutter] auto [bottom-gutter] 100px;
   }
 

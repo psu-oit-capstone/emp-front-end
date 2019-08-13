@@ -1,7 +1,6 @@
 <template>
 
   <div id="emergency-information" class="main-content">
-    <StickyNavbar />
     <TimeoutPopup
       :timeLimit="9999"
       @timedOut.once="endSession"
@@ -10,6 +9,7 @@
     <EvacAssist />
     <AlertsInformation />
     <EmergencyContactList />
+    <StickyNavbar />
   </div>
 </template>
 
