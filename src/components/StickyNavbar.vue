@@ -34,12 +34,16 @@ a {
   /* Make element obey sticky positioning */
   position: sticky;
   position: -webkit-sticky; /* Safari */
-  bottom: -8x;
+  bottom: 0px;
   width: 100vw;
+
   /* Set the fixed height of the footer here */
   height: 30px;
 
+  /* Set the width to the whole veiwport */
+  /* Even if the displaying language is rtl*/
   margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 
   /* Center contained links */
   display: flex;
