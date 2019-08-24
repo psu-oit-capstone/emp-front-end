@@ -5,7 +5,7 @@
         </h1>
 
         <div id="contact-display-container">
-          <span v-for="(contactObject, index) in contacts" :key="contactObject.surrogateId">
+          <div v-for="(contactObject, index) in contacts" :key="contactObject.surrogateId">
 
             <!-- Show contact First and Last name if not selected -->
             <div
@@ -13,12 +13,13 @@
               class="contact-display"
             >
               {{ contactObject.contactPriority }}. {{ contactObject.firstName }} {{ contactObject.lastName }}
-              <button @click="editContact(contactObject, index)">
+              <button class="edit" @click="editContact(contactObject, index)">
                 Edit
               </button>
-              <button @click="deleteContact(contactObject, index)">
-                Delete
+              <button class="delete" alt="delete contact" @click="deleteContact(contactObject, index)">
+                <img src="../images/trashcan.svg" alt="delete contact" />
               </button>
+
             </div>
 
             <!-- Duration is a millisecond value -->
@@ -37,7 +38,7 @@
             />
           </CollapseTransition>
 
-          </span>
+          </div>
           <button @click="clearContactForm()">
             Add Contact
           </button>
@@ -296,6 +297,34 @@
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.edit {
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:1px;
+  height: 36px;
+  padding-right:16px;
+  padding-left:16px;
+  border-radius:4px;
+  box-sizing:border-box;
+  margin-left:24px;
+  margin-right:24px;
+}
+
+.delete {
+  height: 36px;  
+  width: 36px;
+
+  padding-left:0px;
+  padding-right:0px;
+
+  vertical-align: bottom;
+  margin-bottom:3px;
+}
+
+.delete img {
+  vertical-align: bottom;
 }
 
 
