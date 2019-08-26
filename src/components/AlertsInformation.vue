@@ -145,7 +145,7 @@ All <i>@pdx.edu</i> email addresses are automatically subscribed to receive PSU 
         <label for="psuemail" code="alert.index.psuEmail#LABEL" alt="PSU email address" specialelement="true">PSU email address</label>
       </div>
       <div class="col-md-9">
-        <input v-model="psuEmailAddress" type="email" placeholder="PSU email address" class="form-control" id="psuemail" value="leake@pdx.edu">
+        <input v-model="psuEmailAddress" type="email" placeholder="PSU email address" class="form-control" id="psuemail" value="leake@pdx.edu" readonly="">
       </div>
     </div>
 
