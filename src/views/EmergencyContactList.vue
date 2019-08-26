@@ -141,6 +141,9 @@
                 .then(response => {
                   let receivedContacts = response.data;
 
+                  // empty the previous contacts
+                  vm.contacts.length = 0
+
                   for(let index in receivedContacts) {
                     let data = receivedContacts[index]
 
@@ -193,6 +196,8 @@
                 if(response['status'] === '200')
                   if(vm.addingContact)
                     vm.addingContact = false
+                  vm.getEmergencyContactInformation()
+                  vm.activeIndex = -1
                   console.log('User information was updated.')
                 if(response['status'] === '422')
                   console.log('Form fields incorrect or incomplete.')
