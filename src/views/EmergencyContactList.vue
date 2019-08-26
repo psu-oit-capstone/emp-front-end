@@ -96,6 +96,7 @@
               .then(response => {
                 var relationCodes = response.data
                 this.relationArray = relationCodes
+                this.relationArray.unshift({ code: "", description: "N/A" })
 
                 this.resourcesToFetch -= 1
               })
@@ -110,6 +111,7 @@
               .then(response => {
                 var stateCodes = response.data
                 this.stateArray = stateCodes
+                this.stateArray.unshift({ id: "", value: "N/A" })
 
                 this.resourcesToFetch -= 1
               })
@@ -124,6 +126,10 @@
               .then(response => {
                 var countryCodes = response.data
                 this.countryArray = countryCodes
+                // adding N/A to dropdowns, implementation could be better than hardcoded, undefined on svgimg would pass loading the image
+                // need to check "N/A" value on phone_code whether it pass successfully
+                this.countryArray.unshift({ id: "", value: "N/A", phone_code: "N/A", svgimg: undefined })
+
                 this.resourcesToFetch -= 1
               })
               .catch(error => console.log(error.toString()))

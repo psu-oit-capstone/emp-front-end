@@ -212,10 +212,11 @@
                 },
 
                 nullableFields: [
-                  'country',
-                  'state',
-                  'phoneCountryCode',
-                  'relation'
+                  // commenting these out since "null" values are not supposed to be sent through axios
+                  // 'country',
+                  // 'state',
+                  // 'phoneCountryCode',
+                  // 'relation'
                 ]
             }
         },
