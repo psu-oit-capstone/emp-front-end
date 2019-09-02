@@ -140,6 +140,9 @@
         //This is for button clicks
         methods: {
             submit() {
+              //emit event to root so popup appears
+              this.$root.$emit('submit');
+
               // Update Registration checkbox state in the database
               let bodyFormData = new FormData();
                 bodyFormData.set('evacuation_assistance', this.regbox);

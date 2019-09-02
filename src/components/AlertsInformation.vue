@@ -186,6 +186,9 @@ import axios from 'axios';
 
 export default {
   name: 'PSUAlertInformation',
+  model: {
+    event: 'submit'
+  },
   props: {},
 
   data() {
@@ -221,6 +224,9 @@ export default {
     },
 
     submitAlertsInformation() {
+      //emits event to root to create popup
+      this.$root.$emit('submit');
+
       var vm = this;
 
       // Update Registration checkbox state in the database

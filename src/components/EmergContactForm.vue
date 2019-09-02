@@ -291,6 +291,9 @@
             },
 
             updateContact() {
+              //emit event to root so popup appears
+              this.$root.$emit('submit');
+
               var vm = this;
               let contactObject = vm.toContactObject();
 

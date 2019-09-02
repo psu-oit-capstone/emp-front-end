@@ -5,6 +5,7 @@
       :timeLimit="9999"
       @timedOut.once="endSession"
     />
+    <SubmitPopup />
 
     <EvacAssist />
     <AlertsInformation />
@@ -15,6 +16,7 @@
 
 <script>
 import TimeoutPopup from '@/components/TimeoutPopup.vue'
+import SubmitPopup from '@/components/SubmitPopup.vue'
 import EvacAssist from '@/components/EvacAssist.vue'
 import AlertsInformation from '@/components/AlertsInformation.vue'
 import EmergencyContactList from '@/views/EmergencyContactList'
@@ -27,6 +29,7 @@ export default {
     AlertsInformation,
     EmergencyContactList,
     TimeoutPopup,
+    SubmitPopup,
     StickyNavbar
   },
 
