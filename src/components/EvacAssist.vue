@@ -60,10 +60,13 @@
            <b>If you are a person with a disability, or someone with an access or functional need, to the extent that it
                could prevent or hinder you from providing for your own evacuation,</b>
             would you like your information to be available for use by emergency responders as someone who may need
-            physical assistance during an evacuation?
+            physical assistance during an evacuation?<br />
             <div>
-                <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox" true-value="Y" false-value="N"/>
-                <label for="regbox">Yes, make my information accessible to emergency responders.</label>
+                <label class="checkbox-card" for="regbox">
+                    <span class="custom-checkbox"></span>
+                    <input type="checkbox" name="register-checkbox" v-model="regbox" v-bind:id="regbox" true-value="Y" false-value="N"/>
+                    Yes, make my information accessible to emergency responders.
+                </label>
             </div>
         </div><br>
         <!-- Buttons are here -->
@@ -232,5 +235,19 @@ and that is pretty standard amongst other CSS properties it seems-->
     #helpful-links{
         margin: auto;
         padding: 20px;
+    }
+
+    .checkbox-card {
+        background:#8b9516;
+        color:#ffffff;
+        display:inline-block;
+        position:relative;
+
+        margin-top: 24px;
+        margin-bottom:24px;
+        margin-left:16px;
+        margin-right:16px;
+        padding:12px;
+        border-radius:5px;
     }
 </style>

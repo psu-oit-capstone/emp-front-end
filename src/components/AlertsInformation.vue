@@ -97,12 +97,15 @@
         situations, such as campus closures or threats to your safety (e.g.
         active shooter, evacuation, etc.).
         <br>
-        <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
-          <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" true-value="Y" false-value="N"/>
-          I acknowledge that I have read and understand the risks described
-          above and I choose to opt out of receiving PSU Alert notifications
-          via text message.
-        </label>
+        <div class="checkbox-card">
+          <label for="smsStatusInd" code="alert.index.textOptOut#LABEL" alt="I acknowledge that I have read and understand the risks described above and I choose to opt out of receiving PSU Alert notifications via text message." specialelement="true">
+            <span class="custom-checkbox"></span>
+            <input v-model="smsStatusInd" type="checkbox" name="smsStatusInd" id="smsStatusInd" true-value="Y" false-value="N"/>
+            I acknowledge that I have read and understand the risks described
+            above and I choose to opt out of receiving PSU Alert notifications
+            via text message.
+          </label>
+        </div>
         <br style="clear: both;">
       </div>
     </div>
@@ -261,6 +264,19 @@ export default {
 
 .text-box{
   max-width: 240px;
+}
+
+.checkbox-card {
+    background:#8b9516;
+    color:#ffffff;
+    display:inline-block;
+
+    margin-top: 24px;
+    margin-bottom:24px;
+    margin-left:16px;
+    margin-right:16px;
+    padding:12px;
+    border-radius:5px;
 }
 
 </style>
